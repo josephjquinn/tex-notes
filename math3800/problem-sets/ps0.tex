@@ -1,0 +1,184 @@
+
+\documentclass{article}
+
+\usepackage{fancyhdr}
+\usepackage{extramarks}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{tikz}
+\usepackage[plain]{algorithm}
+\usepackage{algpseudocode}
+
+\usetikzlibrary{automata,positioning}
+
+%
+% Basic Document Settings
+%
+
+\topmargin=-0.45in
+\evensidemargin=0in
+\oddsidemargin=0in
+\textwidth=6.5in
+\textheight=9.0in
+\headsep=0.25in
+
+\linespread{1.1}
+
+\pagestyle{fancy}
+\lhead{\hmwkAuthorName}
+\chead{\hmwkClass: \hmwkTitle}
+\rhead{}
+\lfoot{\lastxmark}
+\cfoot{\thepage}
+
+\renewcommand\headrulewidth{0.4pt}
+\renewcommand\footrulewidth{0.4pt}
+
+\setlength\parindent{0pt}
+
+%
+% Create Problem Sections
+%
+
+\newcommand{\enterProblemHeader}[1]{
+    \nobreak\extramarks{}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+}
+
+\newcommand{\exitProblemHeader}[1]{
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \stepcounter{#1}
+    \nobreak\extramarks{Problem \arabic{#1}}{}\nobreak{}
+}
+
+\setcounter{secnumdepth}{0}
+\newcounter{partCounter}
+\newcounter{homeworkProblemCounter}
+\setcounter{homeworkProblemCounter}{1}
+\nobreak\extramarks{Problem \arabic{homeworkProblemCounter}}{}\nobreak{}
+
+%
+% Homework Problem Environment
+%
+% This environment takes an optional argument. When given, it will adjust the
+% problem counter. This is useful for when the problems given for your
+% assignment aren't sequential. See the last 3 problems of this template for an
+% example.
+%
+\newenvironment{homeworkProblem}[1][-1]{
+    \ifnum#1>0
+        \setcounter{homeworkProblemCounter}{#1}
+    \fi
+    \section{Problem \arabic{homeworkProblemCounter}}
+    \setcounter{partCounter}{1}
+    \enterProblemHeader{homeworkProblemCounter}
+}{
+    \exitProblemHeader{homeworkProblemCounter}
+}
+
+%
+% Homework Details
+%   - Title
+%   - Due date
+%   - Class
+%   - Section/Time
+%   - Instructor
+%   - Author
+%
+
+\newcommand{\hmwkTitle}{Problem set\ 0}
+\newcommand{\hmwkDueDate}{August 22, 2025}
+\newcommand{\hmwkClass}{Number Theory}
+\newcommand{\hmwkClassTime}{Section 2}
+\newcommand{\hmwkClassInstructor}{Dr. Eleanor McSpirit}
+\newcommand{\hmwkAuthorName}{\textbf{Joseph Quinn}}
+
+%
+% Title Page
+%
+
+\title{
+    \vspace{2in}
+    \textmd{\textbf{\hmwkClass:\ \hmwkTitle}}\\
+    \normalsize\vspace{0.1in}\small{\hmwkDueDate}\\
+    \vspace{0.1in}\large{\textit{\hmwkClassInstructor\ \hmwkClassTime}}
+    \vspace{3in}
+}
+
+\author{\hmwkAuthorName}
+\date{}
+
+\renewcommand{\part}[1]{\textbf{\large Part \Alph{partCounter}}\stepcounter{partCounter}\\}
+
+%
+% Various Helper Commands
+%
+
+% Useful for algorithms
+\newcommand{\alg}[1]{\textsc{\bfseries \footnotesize #1}}
+
+% For derivatives
+\newcommand{\deriv}[1]{\frac{\mathrm{d}}{\mathrm{d}x} (#1)}
+
+% For partial derivatives
+\newcommand{\pderiv}[2]{\frac{\partial}{\partial #1} (#2)}
+
+% Integral dx
+\newcommand{\dx}{\mathrm{d}x}
+
+% Alias for the Solution section header
+\newcommand{\solution}{\textbf{\large Solution}}
+
+% Probability commands: Expectation, Variance, Covariance, Bias
+\newcommand{\E}{\mathrm{E}}
+\newcommand{\Var}{\mathrm{Var}}
+\newcommand{\Cov}{\mathrm{Cov}}
+\newcommand{\Bias}{\mathrm{Bias}}
+
+\begin{document}
+
+\maketitle
+
+\pagebreak
+
+\begin{homeworkProblem}
+	Tell me about your math background. What kind of math have you encountered? What about math have you liked, and what have you disliked?
+	\\
+
+	I've taken courses through Calculus III and Linear Algebra, plus statistics, Differential equations and discrete math (the cs version). I am a CS major and focused on machine learning so i enjoy working with linear algebra and everything with matrices.
+
+\end{homeworkProblem}
+
+\begin{homeworkProblem}
+	Tell me about who you are outside of math. What are the other significant draws on your time? How do you like to spend your free time?
+	\\
+
+	I am a CS/Math/Film major, so when I'm not doing school work I'm mainly focused on doing machine learning co ops or research, also I am a big movie buff and like watching movies and going to the belcourt theatre.
+
+\end{homeworkProblem}
+
+\begin{homeworkProblem}
+	How are you feeling about this course? Are you excited or nervous about anything going forward?
+	\\
+
+	I am feeling pretty good, we did a little big of proofs in discrete math and some philosophy classes I've taken so hopefully that will help with my foundation for this class.
+\end{homeworkProblem}
+
+\begin{homeworkProblem}
+	Complete the following sentence: ``By the end of this course, I would like to...''
+	\\
+
+	By the end of this course, I would like to strengthen my skills reading and understanding math notation and proofs, to help my comprehension reading machine learning papers.
+
+\end{homeworkProblem}
+
+\begin{homeworkProblem}
+	Look over the proof writing guides in the ``On Writing Proofs'' folder. Write down two things you learned about proof writing or two strategies you want to employ in your proof writing.
+	\\
+
+	I learned that a proof should always be written with a clear beginning, middle, and end, making sure that every step is carefully justified so the logic is easy to follow from start to finish. Also I learned that I should always clearly state my assumptions at the start of a proof, since this sets the foundation for the argument and helps the reader understand exactly what information I am allowed to use.
+
+\end{homeworkProblem}
+
+\end{document}

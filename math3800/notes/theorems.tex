@@ -1,0 +1,125 @@
+\documentclass{article}
+
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+
+\topmargin=-0.45in
+\evensidemargin=0in
+\oddsidemargin=0in
+\textwidth=6.5in
+\textheight=9.0in
+\headsep=0.25in
+
+\linespread{1.1}
+\setlength\parindent{0pt}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem*{theorem*}{Theorem}
+
+% Command for manual theorem numbering
+\newcommand{\manualnum}[1]{\setcounter{theorem}{\numexpr#1-1\relax}}
+
+% Environment for theorems with manual numbers
+\newenvironment{manualtheorem}[1]{%
+  \renewcommand{\thetheorem}{#1}%
+  \theorem%
+}{%
+  \endtheorem%
+}
+
+\begin{document}
+
+
+\section{Divisibility Theorems}
+
+\begin{theorem*}
+Let $n$ be an integer. If $14 \mid n$, then $7 \mid n$.
+\end{theorem*}
+
+\begin{manualtheorem}{1.1}
+Let $a, b, c \in \mathbb{Z}$. If $a \mid b$ and $a \mid c$, then $a \mid (b + c)$.
+\end{manualtheorem}
+
+\begin{manualtheorem}{1.3}
+Let $a, b, c \in \mathbb{Z}$. If $a \mid b$ and $a \mid c$, then $a \mid bc$.
+\end{manualtheorem}
+
+\begin{manualtheorem}{1.32}
+Let $a, n, b, r, k \in \mathbb{Z}$. If $a = nb + r$ and $k \mid a$ and $k \mid b$, then $k \mid r$.
+\end{manualtheorem}
+
+\begin{manualtheorem}{1.33}
+Let $a, b, n_1, r_1 \in \mathbb{Z}$ with $a$ and $b$ not both $0$. If $a = n_1b + r_1$, then $\gcd(a, b) = \gcd(b, r_1)$.
+\end{manualtheorem}
+
+\section{Congruence Theorems}
+
+\begin{theorem*}
+Let $k \in \mathbb{Z}$. If $k \equiv 5 \pmod{2}$, then $k \equiv 3 \pmod{2}$.
+\end{theorem*}
+
+\begin{manualtheorem}{1.9}
+Let $a, n \in \mathbb{Z}$ with $n > 0$. Then $a \equiv a \pmod{n}$.
+\end{manualtheorem}
+
+\begin{manualtheorem}{1.10}
+Let $a, b, n \in \mathbb{Z}$ with $n > 0$. If $a \equiv b \pmod{n}$, then $b \equiv a \pmod{n}$.
+\end{manualtheorem}
+
+\begin{manualtheorem}{1.11}
+Let $a, b, c, n \in \mathbb{Z}$ with $n > 0$. If $a \equiv b \pmod{n}$ and $b \equiv c \pmod{n}$, then $a \equiv c \pmod{n}$.
+\end{manualtheorem}
+
+\begin{manualtheorem}{1.12}
+Let $a, b, c, d, n \in \mathbb{Z}$ with $n > 0$. If $a \equiv b \pmod{n}$ and $c \equiv d \pmod{n}$, then $a + c \equiv b + d \pmod{n}$.
+\end{manualtheorem}
+
+\begin{manualtheorem}{1.14}
+Let $a, b, c, d, n \in \mathbb{Z}$ with $n > 0$. If $a \equiv b \pmod{n}$ and $c \equiv d \pmod{n}$, then $ac \equiv bd \pmod{n}$.
+\end{manualtheorem}
+
+\begin{manualtheorem}{1.18}
+Let $a, b, k, n \in \mathbb{Z}$ with $n > 0$ and $k > 0$. If $a \equiv b \pmod{n}$, then $a^k \equiv b^k \pmod{n}$.
+\end{manualtheorem}
+
+\begin{manualtheorem}{1.21}
+Let a natural number $n$ be expressed in base 10 as $n = a_ka_{k-1}\ldots a_1a_0$. If $m = a_k + a_{k-1} + \cdots + a_1 + a_0$, then $n \equiv m \pmod{9}$.
+\end{manualtheorem}
+
+\section{Summation Theorems}
+
+\begin{theorem*}
+For every natural number $n$, $1 + 2 + 2^{2} + \cdots + 2^{n} = 2^{\,n+1}-1$.
+\end{theorem*}
+
+\begin{manualtheorem}{A.1}
+For all $n \in \mathbb{N}$, we have $1 + 2 + \cdots + n = \frac{n(n+1)}{2}$.
+\end{manualtheorem}
+
+\section{Number Properties}
+
+\begin{theorem*}
+The number $n^2 - n$, is even for every $n \in \mathbb{Z}$.
+\end{theorem*}
+
+\section{Fundamental Theorems}
+
+\begin{theorem*}
+Let $S$ be any nonempty set of natural numbers. Then $S$ has a smallest element.
+\end{theorem*}
+
+\begin{manualtheorem}{1.26}
+Let $n$ and $m$ be natural numbers. Then there exist integers $q$ and $r$ such that $m = nq + r$ and $0 \leq r \leq n - 1$.
+\end{manualtheorem}
+
+\begin{manualtheorem}{1.27}
+If $q, q'$ and $r, r'$ are integers that satisfy $m = nq + r = nq' + r'$ with $0 \leq r, r' \leq n - 1$, then $q = q'$ and $r = r'$.
+\end{manualtheorem}
+
+\begin{theorem*}
+The Euclidean algorithm terminates after finitely many steps and outputs $\gcd(a, b)$, the greatest common divisor of $a$ and $b$.
+\end{theorem*}
+
+\end{document}

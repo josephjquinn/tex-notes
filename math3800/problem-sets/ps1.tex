@@ -1,0 +1,498 @@
+
+
+\documentclass{article}
+
+\usepackage{fancyhdr}
+\usepackage{extramarks}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{tikz}
+\usepackage[plain]{algorithm}
+\usepackage{algpseudocode}
+\usepackage{amsmath,amssymb}
+
+\usetikzlibrary{automata,positioning}
+
+%
+% Basic Document Settings
+%
+
+\topmargin=-0.45in
+\evensidemargin=0in
+\oddsidemargin=0in
+\textwidth=6.5in
+\textheight=9.0in
+\headsep=0.25in
+
+\linespread{1.1}
+
+\pagestyle{fancy}
+\lhead{\hmwkAuthorName}
+\chead{\hmwkClass: \hmwkTitle}
+\rhead{}
+\lfoot{\lastxmark}
+\cfoot{\thepage}
+
+\renewcommand\headrulewidth{0.4pt}
+\renewcommand\footrulewidth{0.4pt}
+
+\setlength\parindent{0pt}
+
+%
+% Create Problem Sections
+%
+
+\newcommand{\enterProblemHeader}[1]{
+    \nobreak\extramarks{}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+}
+
+\newcommand{\exitProblemHeader}[1]{
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \stepcounter{#1}
+    \nobreak\extramarks{Problem \arabic{#1}}{}\nobreak{}
+}
+
+\setcounter{secnumdepth}{0}
+\newcounter{partCounter}
+\newcounter{homeworkProblemCounter}
+\setcounter{homeworkProblemCounter}{1}
+\nobreak\extramarks{Problem \arabic{homeworkProblemCounter}}{}\nobreak{}
+
+
+
+% Define theorem environment
+\newtheorem*{theorem}{Theorem}
+
+%
+% Homework Problem Environment
+%
+% This environment takes an optional argument. When given, it will adjust the
+% problem counter. This is useful for when the problems given for your
+% assignment aren't sequential. See the last 3 problems of this template for an
+% example.
+%
+\newenvironment{homeworkProblem}[1][-1]{
+    \ifnum#1>0
+        \setcounter{homeworkProblemCounter}{#1}
+    \fi
+    \section{Problem \arabic{homeworkProblemCounter}}
+    \setcounter{partCounter}{1}
+    \enterProblemHeader{homeworkProblemCounter}
+}{
+    \exitProblemHeader{homeworkProblemCounter}
+}
+
+%
+% Homework Details
+%   - Title
+%   - Due date
+%   - Class
+%   - Section/Time
+%   - Instructor
+%   - Author
+%
+
+
+\newcommand{\hmwkTitle}{Problem set\ 1}
+\newcommand{\hmwkDueDate}{August 27, 2025}
+\newcommand{\hmwkClass}{Number Theory}
+\newcommand{\hmwkClassTime}{Section 2}
+\newcommand{\hmwkClassInstructor}{Dr. Eleanor McSpirit}
+\newcommand{\hmwkAuthorName}{\textbf{Joseph Quinn}}
+
+%
+% Title Page
+%
+
+\title{
+    \vspace{2in}
+    \textmd{\textbf{\hmwkClass:\ \hmwkTitle}}\\
+    \normalsize\vspace{0.1in}\small{\hmwkDueDate}\\
+    \vspace{0.1in}\large{\textit{\hmwkClassInstructor\ \hmwkClassTime}}
+    \vspace{3in}
+}
+
+\author{\hmwkAuthorName}
+\date{}
+
+\renewcommand{\part}[1]{\textbf{\large Part \Alph{partCounter}}\stepcounter{partCounter}\\}
+
+%
+% Various Helper Commands
+%
+
+% Useful for algorithms
+\newcommand{\alg}[1]{\textsc{\bfseries \footnotesize #1}}
+
+% For derivatives
+\newcommand{\deriv}[1]{\frac{\mathrm{d}}{\mathrm{d}x} (#1)}
+
+% For partial derivatives
+\newcommand{\pderiv}[2]{\frac{\partial}{\partial #1} (#2)}
+
+% Integral dx
+\newcommand{\dx}{\mathrm{d}x}
+
+% Alias for the Solution section header
+\newcommand{\solution}{\textbf{\large Solution}}
+
+% Probability commands: Expectation, Variance, Covariance, Bias
+\newcommand{\E}{\mathrm{E}}
+\newcommand{\Var}{\mathrm{Var}}
+\newcommand{\Cov}{\mathrm{Cov}}
+\newcommand{\Bias}{\mathrm{Bias}}
+
+%  proof-step macro:
+\newcommand{\step}[2]{& #1 & & \text{#2} \\}
+
+\begin{document}
+
+\maketitle
+
+\pagebreak
+
+\begin{homeworkProblem}
+
+	\begin{theorem}
+		Let $n$ be an integer. If $14 \mid n$, then $7 \mid n$.
+	\end{theorem}
+
+	\medskip
+
+	\textbf{Assumptions:}
+	\begin{itemize}
+		\item $n$ is an integer.
+		\item $14 \mid n$
+	\end{itemize}
+
+	\textbf{Conclusion:}
+	\begin{itemize}
+		\item $7 \mid n$
+	\end{itemize}
+
+
+	The proof uses the definition of divisibility. If $14$ divides $n$, then $n = 14k$ for some integer $k$.
+	Since $14 = 7 \cdot 2$, we can write $n = 7(2k)$. The product $2k$ is still an integer, so call it $m$.
+	That gives $n = 7m$, which shows $7$ divides $n$.
+
+
+\end{homeworkProblem}
+
+\begin{homeworkProblem}
+
+	\begin{theorem}
+		For every natural number $n$, $1 + 2 + 2^{2} + \cdots + 2^{n} = 2^{\,n+1}-1$.
+	\end{theorem}
+
+	\begin{proof}
+
+		\mbox{}\\
+		\textbf{Base case:} For $n=1$,
+
+		\[
+			1 + 2 = 2^{1+1} - 1 = 3,
+		\]
+
+		\medskip
+
+		\textbf{Induction hypothesis:} Assume that
+		\[
+			1 + 2 + 2^{2} + \cdots + 2^{k} = 2^{k+1} -1.
+		\]
+
+		\medskip
+
+		\textbf{Inductive step:} Now to show this holds for $2^{k+1}$:
+		\begin{align*}
+			1 + 2 + 2^{2} + \cdots + 2^{k} + 2^{k+1}
+			 & = 2^{k+1} -1 + 2^{k+1} \\
+			 & = 2 \cdot 2^{k+1} -1   \\
+			 & = 2^{k+2} -1.
+		\end{align*}
+
+		Therefore, by the principle of mathematical induction,
+		\[
+			1 + 2 + 2^{2} + \cdots + 2^{n} = 2^{\,n+1}-1.
+		\]
+	\end{proof}
+\end{homeworkProblem}
+
+\pagebreak
+\begin{homeworkProblem}
+
+	\begin{theorem}
+		The number $n^2 - n$, is even for every $n \in \mathbb{Z}$.
+
+	\end{theorem}
+
+	\begin{proof}
+
+		\mbox{}\\
+		A number is called \emph{even} if it can be written in the form $2m$ for some $m \in \mathbb{Z}$.
+
+
+		\textbf{Base case:} For $n=1$,
+
+		\[
+			1^2 - 1 = 0
+		\]
+
+
+		Since $0 = 2 \cdot 0$, it is divisible by $2$, 0 is even.
+
+		\medskip
+
+		\textbf{Induction hypothesis:} Assume that for some $k \in \mathbb{Z}$,
+		\[
+			k^2 - k \ \text{is even}.
+		\]
+
+		\medskip
+
+		\textbf{Inductive step:} Consider $n = k+1$.
+		\begin{align*}
+			(k+1)^2 - (k+1) & = k^2 + 2k + 1 - k - 1 \\
+			                & = k^2 - k + 2k         \\
+			                & = (k^2 - k) + (2k).
+		\end{align*}
+
+		By the induction hypothesis, $k^2 - k$ is even.
+		And 2k is even by the definition of even.
+
+		\medskip
+
+		Therefore, $(k+1)^2 - (k+1)$ is even.
+
+		\medskip
+	\end{proof}
+
+\end{homeworkProblem}
+
+\begin{homeworkProblem}
+
+	\begin{theorem}
+		Let $a,b,c \in \mathbb{Z}$. If $a \mid b$ and $a \mid c$, then $a \mid (b-c)$.
+	\end{theorem}
+
+	\begin{proof}
+		\begin{align*}
+			\step{a \mid b \ \text{ and } \ a \mid c}{assumption}
+			\step{\exists k\in \mathbb{Z}\ \text{ s.t. }\ 20=4k,\ c=al}{definition of divisibility}
+			\step{b-c = ak - al}{substitution}
+			\step{b-c = a(k-l)}{algebra}
+			\step{m = (k-l)}{set}
+			\step{b-c = a\cdot m}{algebra}
+			\step{a \mid (b-c)}{definition of divisibility}
+		\end{align*}
+	\end{proof}
+\end{homeworkProblem}
+
+\begin{homeworkProblem}
+
+	\textbf{Problem 2:}
+  \\
+	\textbf{Assumptions:}
+	\begin{itemize}
+		\item $n$ is a natural number.
+	\end{itemize}
+	\textbf{Conclusion:}
+	\begin{itemize}
+		\item $1 + 2 + 2^{2} + \cdots + 2^{n} = 2^{\,n+1}-1$.
+	\end{itemize}
+	\textbf{Summary of proof:}
+	The proof is by induction. The base case holds for $n=1$. Assuming the formula is true for $n=k$, adding $2^{k+1}$ to both sides gives the formula for $n=k+1$. Therefore, the formula holds for all $n$.
+
+	\medskip
+
+	\textbf{Problem 3:}
+  \\
+	\textbf{Assumptions:}
+	\begin{itemize}
+		\item $n$ is an integer.
+	\end{itemize}
+	\textbf{Conclusion:}
+	\begin{itemize}
+		\item $n^2 - n$ is even.
+	\end{itemize}
+	\textbf{Summary of proof:}
+	The proof is by induction. The base case $n=1$ gives $0$, which is even. Assuming $k^2-k$ is even, then $(k+1)^2-(k+1) = (k^2-k)+2k$, which is a sum of two even numbers. Thus, the expression is even for all integers $n$.
+
+	\medskip
+
+	\textbf{Problem 4:}
+  \\
+	\textbf{Assumptions:}
+	\begin{itemize}
+		\item $a,b,c$ are integers.
+		\item $a \mid b$ and $a \mid c$.
+	\end{itemize}
+	\textbf{Conclusion:}
+	\begin{itemize}
+		\item $a \mid (b-c)$.
+	\end{itemize}
+	\textbf{Summary of proof:}
+	Since $a \mid b$ and $a \mid c$, we can write $b=ak$ and $c=al$. Then $b-c=a(k-l)$. As $k-l$ is an integer, it follows that $a \mid (b-c)$.
+
+\end{homeworkProblem}
+
+\pagebreak
+
+
+\begin{homeworkProblem}
+
+
+  \textbf{Problem 2:}  
+
+	\begin{theorem}
+		For every natural number $n$, $1 + 2 + 2^{2} + \cdots + 2^{n} = 2^{\,n+1}-1$.
+	\end{theorem}
+
+	\begin{proof}
+
+		\mbox{}\\
+		\textbf{Base case:} For $n=1$,
+
+		\[
+			1 + 2 = 2^{1+1} - 1 = 3,
+		\]
+
+		\medskip
+
+		\textbf{Induction hypothesis:} Assume that
+		\[
+			1 + 2 + 2^{2} + \cdots + 2^{k} = 2^{k+1} -1.
+		\]
+
+		\medskip
+
+		\textbf{Inductive step:} Add $2^{k+1}$ to both sides:
+		\begin{align*}
+			1 + 2 + 2^{2} + \cdots + 2^{k} + 2^{k+1}
+			 & = 2^{k+1} -1 + 2^{k+1} \\
+			 & = 2 \cdot 2^{k+1} -1   \\
+			 & = 2^{k+2} -1.
+		\end{align*}
+
+		Therefore, by the principle of mathematical induction,
+		\[
+			1 + 2 + 2^{2} + \cdots + 2^{n} = 2^{\,n+1}-1.
+		\]
+	\end{proof}
+
+    \medskip
+
+  \textbf{Problem 3:}  
+	\begin{theorem}
+		The number $n^2 - n$, is even for every $n \in \mathbb{Z}$.
+
+	\end{theorem}
+
+	\begin{proof}
+
+		\mbox{}\\
+		Definition of even: A number is called \emph{even} if it can be written in the form $2m$ for some $m \in \mathbb{Z}$.
+
+
+		\textbf{Base case:} For $n=1$,
+
+		\[
+			1^2 - 1 = 0
+		\]
+
+
+		Since $0 = 2 \cdot 0$, it is divisible by $2$, 0 is even.
+
+		\medskip
+
+		\textbf{Induction hypothesis:} Assume that for some $k \in \mathbb{Z}$,
+		\[
+			k^2 - k \ \text{is even}.
+		\]
+
+		\medskip
+
+		\textbf{Inductive step:} Consider $n = k+1$.
+		\begin{align*}
+			(k+1)^2 - (k+1) & = k^2 + 2k + 1 - k - 1 \\
+			                & = k^2 - k + 2k         \\
+			                & = (k^2 - k) + (2k).
+		\end{align*}
+
+		By the induction hypothesis, $k^2 - k$ is even.
+		And 2k is even by the definition of even.
+
+		\medskip
+
+		Therefore, $(k+1)^2 - (k+1)$ is even.
+
+		\medskip
+	\end{proof}
+    \medskip
+
+  \textbf{Problem 4}  
+	\begin{theorem}
+		Let $a,b,c \in \mathbb{Z}$. If $a \mid b$ and $a \mid c$, then $a \mid (b-c)$.
+	\end{theorem}
+
+	\begin{proof}
+		\begin{align*}
+			\step{a \mid b \ \text{ and } \ a \mid c}{assumption}
+			\step{\exists k\in \mathbb{Z}\ \text{ s.t. }\ 20=4k,\ c=al}{definition of divisibility}
+			\step{b-c = ak - al}{substitution}
+			\step{b-c = a(k-l)}{algebra}
+			\step{m = (k-l)}{set}
+			\step{b-c = a\cdot m}{algebra}
+			\step{a \mid (b-c)}{definition of divisibility}
+		\end{align*}
+	\end{proof}
+
+\end{homeworkProblem}
+
+\pagebreak
+\begin{homeworkProblem}
+
+	\textbf{Claim.} Let $a=12$, $b=2$, $c=2$, and $n=4$. Then
+	$c \not\equiv 0 \pmod{n}$,
+	$ac \equiv bc \pmod{n}$,
+	and $a \not\equiv b \pmod{n}$.
+
+	\medskip
+
+
+	\begin{proof}
+		\[
+			a=12,\quad b=2,\quad c=2,\quad n=4
+		\]
+
+
+		\textbf{(i) Show } $c \not\equiv 0 \pmod 4$.
+		\begin{align*}
+			\step{4 \mid (c - 0)}{definition of congruence}
+			\step{4 \mid 2}{substitution, algebra}
+			\step{\text{False, since } 4 \nmid 2}{contradiction}
+			\step{c \not\equiv 0 \pmod 4}{definition of congruence}
+		\end{align*}
+
+		\textbf{(ii) Show } $ac \equiv bc \pmod 4$.
+		\begin{align*}
+			\step{4 \mid (ac - bc)}{definition of congruence}
+			\step{4 \mid c(a - b)}{algebra}
+			\step{4 \mid 2 \cdot(12-2)}{substitute $a,b,c$}
+			\step{4 \mid 20}{arithmetic}
+			\step{\exists k\in \mathbb{Z}\ \text{ s.t. }\ 20=4k,\ c=al}{definition of divisibility}
+			\step{k=5}{True}
+		\end{align*}
+		\textbf{(iii) Show } $a \not\equiv b \pmod 4$.
+		\begin{align*}
+			\step{4 \mid (a - b)}{definition of congruence}
+			\step{4 \mid (12 - 2)}{substitute a,b}
+			\step{4 \mid 10}{arithmetic}
+			\step{\text{False, since } 4 \nmid 10}{contradiction}
+		\end{align*}
+		All three statements hold, so this choice of $(a,b,c,n)$ is valid.
+	\end{proof}
+\end{homeworkProblem}
+
+\end{document}
