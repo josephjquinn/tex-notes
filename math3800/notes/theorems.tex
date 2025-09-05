@@ -17,6 +17,9 @@
 
 \newtheorem{theorem}{Theorem}
 \newtheorem*{theorem*}{Theorem}
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}
+\newtheorem*{definition*}{Definition}
 
 % Command for manual theorem numbering
 \newcommand{\manualnum}[1]{\setcounter{theorem}{\numexpr#1-1\relax}}
@@ -31,6 +34,33 @@
 
 \begin{document}
 
+\section{Definitions}
+
+\begin{definition*}
+The natural numbers are the positive integers $\{1, 2, 3, 4, \ldots\}$. We denote the natural numbers by $\mathbb{N}$ or $\mathbb{Z}_{>0}$. If we wish to include $0$, we write $\mathbb{N}_0$ or $\mathbb{Z}_{\geq 0}$.
+\end{definition*}
+
+\begin{definition*}
+Suppose $a$ and $d$ are integers. Then we say $d$ divides $a$, denoted $d \mid a$, if (and only if) there is an integer $k$ such that $a = kd$. We may also say that $d$ is a divisor or factor of $a$, and that $a$ is a multiple of $d$.
+\end{definition*}
+
+\begin{definition*}
+Suppose $a$, $b$ and $n$ are integers, with $n > 0$. We say that $a$ and $b$ are congruent modulo $n$ if $n \mid (a - b)$. We denote this relationship as
+\[a \equiv b \pmod{n}\]
+and read these symbols as ``$a$ is congruent to $b$ modulo $n$''.
+\end{definition*}
+
+\begin{definition*}
+A common divisor of integers $a$ and $b$ is an integer $d$ such that $d \mid a$ and $d \mid b$.
+\end{definition*}
+
+\begin{definition*}
+The greatest common divisor of two integers $a$ and $b$, not both $0$, is the largest integer $d$ such that $d \mid a$ and $d \mid b$. The greatest common divisor of two integers $a$ and $b$ is denoted $\gcd(a, b)$ or more briefly as just $(a, b)$.
+\end{definition*}
+
+\begin{definition*}
+If $\gcd(a, b) = 1$, then $a$ and $b$ are said to be relatively prime.
+\end{definition*}
 
 \section{Divisibility Theorems}
 
