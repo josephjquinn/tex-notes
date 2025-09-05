@@ -153,19 +153,130 @@
 \begin{homeworkProblem}
 
 	\textbf{(i) a = 343, b = 49}
+
+	To compute $(343, 49)$ using the Euclidean algorithm. We first write
 	\[
 		343 = 7 \cdot 49 + 0.
 	\]
-	Thus $q=7,\; r=0$.
-	\\
-	\textbf{(ii) a = -469, b = 31.}
-	\\
-	Take $q=-16$. Then
+	By Theorem 1.33, we know that $(343, 49) = (49, 0)$. We know that $(49, 0) = 49$, since $49$ is the largest integer which divides itself and $49 \mid 0$ too. Therefore, $(343, 49) = 49$.
+
+	\medskip
+
+	\textbf{(ii) a = -469, b = 31}
+
+	Let's compute $(-469, 31)$ using the Euclidean algorithm. We first write
 	\[
-		-469 = (-16)\cdot 31 + 27.
+		-469 = (-16) \cdot 31 + 27.
 	\]
-	Since $0 \leq 27 < 31$, this is valid.
-	Thus $q=-16,\; r=27$.
+	By Theorem 1.33, we know that $(-469, 31) = (31, 27)$. We then have
+	\[
+		31 = 1 \cdot 27 + 4.
+	\]
+	By Theorem 1.33, we know that $(31, 27) = (27, 4)$. We then have
+	\[
+		27 = 6 \cdot 4 + 3.
+	\]
+	By Theorem 1.33, we know that $(27, 4) = (4, 3)$. We then have
+	\[
+		4 = 1 \cdot 3 + 1.
+	\]
+	By Theorem 1.33, we know that $(4, 3) = (3, 1)$. We then have
+	\[
+		3 = 3 \cdot 1 + 0.
+	\]
+	By Theorem 1.33, we know that $(3, 1) = (1, 0)$. We know that $(1, 0) = 1$, since $1$ is the largest integer which divides itself and $1 \mid 0$ too. Since $(-469, 31) = (31, 27) = (27, 4) = (4, 3) = (3, 1) = (1, 0) = 1$, we have computed $(-469, 31) = 1$.
+\end{homeworkProblem}
+
+\begin{homeworkProblem}
+	prob 2
+\end{homeworkProblem}
+\pagebreak
+
+\begin{homeworkProblem}
+	\begin{proof}
+		\textbf{($\Rightarrow$)} Assume $a \equiv b \pmod n$.
+		By definition, $n \mid (a-b)$, so there exists $k \in \mathbb{Z}$ such that
+		$a-b = nk$.
+		Write $a = nq_1 + r_1$ and $b = nq_2 + r_2$ with $0 \le r_1, r_2 \le n-1$. Then
+
+		\begin{align*}
+			a - b
+			 & = (nq_1 + r_1) - (nq_2 + r_2) \\
+			 & = n(q_1 - q_2) + (r_1 - r_2).
+		\end{align*}
+
+
+		Since $n \mid (a-b)$, it follows that $n \mid (r_1 - r_2)$. But $r_1$ and $r_2$ are both between $0$ and $n-1$, so
+		The only multiple of $n$ in this range is $0$. Hence $r_1 - r_2 = 0$, so $r_1 = r_2$.
+
+
+		\medskip
+		\textbf{($\Leftarrow$)} Assume $r_1 = r_2$.
+		Then
+		\begin{align*}
+			a - b
+			 & = (nq_1 + r_1) - (nq_2 + r_2) \\
+			 & = n(q_1 - q_2) + (r_1 - r_2)  \\
+			 & = n(q_1 - q_2)
+		\end{align*}
+
+
+		Thus $n \mid (a-b)$, which means $a \equiv b \pmod n$.
+
+	\end{proof}
+\end{homeworkProblem}
+
+\begin{homeworkProblem}
+
+	We want to describe the integer solutions to the congruence. $x \equiv 2 \pmod{5}$.
+	\medskip
+
+	We can rewrite the congruence as
+	\[
+		5 \mid (2-x)
+	\]
+	And by propery of divisibility
+
+
+	\[
+		5k = (2-x), k \in \mathbb{Z}
+	\]
+	\[
+		x = 5k + 2
+	\]
+	With this we can see some examples of the solution set would be:
+
+	\[
+		\begin{aligned}
+			k & = 0 \quad \Rightarrow \quad x = 2,   \\
+			k & = 1 \quad \Rightarrow \quad x = 7,   \\
+			k & = -1 \quad \Rightarrow \quad x = -3.
+		\end{aligned}
+	\]
+
+	Thus, the solution set is the infinite arithmetic progression
+	\[
+		\{\ldots, -8, -3, 2, 7, 12, 17, \ldots\}.
+	\]
+
+\end{homeworkProblem}
+
+
+\pagebreak
+\begin{homeworkProblem}
+
+	The least common multiple between two integers is going to be the smallest integer mulitple that can be created with said integers.
+	Denoted by lcm(a,b).
+
+	\begin{theorem}
+		If a and b are natural numbers, then gcd(a,b) $\cdot$ lcm(a,b) = ab.
+	\end{theorem}
+
+	\begin{proof}
+
+	\end{proof}
+
+
 \end{homeworkProblem}
 
 \end{document}
