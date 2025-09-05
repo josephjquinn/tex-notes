@@ -1,0 +1,308 @@
+
+
+\documentclass[11pt]{article}
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{geometry}
+\geometry{margin=1in}
+\title{Foundations of Machine Learning -- Lecture 2 Notes}
+\author{}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section*{Regression}
+Model: $y=f(x)+ n$,
+Where $n$ is a random variable that represents measurement errors, unobserved influences, etc.
+
+
+\subsection*{Mean Squared Error}
+We aim to choose a model $f$ that minimizes the expected prediction error, i.e., we want $f(x)$ to be as close as possible to $y$ for all $x$.
+
+\medskip
+
+\textbf{Error for a single data point:}
+$n^{(i)} = f\big(x^{(i)}\big) - y^{(i)}$
+
+\textbf{MSE:}
+$\min_{f} \; \mathbb{E}_{x,y}\!\left[ \big(f(x) - y\big)^2 \right]$
+
+This requires knowledge of the full probability distribution of $(x,y)$, which is not available in practice (e.g., knowing the price of every house in an entire city).
+So, instead we will use the empirical version.
+
+\[
+	\min_{f} \; \frac{1}{N} \sum_{i=1}^{N} \Big(f\big(x^{(i)}\big) - y^{(i)}\Big)^2
+\]
+
+
+
+
+\subsection*{Associating Living Area with the Price of a House}
+
+We assume the house price $y$ can be modeled as $y = f(x) + n$,
+where $x$ is the living area and $n$ is noise.
+
+\medskip
+
+Suppose $n$ follows a Gaussian distribution:
+\[
+	n \sim \mathcal{N}(0, \sigma^2).
+\]
+
+Therefore, the conditional distribution of $y$ is
+\[
+	y \sim \mathcal{N}\!\big(f(x), \sigma^2\big).
+\]
+
+Equivalently, the conditional density is given by
+\[
+	p(y \mid x, f, \sigma) \;=\; \frac{1}{\sqrt{2\pi\sigma^2}}
+	\exp\!\left( -\frac{\big(y - f(x)\big)^2}{2\sigma^2} \right).
+\]
+
+This tells you how probable $y$ is, given the living area
+$x$, the function $f$, and the noise level $\sigma$
+
+\pagebreak
+
+Assume $(x_i, y_i)$ are independent and identically distributed (i.i.d). Then:
+
+\[
+	p(y \mid x, f, \sigma)
+	\;=\;
+	\prod_{i=1}^N p\!\big(y^{(i)} \mid x^{(i)}, f, \sigma\big).
+\]
+
+This is called the \emph{likelihood} of our model $f$, with respect to the observed data
+\(\{(x^{(i)}, y^{(i)})\}_{i=1}^N\).
+
+This tells us, how well our function represents the data observed?
+
+\medskip
+
+Working with this product over $N$ is not easy. Let’s take
+the $\log(\cdot)$:
+
+\begin{align*}
+	\arg\max_{f} \; \prod_{i=1}^N p\!\big(y^{(i)} \mid x^{(i)}, f, \sigma\big)
+	 & = \arg\max_{f} \; \sum_{i=1}^N \log p\!\big(y^{(i)} \mid x^{(i)}, f, \sigma\big)                \\
+	 & = \arg\min_{f} \; \Bigg(- \sum_{i=1}^N \log p\!\big(y^{(i)} \mid x^{(i)}, f, \sigma\big)\Bigg).
+\end{align*}
+
+
+\section*{Linear Regression}
+In linear regression, our regressor, $f$, is linear (affine).
+
+\[
+	f(x) = w_1x+w_0
+\]
+
+Therefore,
+
+\[
+	\min_{w_0, w_1} \; \frac{1}{N} \sum_{i=1}^N \Big(y^{(i)} - w_1 x^{(i)} - w_0 \Big)^2
+\]
+
+
+In matrix notation we start with
+\[
+	\min_{w} \; \frac{1}{N} \sum_{i=1}^N \Big(y^{(i)} - w^T \hat{x}^{(i)}\Big)^2,
+	\quad \text{where } \hat{x}^{(i)} = \begin{bmatrix} 1 \\ x^{(i)} \end{bmatrix}.
+\]
+
+Now, collect all data into matrices:
+
+
+\begin{itemize}
+	\item $y = \big[y^{(1)}, \ldots, y^{(N)}\big]^T \in \mathbb{R}^{N \times 1}$
+	\item $X = \big[\hat{x}^{(1)}, \ldots, \hat{x}^{(N)}\big]^T \in \mathbb{R}^{N \times (d+1)}
+		      \quad \text{(here $d = 1$)}$
+	\item $w = \big[w_0, w_1, \ldots, w_d\big]^T \in \mathbb{R}^{d+1}$
+\end{itemize}
+
+
+\[
+	w =
+	\begin{bmatrix}
+		w_0 \\ w_1
+	\end{bmatrix},
+	\qquad
+	y =
+	\begin{bmatrix}
+		y^{(1)} \\ y^{(2)} \\ \vdots \\ y^{(N)}
+	\end{bmatrix},
+	\qquad
+	X =
+	\begin{bmatrix}
+		1      & x^{(1)} \\
+		\vdots & \vdots  \\
+		1      & x^{(N)}
+	\end{bmatrix}.
+\]
+
+In compact notation, the objective becomes
+\[
+	\min_{w} \; \frac{1}{N} \|y - Xw\|^2.
+\]
+
+Now lets solve for w in order to find our optimal weights.
+
+\begin{align*}
+	\mathcal{L} & = \|Xw - y\|^2                      \\
+	            & = (Xw - y)^T (Xw - y)               \\
+	            & = (w^T X^T - y^T)(Xw - y)           \\
+	            & = w^T X^T X w - 2 w^T X^T y + y^T y
+\end{align*}
+
+\[
+	\nabla_w \mathcal{L} = 2X^T X w - 2X^T y
+\]
+
+At the optimal point the gradient should be the zero vector:
+
+\[
+	\nabla_w \mathcal{L} = 0 \;\;\;\;\Rightarrow\;\;\;\; X^T X w - X^T y = 0
+	\;\;\;\;\Rightarrow\;\;\;\; w^* = (X^T X)^{-1} X^T y
+\]
+
+
+\paragraph{What can go wrong with this solution?}
+\begin{enumerate}
+	\item $X^T X$ might not be full-rank / invertible! For example, if $N < d+1$.
+	\item $X^T X \in \mathbb{R}^{(d+1) \times (d+1)}$, where $d$ is the dimensionality of the input $x$. \\
+	      Matrix inversion is, generally speaking, cubic in matrix size, i.e.\ $O((d+1)^3)$! \\
+	      This can be very slow for high-dimensional data.
+\end{enumerate}
+
+
+When $X^T X$ is not full-rank/invertible, we can use the Moore--Penrose Pseudoinverse.
+\[
+	w^* = \underbrace{(X^T X + \lambda I)^{-1} X^T y}_{\text{Pseudoinverse}}
+\]
+
+Here, $I$ is the identity matrix and $\lambda$ is a small scalar.
+
+\bigskip
+
+\textbf{Ridge Regression:}
+\[
+	\arg\min_w \; \|Xw - y\|^2 + \lambda \|w\|^2
+\]
+
+Expanding:
+\[
+	\mathcal{L} = w^T X^T X w - 2 w^T X^T y + y^T y + \lambda w^T w
+\]
+
+Gradient:
+\[
+	\nabla_w \mathcal{L} = 2X^T X w - 2X^T y + 2\lambda w
+\]
+
+Setting the gradient to zero:
+\[
+	\nabla_w \mathcal{L} = 0 \;\;\;\;\Rightarrow\;\;\;\; w^* = (X^T X + \lambda I)^{-1} X^T y
+\]
+
+\section*{Gradient Descent}
+
+
+For large $d$, to avoid matrix inversion we can use the Gradient Descent algorithm.
+The idea is to iteratively update the parameters to reach the optimal point.
+
+\medskip
+
+\noindent Gradient always points in the direction of increasing the cost, so we follow the negative gradient:
+
+\[
+	w^{(t)} = w^{(t-1)} - \epsilon \nabla_w \mathcal{L}
+\]
+
+$\epsilon$ is the learning rate, a positive scalar that determines the size of the update step.
+
+\pagebreak
+
+For our linear regression problem:
+\[
+	\nabla_w \mathcal{L} = 2X^T X w - 2X^T y
+\]
+
+Therefore, the update equations will be as follows:
+\[
+	w^{(t)} = w^{(t-1)} - 2\epsilon \big(X^T X w^{(t-1)} - X^T y\big)
+\]
+\[
+	= (I - \epsilon' X^T X) w^{(t-1)} + \epsilon' X^T y
+\]
+
+Gradient Descent is sensitive to the choice of learning rate:
+\begin{itemize}
+	\item Too small = Too slow
+	\item Too large = Messy oscillatory Behavior
+\end{itemize}
+
+
+\subsection*{More on gradient descent}
+
+Let $g = \nabla_w \mathcal{L}(w^{(0)})$ and let $H$ be the Hessian matrix such that
+\[
+	[H]_{ij} = \frac{\partial^2 \mathcal{L}(w^{0})}{\partial w_i \partial w_j}
+\]
+
+Recall the Taylor series of a function (second order):
+\[
+	\mathcal{L}(w) \approx \mathcal{L}(w^{(0)}) + (w - w^{(0)})^T g
+	+ \frac{1}{2}(w - w^{(0)})^T H (w - w^{(0)})
+\]
+
+Now substitute the gradient descent update $w = w^{(0)} - \epsilon g$
+into the Taylor series:
+\[
+	\mathcal{L}(w^{(0)} - \epsilon g)
+	= \mathcal{L}(w^{(0)}) - \epsilon g^T g
+	+ \tfrac{1}{2}\epsilon^2 g^T H g.
+\]
+
+We want the loss to decrease after the update:
+\[
+	\mathcal{L}(w^{(0)} - \epsilon g) < \mathcal{L}(w^{(0)}).
+\]
+
+\begin{itemize}
+	\item When \( g^T H g \leq 0 \), we have no issue (but no convergence either), e.g. if \(\mathcal{L}(w)\) is concave.
+	\item When \( g^T H g > 0 \), to satisfy the inequality we must choose \(\epsilon\) carefully:
+\end{itemize}
+
+\[
+	\epsilon g^T g > \tfrac{1}{2}\epsilon^2 g^T H g
+	\quad \Rightarrow \quad
+	\epsilon < \frac{2 g^T g}{g^T H g}.
+\]
+
+
+\subsection*{Line Search}
+This is a method used for selecting a learning rate.
+
+\medskip
+
+First set a fixed set of learning rates:
+\[
+	E := [\epsilon_1, \ldots, \epsilon_L]
+\]
+
+Then calculate
+\[
+	\mathcal{L}\!\Big(w^{(t-1)} - \epsilon_l \nabla_w \big(w^{(t-1)}\big)\Big)
+\]
+
+for all $l \in [1, \ldots, L]$ and pick the $\epsilon_l$ that minimizes the loss.
+
+\medskip
+
+This method works great when loss evaluation is cheap!
+
+
+
+
+\end{document}
+

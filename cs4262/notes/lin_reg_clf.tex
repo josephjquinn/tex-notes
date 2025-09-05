@@ -1,0 +1,61 @@
+
+\documentclass[11pt]{article}
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{geometry}
+\geometry{margin=1in}
+\title{Foundations of Machine Learning -- Lecture 1 Notes}
+\author{Based on slides by Thomas Beckers}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section*{Learning Categories}
+\subsection*{Supervised Learning}
+Learning to model the input-output relationship using data
+containing pairs of inputs and outputs.
+\begin{itemize}
+	\item \textbf{Inputs:} image, video, sound, text, etc.
+	\item \textbf{Outputs:} categories or discrete values (classification),
+	      continuous values (regression)
+\end{itemize}
+
+
+\subsection*{Unsupervised Learning}
+Analyze unlabeled data to extract useful information or learn useful representations.
+Some of the use cases can be generative modeling or clustering.
+
+
+\subsection*{Reinforcement Learning}
+An agent interacts with an environment via actions that change
+the state of the environment to maximize some notion of a cumulative reward.
+This requires a lot of trial and errors, and also having a simulated environment is crucial.
+
+
+\subsection*{Parametric Methods}
+\begin{itemize}
+	\item \textbf{Definition}
+	      Assume a fixed form for the function, the model is defined by a finite set of parameters.
+	\item \textbf{Examples}
+	      Linear regression, logistic regression, neural networks.
+	\item \textbf{Pros}
+	      Fast inference, Allow integration of prior knowledge, Requires less training data
+	\item \textbf{Cons}
+	      Model selection is critical, Limited complexity
+
+\end{itemize}
+
+\subsection*{Non-parametric Methods}
+\begin{itemize}
+	\item \textbf{Definition}
+	      Does not assume a fixed form. The model grows in complexity as data grows; the number of parameters is not fixed
+	\item \textbf{Examples}
+	      Examples: k-nearest neighbors, decision trees, random forests, kernel methods.
+	\item \textbf{Pros}
+	      Very flexible, Little to no prior assumption
+	\item \textbf{Cons}
+	      Require lots of data, Slow in inference
+\end{itemize}
+
+\end{document}
+
