@@ -1,0 +1,98 @@
+
+
+\documentclass[11pt]{article}
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{geometry}
+\geometry{margin=1in}
+\title{Foundations of Machine Learning -- Lecture 4 Notes}
+\author{}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section*{Classification}
+\textbf{Method:} Pose the problem as linear regression
+
+\[
+f(x) =
+\begin{cases}
+1 & w^T \hat{x} > 0.5 \\
+0 & w^T \hat{x} \leq 0.5
+\end{cases}
+\]
+
+We have a problem though that this function is not differentiable! 
+So the solution is to use a sigmoid function:
+
+\[
+\sigma(t) = \frac{1}{1 + e^{-t}}
+\]
+
+\[
+f(x) = \sigma(w^T \hat{x}) = \frac{1}{1 + e^{-w^T \hat{x}}}
+\]
+
+
+\subsection*{Log-Likelihood}
+
+\begin{itemize}
+
+
+\item Using MSE leads to a non convex function
+    \item The labels that we are predicting are binary: $y \in \{0,1\}$.
+    \item Meaning the prediction $f(x)$ can be thought of as the probability output
+    \item Given the probability $f(x)$ what is the likelihood of passing $(y=1)$? What is the likelihood of failing $(y=0)$?
+\end{itemize}
+
+\[
+p(y|x,w) = f(x)^y (1 - f(x))^{(1-y)}
+\]
+
+
+\[
+p(y=1|f(x)) = f(x), \quad p(y=0|f(x)) = 1 - f(x)
+\]
+
+
+Instead of writing two separate cases for $y=0$ and $y=1$ we can combine them into one compact expression. Because the exponent $y$ "selects" the correct term:
+If $y=1$ the first term survives.
+If $y=0$ the second term survives.
+
+\pagebreak
+
+For observations $\{(x^{(i)}, y^{(i)})\}$ assuming i.i.d. we have:
+
+\[
+likelihood = \prod_{i=1}^N f(x^{(i)})^{y^{(i)}} \big(1 - f(x^{(i)})\big)^{(1 - y^{(i)})}
+\]
+
+\[
+log\text{--}likelihood = - \sum_{i=1}^N \Big[ y^{(i)} \log \big(f(x^{(i)})\big) 
++ \big(1 - y^{(i)}\big) \log \big(1 - f(x^{(i)})\big) \Big]
+\]
+
+Therefore,
+
+\[
+\nabla_w \mathcal{L}(w) = \sum_{i=1}^N x^{(i)} \Big(f(x^{(i)}) - y^{(i)}\Big)
+\]
+
+\[
+\nabla_w^2 \mathcal{L}(w) = \sum_{i=1}^N x^{(i)} {x^{(i)}}^T f(x^{(i)}) \Big(1 - f(x^{(i)})\Big)
+\]
+
+\subsection*{Multi-Class Classification}
+For classifications with $k > 1$, we train k classifiers for each class, and then we select the classifier that is the most confident
+
+\[
+\hat{y} = \arg\max_{i \in \{1, \dots, K\}} f^{(i)}(x)
+\]
+
+\begin{itemize}
+	\item This system is good because each classifier only sees 2 classes so it's a 		simpler decision .
+	\item However, this needs many classifiers and grows as $O(k^2)$
+\end{itemize}
+
+\end{document}
+
