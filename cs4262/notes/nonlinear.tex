@@ -1,5 +1,3 @@
-
-
 \documentclass[11pt]{article}
 \usepackage{amsmath, amssymb, amsthm}
 \usepackage{geometry}
@@ -15,15 +13,15 @@
 
 So far, we have been using a linear function for regression:
 \[
-        f(x) = w^T x + w_0 = \sum_{i=0}^d w_i \hat{x}_i \quad \text{(Assuming $\hat{x}_0 = 1$)}
-      \]
-      
+	f(x) = w^T x + w_0 = \sum_{i=0}^d w_i \hat{x}_i \quad \text{(Assuming $\hat{x}_0 = 1$)}
+\]
+
 Let’s generalize this model:
 
-        \[
-        f(x) = \sum_{i=0}^M w_i \phi_i(x) = w^T \phi(x)
-        \]
-        
+\[
+	f(x) = \sum_{i=0}^M w_i \phi_i(x) = w^T \phi(x)
+\]
+
 where $\phi_i$ are fixed ``basis'' functions.
 \\
 
@@ -31,65 +29,65 @@ where $\phi_i$ are fixed ``basis'' functions.
 
 Now with loss function:
 
- \[
-    \arg\min_{w} \frac{1}{N} \sum_{n=1}^N \left( w^T \phi(x^{(i)}) - y^{(i)} \right)^2 
-    = \arg\min_{w} \| \Phi w - y \|^2
-    \]
-    
-Where 
+\[
+	\arg\min_{w} \frac{1}{N} \sum_{n=1}^N \left( w^T \phi(x^{(i)}) - y^{(i)} \right)^2
+	= \arg\min_{w} \| \Phi w - y \|^2
+\]
 
-    \[
-    \Phi = \begin{bmatrix} 
-    \phi(x^{(1)}), \ldots, \phi(x^{(N)}) 
-    \end{bmatrix}^T \in \mathbb{R}^{N \times M}, 
-    \quad w \in \mathbb{R}^M.
-    \]
-    
+Where
+
+\[
+	\Phi = \begin{bmatrix}
+		\phi(x^{(1)}), \ldots, \phi(x^{(N)})
+	\end{bmatrix}^T \in \mathbb{R}^{N \times M},
+	\quad w \in \mathbb{R}^M.
+\]
+
 Now we solve:
 
-    \[
-    w^* = (\Phi^T \Phi)^{-1} \Phi^T y
-    \]
-    
-\paragraph*{Radial Basis Function (RBF) Regression}  
-     
-        \[
-        \phi_j(x) = \exp\!\left(-\frac{(x - \mu_j)^2}{2s^2}\right)
-        \]
-        
-\paragraph*{Sigmoidal Basis Regression}  
-      \[
-        \phi_j(x) = \text{sigmoid}\!\left(\frac{x - \mu_j}{s}\right)
-        \]
-        
+\[
+	w^* = (\Phi^T \Phi)^{-1} \Phi^T y
+\]
+
+\paragraph*{Radial Basis Function (RBF) Regression}
+
+\[
+	\phi_j(x) = \exp\!\left(-\frac{(x - \mu_j)^2}{2s^2}\right)
+\]
+
+\paragraph*{Sigmoidal Basis Regression}
+\[
+	\phi_j(x) = \text{sigmoid}\!\left(\frac{x - \mu_j}{s}\right)
+\]
+
 \begin{itemize}
-	\item \textbf{Pros:} They lead to convex optimization!, Allow for incorporating prior knowledge about your data.       
-  \item \textbf{Cons:} Are sensitive to the choice of parameters and are most
-certainly sub-optimal, Severely suffer from curse of dimensionality and parameter
-explosion     
+	\item \textbf{Pros:} They lead to convex optimization!, Allow for incorporating prior knowledge about your data.
+	\item \textbf{Cons:} Are sensitive to the choice of parameters and are most
+	      certainly sub-optimal, Severely suffer from curse of dimensionality and parameter
+	      explosion
 \end{itemize}
 
 \paragraph{Explosion of terms}
-    Let’s look at the number of terms for a polynomial of degree 2 in different dimensions, $d$:
-    \begin{itemize}
-        \item $d = 1$: \quad $\phi(x) = [1, x, x^2]^T$
-        \item $d = 2$: \quad $\phi(x) = [1, [x]_1, [x]_2, [x]_1[x]_2, [x]_1^2, [x]_2^2]^T$
-        \item $d = 3$: \quad $\phi(x) = [1, [x]_1, [x]_2, [x]_3, [x]_1[x]_2, [x]_1[x]_3, [x]_2[x]_3, [x]_1^2, [x]_2^2, [x]_3^2]^T$
-    \end{itemize}
+Let’s look at the number of terms for a polynomial of degree 2 in different dimensions, $d$:
+\begin{itemize}
+	\item $d = 1$: \quad $\phi(x) = [1, x, x^2]^T$
+	\item $d = 2$: \quad $\phi(x) = [1, [x]_1, [x]_2, [x]_1[x]_2, [x]_1^2, [x]_2^2]^T$
+	\item $d = 3$: \quad $\phi(x) = [1, [x]_1, [x]_2, [x]_3, [x]_1[x]_2, [x]_1[x]_3, [x]_2[x]_3, [x]_1^2, [x]_2^2, [x]_3^2]^T$
+\end{itemize}
 
-    \vspace{0.4cm}
-    In general, a polynomial of degree $K$, in a $d$-dimensional space will have:
-    \[
-    \text{Num. terms} = \binom{K+d}{K} = \frac{(K+d)!}{K! \, d!} \sim O(d^K)
-    \]
+\vspace{0.4cm}
+In general, a polynomial of degree $K$, in a $d$-dimensional space will have:
+\[
+	\text{Num. terms} = \binom{K+d}{K} = \frac{(K+d)!}{K! \, d!} \sim O(d^K)
+\]
 
-    \vspace{0.4cm}
-    For MNIST (a small-scale dataset!), $d = 784$, therefore:
-    \begin{itemize}
-        \item Polynomial of degree $K=2$, will have $307{,}729$ terms
-        \item Polynomial of degree $K=3$, will have $80{,}622{,}640$ terms
-    \end{itemize}
- 
-        
+\vspace{0.4cm}
+For MNIST (a small-scale dataset!), $d = 784$, therefore:
+\begin{itemize}
+	\item Polynomial of degree $K=2$, will have $307{,}729$ terms
+	\item Polynomial of degree $K=3$, will have $80{,}622{,}640$ terms
+\end{itemize}
+
+
 \end{document}
 
