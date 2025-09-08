@@ -188,7 +188,43 @@
 \end{homeworkProblem}
 
 \begin{homeworkProblem}
-	prob 2
+	\begin{proof}
+		Suppose $p(x), g(x)$ are two polynomials with $g(x) \neq 0$.
+		Assume there are two possible divisions:
+		\[
+			p(x) = q(x)g(x) + r(x), \quad \deg r(x) < \deg g(x),
+		\]
+		and
+		\[
+			p(x) = q'(x)g(x) + r'(x), \quad \deg r'(x) < \deg g(x).
+		\]
+
+		Subtracting gives
+		\[
+			0 = \big(q(x) - q'(x)\big) g(x) + \big(r(x) - r'(x)\big).
+		\]
+
+		If $q(x) \neq q'(x)$, then $(q(x)-q'(x))g(x)$ is a nonzero polynomial.
+		Hence
+		\[
+			\deg\big((q(x)-q'(x))g(x)\big) = \deg(q(x)-q'(x)) + \deg g(x) \;\geq\; \deg g(x).
+		\]
+		But $\deg(r(x)-r'(x)) < \deg g(x)$ since both $r$ and $r'$ have degree $< \deg g(x)$.
+		Thus the polynomial
+		\[
+			(q(x)-q'(x))g(x) + (r(x)-r'(x))
+		\]
+		would contain a term of degree at least $\deg g(x)$, which cannot be canceled by the remainder term of smaller degree.
+		This contradiction shows $q(x) = q'(x)$.
+
+		With $q(x) = q'(x)$, the equation reduces to
+		\[
+			0 = r(x) - r'(x),
+		\]
+		so $r(x) = r'(x)$.
+
+		Therefore, the quotient and remainder in the division algorithm for polynomials are unique.
+	\end{proof}
 \end{homeworkProblem}
 \pagebreak
 
@@ -261,21 +297,242 @@
 
 \end{homeworkProblem}
 
-
 \pagebreak
 \begin{homeworkProblem}
 
+
+	(i) Compute $\gcd(37,60)$.
+
+	\[
+		60 = 1\cdot 37 + 23
+	\]
+	\[
+		37 = 1\cdot 23 + 14
+	\]
+	\[
+		23 = 1\cdot 14 + 9
+	\]
+	\[
+		14 = 1\cdot 9 + 5
+	\]
+	\[
+		9 = 1\cdot 5 + 4
+	\]
+	\[
+		5 = 1\cdot 4 + 1
+	\]
+	\[
+		4 = 4\cdot 1 + 0
+	\]
+	So $\gcd(37,60)=1$.
+
+	Linear combination
+	\[
+		1 = 5 - 1\cdot 4
+	\]
+	\[
+		= 5 - (9 - 5) = 2\cdot 5 - 9
+	\]
+	\[
+		= 2(14 - 9) - 9 = 2\cdot 14 - 3\cdot 9
+	\]
+	\[
+		= 2\cdot 14 - 3(23 - 14) = 5\cdot 14 - 3\cdot 23
+	\]
+	\[
+		= 5(37 - 23) - 3\cdot 23 = 5\cdot 37 - 8\cdot 23
+	\]
+	\[
+		= 5\cdot 37 - 8(60 - 37) = 13\cdot 37 - 8\cdot 60
+	\]
+
+	Thus,
+
+	\begin{align*}
+		\gcd(37,60) & = 1                              \\
+		            & = 37 \cdot (13) + 60 \cdot (-8).
+	\end{align*}
+
+	\[
+		x = 13, \quad y = -8 \quad \text{such that } 37x + 60y = 1.
+	\]
+
+	(ii) Compute $\gcd(441,1155)$.
+
+	\[
+		1155 = 2\cdot 441 + 273
+	\]
+	\[
+		441 = 1\cdot 273 + 168
+	\]
+	\[
+		273 = 1\cdot 168 + 105
+	\]
+	\[
+		168 = 1\cdot 105 + 63
+	\]
+	\[
+		105 = 1\cdot 63 + 42
+	\]
+	\[
+		63 = 1\cdot 42 + 21
+	\]
+	\[
+		42 = 2\cdot 21 + 0
+	\]
+	So $\gcd(441,1155)=21$.
+
+	Linear combination
+	\[
+		21 = 63 - 42
+	\]
+	\[
+		= 63 - (105 - 63) = 2\cdot 63 - 105
+	\]
+	\[
+		= 2(168 - 105) - 105 = 2\cdot 168 - 3\cdot 105
+	\]
+	\[
+		= 2\cdot 168 - 3(273 - 168) = 5\cdot 168 - 3\cdot 273
+	\]
+	\[
+		= 5(441 - 273) - 3\cdot 273 = 5\cdot 441 - 8\cdot 273
+	\]
+	\[
+		= 5\cdot 441 - 8(1155 - 2\cdot 441) = 21\cdot 441 - 8\cdot 1155
+	\]
+
+	Thus,
+	\begin{align*}
+		\gcd(441,1155) & = 21                                \\
+		               & = 21 \cdot 441 - 8 \cdot 1155       \\
+		               & = 441 \cdot (21) + 1155 \cdot (-8),
+	\end{align*}
+
+	\[
+		x = 21, \quad y = -8 \quad \text{such that } 441x + 1155y = 21.
+	\]
+\end{homeworkProblem}
+
+\begin{homeworkProblem}
+
+	\textbf{Exercise 1.56}
+
 	The least common multiple between two integers is going to be the smallest integer mulitple that can be created with said integers.
 	Denoted by lcm(a,b).
+
+	We can also think of this as the smallest integer that can be divided by both numbers.
+
+	\[
+		\operatorname{lcm}(a,b) = \min \{\, n \in \mathbb{N} : a \mid n \ \text{and}\ b \mid n \,\}.
+	\]
+
+	Examples:
+	\[
+		\begin{aligned}
+			\operatorname{lcm}(6,8)   & = 24, \\
+			\operatorname{lcm}(21,6)  & = 42, \\
+			\operatorname{lcm}(14,35) & = 70, \\
+		\end{aligned}
+	\]
 
 	\begin{theorem}
 		If a and b are natural numbers, then gcd(a,b) $\cdot$ lcm(a,b) = ab.
 	\end{theorem}
 
 	\begin{proof}
+		Let $d = \gcd(a,b)$. Then we can write
+		\[
+			a = d \cdot a_1, \qquad b = d \cdot b_1
+		\]
+		with $\gcd(a_1,b_1)=1$.
 
+		The least common multiple of $a$ and $b$ is then
+		\[
+			\operatorname{lcm}(a,b) = d \cdot a_1 b_1,
+		\]
+		because $a_1$ and $b_1$ are coprime, so their product is the smallest common multiple.
+
+		Hence,
+		\[
+			\gcd(a,b)\cdot \operatorname{lcm}(a,b)
+			= d \cdot (d \cdot a_1 b_1)
+			= d^2 a_1 b_1.
+		\]
+		But
+		\[
+			ab = (d a_1)(d b_1) = d^2 a_1 b_1.
+		\]
+		Therefore,
+		\[
+			\gcd(a,b)\cdot \operatorname{lcm}(a,b) = ab.
+		\]
 	\end{proof}
 
+
+\end{homeworkProblem}
+
+\pagebreak
+\begin{homeworkProblem}
+
+	Show that $41$ divides $2^{20}-1$ by following these steps. Explain why each step is true.
+
+	\begin{enumerate}
+		\item
+
+		      By the definition of congruence:
+		      \begin{align*}
+			      2^5 \equiv (-9)\pmod{41} \\
+			      41 \mid 2^5 - (-9)       \\
+			      41 \mid 41
+		      \end{align*}
+
+		\item Raising both sides to the 4th power gives
+		      \[
+			      (2^5)^4 \equiv (-9)^4 \pmod{41}.
+		      \]
+		      By Theorem 1.18 this is valid.
+		      So
+		      \[
+			      2^{20} \equiv 9^4 \pmod{41}.
+		      \]
+		\item Note that:
+		      \[
+			      9^2 = 81.
+		      \]
+		      \[
+			      81 + 1 = 82 = 2 \cdot 41,
+		      \]
+		      so
+		      \[
+			      41 \mid (9^2 + 1) \quad \iff \quad 9^2 \equiv -1 \pmod{41}.
+		      \]
+
+		      Again by Theorem 1.18 we can apply exponents,
+		      \[
+			      (9^2)^2 \equiv (-1)^2 \pmod{41},
+		      \]
+		      which means
+		      \[
+			      9^4 \equiv 1 \pmod{41}.
+		      \]
+		\item Substituting into step (2),
+		      \[
+			      2^{20} \equiv 9^4 \equiv 1 \pmod{41}.
+		      \]
+		      Thus
+		      \[
+			      2^{20} \equiv 1 \pmod{41} \\
+		      \]
+		      And by Theorem 1.12:
+		      \[
+			      2^{20}- 1 \equiv 0 \pmod{41} \\
+		      \]
+		      Leading back to our initial equation :
+		      \[
+			      41 \mid (2^{20}-1).
+		      \]
+	\end{enumerate}
 
 \end{homeworkProblem}
 
