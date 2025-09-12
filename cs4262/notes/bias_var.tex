@@ -1,0 +1,61 @@
+
+\documentclass[11pt]{article}
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{geometry}
+\geometry{margin=1in}
+\title{Foundations of Machine Learning -- Lecture 1 Notes}
+\author{Based on slides by Thomas Beckers}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section*{Bias-Variance Decomposition}
+
+We assume the data follows:
+\[
+	y = f^*(x) + n, \quad \text{where } n \sim \mathcal{N}(0, \sigma^2).
+\]
+Here, $f^*(x)$ is the true function and $n$ is Gaussian noise.
+The dataset is:
+\[
+	\mathcal{D} = \{ (x^{(i)}, y^{(i)}) \}.
+\]
+
+\subsection*{Model Error}
+Given a learned model $f(x)$, we want to evaluate its expected error at a test input $x$ across all possible training sets:
+\[
+	\text{err}(x) = \mathbb{E}_{\mathcal{D}} \big[ (f(x) - y)^2 \big].
+\]
+
+\subsection*{Decomposition}
+This error can be decomposed into three terms:
+\[
+	\text{err}(x) = \underbrace{(\mathbb{E}[f(x)] - f^*(x))^2}_{\text{Bias}^2}
+	+ \underbrace{\mathbb{E}\big[(f(x) - \mathbb{E}[f(x)])^2\big]}_{\text{Variance}}
+	+ \underbrace{\sigma^2}_{\text{Irreducible Error}}.
+\]
+
+\begin{itemize}
+	\item \textbf{Bias$^2$}: Measures how far the average model prediction is from the true function.
+	\item \textbf{Variance}: Captures how much the model’s predictions fluctuate across different training sets.
+	\item \textbf{Irreducible Error}: Comes from inherent noise in the data ($\sigma^2$).
+\end{itemize}
+
+Thus, the total expected error is a combination of bias, variance, and irreducible noise.
+
+\paragraph{Recap}
+\begin{itemize}
+	\item Bias penalizes being systematically wrong.
+	\item Variance penalizes being unstable across datasets.
+	\item Noise is always there, no matter what.
+\end{itemize}
+
+\begin{itemize}
+  \item Underfitting $\rightarrow$ High Bias $\rightarrow$ Low Variance
+  \item Overfitting $\rightarrow$ Low Bias $\rightarrow$ High Variance
+\end{itemize}
+
+\end{document}
+
+

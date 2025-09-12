@@ -180,7 +180,9 @@ When $X^T X$ is not full-rank/invertible, we can use the Moore--Penrose Pseudoin
 	w^* = \underbrace{(X^T X + \lambda I)^{-1} X^T y}_{\text{Pseudoinverse}}
 \]
 
-Here, $I$ is the identity matrix and $\lambda$ is a small scalar.
+Here, $I$ is the identity matrix and $\lambda$ is the regularization parameter.
+
+A higher $\lambda$ means a higher penalty on large coefficients.
 
 \bigskip
 

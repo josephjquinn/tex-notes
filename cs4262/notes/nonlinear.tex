@@ -23,7 +23,6 @@ Let’s generalize this model:
 \]
 
 where $\phi_i$ are fixed ``basis'' functions.
-\\
 
 \medskip
 
@@ -88,6 +87,59 @@ For MNIST (a small-scale dataset!), $d = 784$, therefore:
 	\item Polynomial of degree $K=3$, will have $80{,}622{,}640$ terms
 \end{itemize}
 
+
+\subsection*{Learnable Feature Maps}
+
+What if we optimize the feature maps?
+This means that the features are not fixed and learn with the parameters.
+\[
+	f\!\left(x;\{w_i,\mu_i,\sigma_i\}_{i=1}^M\right)
+	= \sum_{i=1}^{M} w_i\,\phi\!\left(x;\mu_i,\sigma_i\right)
+\]
+
+\vspace{0.75em}
+\textbf{Learning problem:}
+\[
+	\arg\min_{\{w_i,\mu_i,\sigma_i\}_{i=1}^M}
+	\sum_{n=1}^{N}\!\left(
+	\sum_{i=1}^{M} w_i\,\phi\!\left(x_n;\mu_i,\sigma_i\right) - y_n
+	\right)^{\!2}
+\]
+
+\vspace{0.75em}
+\textit{Deep learning: features are learned from data.}
+
+\subsection*{Kernel Methods}
+The idea behind kernel methods is to map the data into a higher-dimensional space, perform regression in that space, and then transform the results back to the original space. This allows complex decision surfaces to be represented as linear operations in the transformed space.
+
+\subsection*{Robust Regression}
+How can we ignore some outliers?
+
+\[
+	\mathcal{L}(w) = \sum_{i=1}^N \bigl\lVert y^{(i)} - f(x^{(i)}) \bigr\rVert^2
+	\quad \Longrightarrow \quad
+	\mathcal{L}(w) = \sum_{i=1}^N \alpha^{(i)} \bigl\lVert y^{(i)} - f(x^{(i)}) \bigr\rVert^2
+\]
+
+If we can set $\alpha^{(i)}$ of outliers to zero or close to zero, we can ignore them and they wont affect our model.
+
+We can also have adaptive weights where weights are defined as a function of the residual:
+\[
+	\alpha^{(i)} = h(\epsilon^{(i)}).
+\]
+
+A common choice is:
+\[
+	h(\epsilon) = \frac{1}{\max(\delta, \epsilon)},
+\]
+
+Meaning: the weight of each point is reduced if its error is large. Where $\delta > 0$ prevents division by zero.
+
+\paragraph{Effect}
+\begin{itemize}
+	\item For small residuals ($\epsilon$ small), $\alpha^{(i)}$ is close to 1, so the point keeps full influence.
+	\item For large residuals (outliers), $\alpha^{(i)}$ becomes small, reducing its effect.
+\end{itemize}
 
 \end{document}
 
