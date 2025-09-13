@@ -1,0 +1,175 @@
+\documentclass[11pt]{article}
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{geometry}
+\usepackage{graphicx}
+\geometry{margin=1in}
+\title{Foundations of Machine Learning -- Lecture 6 Notes}
+\author{}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section*{Support Vector Machines}
+Support Vector Machines are a supervised learning method used for classification and regression. 
+At their core, SVMs try to separate data into classes with the best possible boundary. 
+Imagine you have two groups of points (red and blue) plotted on a graph. 
+You want to separate them with a line (in 2D), a plane (in 3D), or more generally, a hyperplane in higher dimensions. 
+Many hyperplanes might separate the two groups, but SVM chooses the one with the largest margin — the maximum distance between the hyperplane and the closest points from each class. 
+Those closest points are called \textit{support vectors}.
+
+\medskip
+
+Let’s say our model is the following:
+\[
+f(x) = \text{sign}(w^T x + b)
+\]
+
+The hyperplane is defined as:
+\[
+w^T x + b = 0
+\]
+
+For a point $x$:
+\[
+f(x) = \text{sign}(w^T x + b)
+\]
+
+If $f(x) = +1$, the point belongs to one class.  
+If $f(x) = -1$, it belongs to the other.
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=0.6\textwidth]{C:/repos/tex-notes/cs4262/imgs/svm.png}
+\caption{Support Vector Machine separating two classes with a hyperplane.}
+\end{figure}
+
+\pagebreak
+The distance from point $x^(i)$ to our hyperplane seperator is:
+\[
+r(x^{(i)}) = \frac{1}{\left\lVert w \right\rVert} \, \left| w^T x^{(i)} + b \right|
+\]
+
+Margin $\rho$ is the distance between support vectors. And the purpose of SVM is to maximize this.
+
+\[
+\rho = \frac{2}{\|w\|}
+\]
+
+We also must look at our constraints, we want to maximize this $\rho$, while also making sure all points with $y=-1$ fall below the hyperplane and all points $y=1$ fall above. We write this as:
+
+\[
+\begin{cases}
+w^T x + b \;\leq\; -\tfrac{\rho}{2}\|w\|, & \text{if } y = -1 \\[6pt]
+w^T x + b \;\geq\; \tfrac{\rho}{2}\|w\|, & \text{if } y = 1
+\end{cases}
+\]
+
+\paragraph{Goal}
+\begin{itemize}
+    \item Find $w$ and $b$ such that
+    \[
+    \rho = \frac{2}{\|w\|} \quad \text{is maximized}
+    \]
+    \item And for all $(x^{(i)}, y^{(i)})$:
+    \[
+    y^{(i)} \big(w^T x^{(i)} + b\big) \;\geq\; 1 \quad \text{(Equivilent to above piecewise function)}
+    \]
+\end{itemize}
+
+And now in formulation
+\[
+ \min_{w,b} \; w^T \; \; \text{s.t.} \; \; y^{(i)} \big(w^T x^{(i)} + b\big) \;\geq\; 1, 
+\; \; \forall i
+\]
+
+\subsection*{What if data is not linearly separable?}
+
+\begin{itemize}
+    \item Hard-margin SVM can lead to some issues, for instance the real data may not be perfectly separable (noise, overlap).
+    \item So we can allow some ``errors'' in classification and choosing our hyperplane.
+\end{itemize}
+
+\paragraph*{Naive Formulation}
+\[
+\min_{w,b} \; w^T w + C \cdot \#\text{mistakes}
+\]
+\[
+\text{s.t.} \quad y^{(i)}(w^T x^{(i)} + b) \;\geq\; 1, \quad \forall i \setminus \{\text{mistakes}\}
+\]
+
+\begin{itemize}
+    \item $C$ = trade-off parameter.
+        \begin{itemize}
+            \item Large $C$: fewer mistakes allowed, narrower margin.
+            \item Small $C$: margin prioritized, more mistakes tolerated.
+        \end{itemize}
+\end{itemize}
+
+\paragraph*{Problems}
+\begin{itemize}
+    \item Not quadratic programming (QP), since $\#\text{mistakes}$ is discrete.
+    \item Uses 0/1 loss:
+    \begin{itemize}
+        \item Treats all mistakes equally.
+        \item No difference between a ``near miss'' and a ``bad mistake.''
+    \end{itemize}
+\end{itemize}
+
+\paragraph*{Soft-margin SVM}
+
+\begin{itemize}
+    \item Introduce slack variables $\xi_i \geq 0$.
+        \begin{itemize}
+            \item $\xi^{(i)} = 0$: correctly classified and outside the margin.
+            \item $0 < \xi^{(i)} \leq 1$: inside the margin but correctly classified.
+            \item $\xi^{(i)} > 1$: misclassified point.
+        \end{itemize}
+    \item $C$: \textbf{trade-off parameter}.
+        \begin{itemize}
+            \item Large $C$: penalizes violations heavily $\Rightarrow$ fewer mistakes, narrower margin.
+            \item Small $C$: allows more violations $\Rightarrow$ wider margin, more tolerance.
+        \end{itemize}
+\end{itemize}
+
+
+\[
+ \min_{w,b,\{\xi_i\}} \quad w^T w + C \sum_i \xi^{(i)} \; \; \text{s.t} \quad y^{(i)} \big(w^T x^{(i)} + b\big) \;\geq\; 1 - \xi^{(i)}, \; \; \forall i \;\; \xi^{(i)} \;\geq\; 0, \quad \forall i
+\]
+
+\begin{itemize}
+    \item This formulation is QP!
+    \item Distinguishes between a ``near miss'' (small $\xi$) and a ``bad mistake'' (large $\xi$).
+\end{itemize}
+
+\[
+(w^T x^{(i)} + b) y^{(i)} \;\geq\; 1 - \xi^{(i)}, \quad \forall i
+\]
+\[
+\xi^{(i)} \;\geq\; 0, \quad \forall i
+\]
+
+The penalty for misclassification is $C \, \xi^{(i)}$
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=0.4\textwidth]{C:/repos/tex-notes/cs4262/imgs/svm2.png}
+\caption{Support Vector Machine separating two classes with a hyperplane.}
+\end{figure}
+
+\paragraph*{Hinge Loss}
+\[
+\xi^{(i)} =
+\begin{cases}
+1 - \big(w^T x^{(i)} + b\big)y^{(i)}, & \text{not correct} \\[6pt]
+0, & \text{correct}
+\end{cases}
+\]
+
+\[
+\Longrightarrow \quad \xi^{(i)} = \max \big(0, \, 1 - (w^T x^{(i)} + b)y^{(i)}\big)
+\]
+
+
+\end{document}
+
