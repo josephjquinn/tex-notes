@@ -4,3 +4,5 @@ out/
 *.aux
 aux/
 *.log
+*.gz
+*.pdf
