@@ -170,6 +170,314 @@ The penalty for misclassification is $C \, \xi^{(i)}$
 \Longrightarrow \quad \xi^{(i)} = \max \big(0, \, 1 - (w^T x^{(i)} + b)y^{(i)}\big)
 \]
 
+\paragraph*{Optimization Problem}
+\[
+ \min_{w,b,\{\xi_i\}} \quad w^T w + C \sum_i \xi^{(i)} 
+ \;\; \text{s.t.} \;\; y^{(i)} \big(w^T x^{(i)} + b\big) \;\geq\; 1 - \xi^{(i)}, \;\; \forall i, 
+ \;\; \xi^{(i)} \;\geq\; 0, \quad \forall i
+\]
+
+\section*{Constrained Optimization}
+
+We consider the constrained optimization problem:
+\[
+\min_{x} f(x) \quad \text{s.t.} \quad g(x) \leq 0, \quad h(x) = 0
+\]
+
+This optimization problem is convex if and only if:
+\begin{itemize}
+    \item $f(x)$ and $g(x)$ are convex,
+    \item $h(x)$ is affine, i.e. \(h(x) = w^T x + w_0\)
+\end{itemize}
+The Lagrangian (dual function) is given by:
+\[
+\mathcal{L}(x, \alpha, \beta) = f(x) + \alpha g(x) + \beta h(x)
+\]
+where
+\[
+\alpha \geq 0, \quad \beta \in \mathbb{R}
+\]
+are the Lagrange multipliers.\\ 
+The Lemma is given by:
+\[
+\max_{\alpha \geq 0, \beta} \; \mathcal{L}(x, \alpha, \beta) =
+\begin{cases}
+f(x), & \text{if $x$ is feasible} \\
+\infty, & \text{otherwise}
+\end{cases}
+\]
+
+
+
+\subsection*{Strong Duality and KKT Conditions}
+
+If the problem is convex, then any (primal/dual) points that satisfy the
+Karush-Kuhn-Tucker (KKT) conditions are primal/dual optimal pairs. The KKT conditions are:
+
+\begin{enumerate}
+    \item Stationarity: 
+    \[
+    \nabla_x \mathcal{L}(x^*, \alpha^*, \beta^*) = 0
+    \]
+    \item Feasibility:
+    \[
+    \alpha^* \geq 0, \quad g(x^*) \leq 0, \quad h(x^*) = 0
+    \]
+    \item Complementary slackness:
+    \[
+    \alpha^* g(x^*) = 0
+    \]
+\end{enumerate}
+
+When these conditions hold:
+\[
+d^* = \max_{\alpha \geq 0, \beta} \min_x \mathcal{L}(x, \alpha, \beta) 
+= \min_x \max_{\alpha \geq 0, \beta} \mathcal{L}(x, \alpha, \beta) = p^*
+\]
+
+This is called \textbf{strong duality}.
+
+
+\subsection*{Example: Checking KKT Conditions}
+
+Consider the problem:
+\[
+\min_x \; x^2 \quad \text{s.t. } x \geq 1
+\]
+
+The Lagrangian is:
+\[
+\mathcal{L}(x, \alpha) = x^2 + \alpha (1 - x)
+\]
+
+Suppose $x^* = 1$, $\alpha^* = 2$. Let’s check KKT:
+
+\begin{itemize}
+    \item Stationarity: 
+    \[
+    \nabla_x \mathcal{L}(x, \alpha) = 2x - \alpha = 0 
+    \quad \Rightarrow \quad \alpha^* = 2x^* = 2
+    \]
+    \item Feasibility: 
+    \[
+    x^* = 1 \geq 1, \quad \alpha^* = 2 \geq 0
+    \]
+    \item Complementary slackness: 
+    \[
+    \alpha^* (1 - x^*) = 2(1 - 1) = 0
+    \]
+\end{itemize}
+
+All KKT conditions are satisfied $\Rightarrow$ $(x^*, \alpha^*) = (1,2)$ is optimal.
+
+\subsection	*{Summary}
+
+For a general constrained optimization problem
+\[
+\min_{x} f(x) \quad \text{s.t. } g(x) \leq 0, \quad h(x) = 0
+\]
+
+\begin{itemize}
+    \item \textbf{Non-convex problems:}
+    \[
+    d^* \leq p^* \quad \text{(Weak Duality)}
+    \]
+    KKT conditions are necessary but not sufficient.
+
+    \item \textbf{Convex problems:}
+    \[
+    d^* = p^* \quad \text{(Strong Duality)}
+    \]
+    KKT conditions are necessary and sufficient.
+\end{itemize}
+
+\subsection*{Applying to SVM}
+
+\textbf{Primal Problem}
+\[
+\min_{w,b} \;\; \tfrac{1}{2} w^T w 
+\quad \text{s.t.} \quad 
+y^{(i)} \big(w^T x^{(i)} + b \big) \geq 1
+\]
+\textbf{Dual Problem}
+\[
+\max_{\{\alpha^{(i)} \geq 0\}_i} 
+\;\; \min_{w,b} \left( 
+\tfrac{1}{2} w^T w \;+\; 
+\sum_i \alpha^{(i)} \Big[1 - y^{(i)} (w^T x^{(i)} + b) \Big] 
+\right)
+\]
+
+\section*{Dual SVM: Recovering $w^*$ and $b^*$}
+
+After solving the dual objective and obtaining the optimal multipliers $\alpha$, we can express the optimal $w$ as:
+\[
+w^* = \sum_i \alpha^{(i)} x^{(i)} y^{(i)}
+\]
+
+\subsection*{Recovering $b^*$}
+From KKT’s complementary slackness condition:
+\[
+\alpha^{(i)} g(x^{(i)}) = 0
+\quad \Rightarrow \quad
+\alpha^{(i)} \Big( y^{(i)} (w^{*T} x^{(i)} + b) - 1 \Big) = 0
+\]
+
+- For support vectors ($\alpha^{(i)} > 0$), this gives:
+\[
+y^{(i)} (w^{*T} x^{(i)} + b^*) = 1
+\]
+
+Rearranging, we obtain:
+\[
+b^{(i)} = y^{(i)} - w^{*T} x^{(i)}
+\]
+
+The final bias is computed as an average across support vectors:
+\[
+b^* = \text{avg}_{\{i : \alpha^{(i)} > 0\}} \; b^{(i)}
+\]
+
+\section*{Dual SVM: Linearly Separable Case}
+
+We start from the primal hard-margin SVM formulation:
+\[
+\min_{w,b} \;\; \tfrac{1}{2} \|w\|^2 
+\quad \text{s.t. } y^{(i)} (w^T x^{(i)} + b) \geq 1 \quad \forall i
+\]
+
+\subsection*{Lagrangian}
+Introduce multipliers $\alpha^{(i)} \geq 0$ for the constraints. The Lagrangian is:
+\[
+\mathcal{L}(w,b,\alpha) 
+= \tfrac{1}{2} w^T w 
++ \sum_i \alpha^{(i)} \Big[1 - y^{(i)} (w^T x^{(i)} + b)\Big]
+\]
+
+The dual problem is:
+\[
+\max_{\alpha \geq 0} \;\; \min_{w,b} \mathcal{L}(w,b,\alpha)
+\]
+
+\subsection*{Stationarity Conditions}
+
+\begin{itemize}
+    \item Gradient with respect to $w$:
+    \[
+    \nabla_w \mathcal{L} = w - \sum_i \alpha^{(i)} x^{(i)} y^{(i)} = 0
+    \]
+    which gives
+    \[
+    w^* = \sum_i \alpha^{(i)} y^{(i)} x^{(i)}
+    \]
+
+    \item Gradient with respect to $b$:
+    \[
+    \frac{\partial \mathcal{L}}{\partial b} 
+    = - \sum_i \alpha^{(i)} y^{(i)} = 0
+    \]
+    so
+    \[
+    \sum_i \alpha^{(i)} y^{(i)} = 0
+    \]
+\end{itemize}
+
+\subsection*{Substituting Back}
+Substitute $w^*$ into $\mathcal{L}$:
+
+\[
+(w^*)^T w^* = 
+\left( \sum_i \alpha^{(i)} y^{(i)} x^{(i)} \right)^T
+\left( \sum_j \alpha^{(j)} y^{(j)} x^{(j)} \right)
+= \sum_{i,j} \alpha^{(i)} \alpha^{(j)} y^{(i)} y^{(j)} \langle x^{(i)}, x^{(j)} \rangle
+\]
+
+Hence the dual problem becomes:
+\[
+\max_{\alpha \geq 0} 
+\;\; \sum_i \alpha^{(i)} 
+- \tfrac{1}{2} \sum_{i,j} \alpha^{(i)} \alpha^{(j)} y^{(i)} y^{(j)} \langle x^{(i)}, x^{(j)} \rangle
+\]
+
+subject to the constraint:
+\[
+\sum_i \alpha^{(i)} y^{(i)} = 0
+\]
+
+\subsection*{Final Dual SVM}
+\[
+\boxed{
+\begin{aligned}
+\max_{\alpha} \quad & 
+\sum_i \alpha^{(i)} 
+- \tfrac{1}{2} \sum_{i,j} \alpha^{(i)} \alpha^{(j)} y^{(i)} y^{(j)} \langle x^{(i)}, x^{(j)} \rangle \\
+\text{s.t.} \quad & \alpha^{(i)} \geq 0 \;\; \forall i, \\
+& \sum_i \alpha^{(i)} y^{(i)} = 0
+\end{aligned}
+}
+\]
+
+\subsection*{Interpretation}
+\begin{itemize}
+    \item $w^*$ is a linear combination of training points.
+    \item Only points with $\alpha^{(i)} > 0$ affect $w^*$ (the \textbf{support vectors}).
+    \item The equality constraint enforces balance across classes.
+\end{itemize}
+
+\section*{Dual SVM: Recovering $w^*$ and $b^*$}
+
+After solving the dual objective and obtaining the optimal multipliers $\alpha$, we can express the optimal $w$ as:
+\[
+w^* = \sum_i \alpha^{(i)} x^{(i)} y^{(i)}
+\]
+
+\subsection*{Recovering $b^*$}
+From KKT’s complementary slackness condition:
+\[
+\alpha^{(i)} g(x^{(i)}) = 0
+\quad \Rightarrow \quad
+\alpha^{(i)} \Big( y^{(i)} (w^{*T} x^{(i)} + b) - 1 \Big) = 0
+\]
+
+- For support vectors ($\alpha^{(i)} > 0$), this gives:
+\[
+y^{(i)} (w^{*T} x^{(i)} + b^*) = 1
+\]
+
+Rearranging, we obtain:
+\[
+b^{(i)} = y^{(i)} - w^{*T} x^{(i)}
+\]
+
+The final bias is computed as an average across support vectors:
+\[
+b^* = \text{avg}_{\{i : \alpha^{(i)} > 0\}} \; b^{(i)}
+\]
+
+---
+
+\section*{Primal Classifier vs. Dual Classifier}
+
+\subsection*{Primal Classifier}
+In primal form, the decision function is:
+\[
+f(x) = \text{sign}(w^T x + b)
+\]
+
+\subsection*{Dual Classifier}
+Substituting $w^* = \sum_i \alpha^{(i)} y^{(i)} x^{(i)}$, we obtain the dual classifier:
+\[
+f(x) = \text{sign}\!\left( \sum_i \alpha^{(i)} y^{(i)} \langle x^{(i)}, x \rangle + b \right)
+\]
+
+\subsection*{Key Observations}
+\begin{itemize}
+    \item Only support vectors ($\alpha^{(i)} > 0$) contribute to the classifier.
+    \item The margin is $\tfrac{2}{\|w\|}$, determined entirely by support vectors.
+    \item This dual form makes it easy to extend SVMs using kernels by replacing inner products $\langle x^{(i)}, x \rangle$ with kernel functions $K(x^{(i)}, x)$.
+\end{itemize}
+
+
 
 \end{document}
 
