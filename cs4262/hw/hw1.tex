@@ -1,3 +1,4 @@
+
 \documentclass{article}
 
 % -----------------------------
@@ -12,6 +13,7 @@
 \usepackage[plain]{algorithm}
 \usepackage{algpseudocode}
 \usepackage{amssymb}
+\usepackage{graphicx}
 
 \usetikzlibrary{automata,positioning}
 
@@ -66,6 +68,14 @@
 
 % -----------------------------
 % Homework Problem Environment
+%   Usage:
+%   \begin{homeworkProblem}            % auto-number
+%     % Your answer here
+%   \end{homeworkProblem}
+%
+%   \begin{homeworkProblem}[7]         % set problem number to 7
+%     % Your answer here
+%   \end{homeworkProblem}
 % -----------------------------
 \newenvironment{homeworkProblem}[1][-1]{
   \ifnum#1>0
@@ -132,6 +142,7 @@
 \pagebreak
 
 \begin{homeworkProblem}
+\subsection{Part 1}
 	\textbf{(a) Conditional distribution.}
 	\[
 		p(y^{(i)} \mid x^{(i)} , f, \sigma)
@@ -181,9 +192,9 @@
 		\hat c = (X^\top X)^{-1}X^\top y.
 	\]
 \end{homeworkProblem}
+\pagebreak
+\subsection{Part 2}
 
-
-\begin{homeworkProblem}
 	\textbf{(a) Conditional distribution.}
 
 	Now the noise variance depends on $i$, with
@@ -243,9 +254,9 @@
 	\[
 		\hat c = (X^\top A X)^{-1} X^\top A y.
 	\]
-\end{homeworkProblem}
+    \pagebreak
+\subsection{Part 3}
 
-\begin{homeworkProblem}
 	\textbf{(a) Conditional distribution.}
 
 	The noise terms follow a Laplace distribution with location $\mu = 0$ and scale $b$.
@@ -289,65 +300,97 @@
 	Compared to least squares (L2), the L1 loss grows linearly rather than quadratically,
 	so large errors (outliers) have less influence.
 	This makes the estimator more robust to outliers in the data.
-\end{homeworkProblem}
-
+\pagebreak
 \begin{homeworkProblem}
-	\textbf{(1) Likelihood and Negative Log-Likelihood.}
+\subsection{Part 1}
+\textbf{(x1)}
+Error: 53,007.39
+\begin{figure}[h] % h = here, t = top, b = bottom
+    \centering
+    \includegraphics[width=0.6\textwidth]{model_x1.png} % 
+    \caption{Linear regression fit (x1)}
+    \label{fig:sample}
+\end{figure}
 
-	For binary labels $y^{(i)} \in \{0,1\}$ and nonlinear feature map $\varphi(x)$, the model is
-	\[
-		f(x) = \sigma(w^\top \varphi(x)), \quad \sigma(z) = \frac{1}{1+e^{-z}}.
-	\]
+\textbf{(x2)}
+Error: 67,402.18
+\begin{figure}[h] % h = here, t = top, b = bottom
+    \centering
+    \includegraphics[width=0.6\textwidth]{model_x2.png} % 
+    \caption{Linear regression fit (x2)}
+    \label{fig:sample}
+\end{figure}
 
-	The likelihood for a single data point is
-	\[
-		p(y^{(i)} \mid x^{(i)}, w) = \big(f(x^{(i)})\big)^{y^{(i)}} \big(1 - f(x^{(i)})\big)^{1-y^{(i)}}.
-	\]
+\pagebreak
+\textbf{(x1,x2)}
+Error: 43,871.68
+\begin{figure}[h] % h = here, t = top, b = bottom
+    \centering
+    \includegraphics[width=0.6\textwidth]{model_x1_x2.png} % 
+    \caption{Linear regression fit (x1,x2)}
+    \label{fig:sample}
+\end{figure}
 
-	For all $N$ samples:
-	\[
-		L(w) = \prod_{i=1}^N \big(f(x^{(i)})\big)^{y^{(i)}} \big(1 - f(x^{(i)})\big)^{1-y^{(i)}}.
-	\]
+\subsection{Part 2}
+We are now solving a non-linear polynomial regression compared to the previous linear regression models. 
 
-	Log-likelihood:
-	\[
-		\ell(w) = \sum_{i=1}^N \left[ y^{(i)} \log f(x^{(i)}) + (1-y^{(i)}) \log (1-f(x^{(i)})) \right].
-	\]
+The loss for this model is 
+\[
+39{,}013.01
+\]
+which is lower than the loss of the linear model using \((x_1, x_2)\), given by 
+\[
+43{,}871.68.
+\]
 
-	Negative log-likelihood (NLL):
-	\[
-		\text{NLL}(w) = -\ell(w).
-	\]
+\pagebreak
 
-	This makes sense because it is the Bernoulli likelihood of seeing the observed labels given predicted probabilities.
+\subsection*{3. Ridge Regression}
 
-	\vspace{0.3cm}
-	\textbf{(2) Convexity of NLL.}
+The ridge regression solution is:
+\[
+w^{*} = (X^{\top}X + \lambda I)^{-1} X^{\top}y,
+\]
 
-	Gradient of NLL:
-	\[
-		\nabla_w \text{NLL}(w) = \sum_{i=1}^N \big(f(x^{(i)}) - y^{(i)}\big)\,\varphi(x^{(i)}).
-	\]
+where $\lambda$ is the regularization coefficient.
 
-	Hessian:
-	\[
-		\nabla_w^2 \text{NLL}(w) = \sum_{i=1}^N f(x^{(i)})(1-f(x^{(i)}))\,\varphi(x^{(i)}) \varphi(x^{(i)})^\top.
-	\]
+We experiment with
+\[
+\lambda \in \{10^{-5},\, 10^{-4},\, 10^{-3},\, 10^{-2},\, 10^{-1}\}.
+\]
 
-	Each term is positive semidefinite since $f(x^{(i)})(1-f(x^{(i)})) \geq 0$ and $\varphi(x^{(i)}) \varphi(x^{(i)})^\top$ is PSD.
-	Therefore, $\text{NLL}(w)$ is convex.
+\noindent \textbf{Results:}
 
-	\vspace{0.3cm}
-	\textbf{(3) Gradient Descent Update.}
+\begin{table}[h]
+\centering
+\begin{tabular}{c c}
+\hline
+$\lambda$ & Test Error \\
+\hline
+$1 \times 10^{-5}$ & $60{,}833.94$ \\
+$1 \times 10^{-4}$ & $60{,}819.43$ \\
+$1 \times 10^{-3}$ & $60{,}676.10$ \\
+$1 \times 10^{-2}$ & $59{,}407.39$ \\
+$1 \times 10^{-1}$ & $54{,}314.09$ \\
+\hline
+\end{tabular}
+\caption{Ridge regression test errors for different values of $\lambda$.}
+\end{table}
 
-	With learning rate $\epsilon$, the update rule is
-	\[
-		w \;\leftarrow\; w - \epsilon \,\nabla_w \text{NLL}(w),
-	\]
-	which expands to
-	\[
-		w \;\leftarrow\; w - \epsilon \sum_{i=1}^N \big(f(x^{(i)}) - y^{(i)}\big)\,\varphi(x^{(i)}).
-	\]
+\begin{figure}[h] % h = here, t = top, b = bottom
+    \centering
+    \includegraphics[width=0.6\textwidth]{ridge-regression.png} % 
+    \caption{Ridge regression error by lambda}
+    \label{fig:sample}
+\end{figure}
+
+
+For very small $\lambda$, the results are close to ordinary least squares.  
+As $\lambda$ increases moderately, the test error decreases, suggesting better generalization.  
+When $\lambda$ becomes too large, the model begins to underfit, leading to higher errors.  
+The trend aligns with expectations: the error curve should take a U-shape, initially decreasing and then rising as $\lambda$
+
+
+
 \end{homeworkProblem}
-
 \end{document}
