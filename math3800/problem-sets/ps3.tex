@@ -262,7 +262,6 @@
 	\]
 \end{homeworkProblem}
 
-
 \begin{homeworkProblem}
 	\begin{proof}
 		Since $\gcd(a,b) = d$, we may write
@@ -287,10 +286,34 @@
 	\end{proof}
 \end{homeworkProblem}
 
-
 \begin{homeworkProblem}
+	\begin{theorem}
+		Let $a, b, u, v \in \mathbb{Z}$. If $\gcd(a,b) = 1$ and $u \mid a$ and
+		$v \mid b$, then $\gcd(u,v) = 1$.
+	\end{theorem}
 
+	\begin{proof}
+		Since $\gcd(a,b) = 1$, by Bézout's identity there exist integers
+		$x,y \in \mathbb{Z}$ such that
+		\[
+			ax + by = 1.
+		\]
+		Because $u \mid a$, there exists $k \in \mathbb{Z}$ such that $a = ku$.
+		Similarly, since $v \mid b$, there exists $l \in \mathbb{Z}$ such that $b = lv$.
+
+		Substituting these into Bézout’s equation gives
+		\[
+			(ku)x + (lv)y = 1.
+		\]
+		Rearranging,
+		\[
+			u(kx) + v(ly) = 1.
+		\]
+		Thus, $1$ can be expressed as an integer linear combination of $u$ and $v$.
+		By Bézout’s identity, this implies $\gcd(u,v) = 1$.
+	\end{proof}
 \end{homeworkProblem}
+
 
 \begin{homeworkProblem}
 	\paragraph{(i)}
