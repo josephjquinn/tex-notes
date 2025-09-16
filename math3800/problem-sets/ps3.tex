@@ -354,6 +354,61 @@
 \end{homeworkProblem}
 
 \begin{homeworkProblem}
+	\paragraph{(i)}
+
+	Case 1: $a<b$
+	\begin{align*}
+		m+n & = p^a u + p^b v                 \\
+		    & = p^a\Big(u + p^{\,b-a} v\Big).
+	\end{align*}
+	Now $b-a\ge 1$, so $p\mid p^{\,b-a}v$. Also $p\nmid u$. Hence
+	\[
+		u+p^{\,b-a}v \equiv u \not\equiv 0 \pmod p,
+	\]
+	so $p\nmid\big(u+p^{\,b-a}v\big)$. Therefore no extra factor of $p$ sits in the bracket, and
+	\[
+		p^a \parallel (m+n).
+	\]
+
+	Case 2: $b<a$. By symmetry (swap the roles of $m,n$), the same reasoning gives
+	\[
+		p^b \parallel (m+n).
+	\]
+
+	Based on this we can conclude,
+	\[
+		p^{\min(a,b)} \parallel (m+n).
+	\]
+
+	\medskip
+
+	\paragraph{(ii)}
+	Compute:
+	\begin{align*}
+		mn & = (p^a u)(p^b v) \\
+		   & = p^{a+b}\,(uv).
+	\end{align*}
+	Since $p\nmid u$ and $p\nmid v$, we have $p\nmid uv$ (if $p$ divided $uv$, it would divide at least one of $u$ or $v$). Thus no further $p$-power divides $uv$, and
+	\[
+		p^{a+b} \parallel (mn).
+	\]
+
+	\medskip
+
+	\paragraph{(iii)}
+
+	With $m=p^a u$ and $p\nmid u$,
+	\begin{align*}
+		m^n & = (p^a u)^n    \\
+		    & = p^{an}\,u^n.
+	\end{align*}
+	If $p\nmid u$ then $p\nmid u^n$ (a prime dividing a power would divide the base). Hence no further $p$-power divides $u^n$, and
+	\[
+		p^{an} \parallel (m^n).
+	\]
+\end{homeworkProblem}
+
+\begin{homeworkProblem}
 
 	\begin{proof}
 		Let $d = \gcd(u,v)$. We will show that $d=1$.
