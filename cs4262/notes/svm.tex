@@ -79,7 +79,7 @@ w^T x + b \;\geq\; \tfrac{\rho}{2}\|w\|, & \text{if } y = 1
 
 And now in formulation
 \[
- \min_{w,b} \; w^T \; \; \text{s.t.} \; \; y^{(i)} \big(w^T x^{(i)} + b\big) \;\geq\; 1, 
+ \min_{w,b} \; w^Tw \; \; \text{s.t.} \; \; y^{(i)} \big(w^T x^{(i)} + b\big) \;\geq\; 1, 
 \; \; \forall i
 \]
 
@@ -291,7 +291,7 @@ For a general constrained optimization problem
     KKT conditions are necessary and sufficient.
 \end{itemize}
 
-\subsection*{Applying to SVM}
+\section*{Applying to SVM}
 
 \textbf{Primal Problem}
 \[
@@ -308,58 +308,7 @@ y^{(i)} \big(w^T x^{(i)} + b \big) \geq 1
 \right)
 \]
 
-\section*{Dual SVM: Recovering $w^*$ and $b^*$}
-
-After solving the dual objective and obtaining the optimal multipliers $\alpha$, we can express the optimal $w$ as:
-\[
-w^* = \sum_i \alpha^{(i)} x^{(i)} y^{(i)}
-\]
-
-\subsection*{Recovering $b^*$}
-From KKT’s complementary slackness condition:
-\[
-\alpha^{(i)} g(x^{(i)}) = 0
-\quad \Rightarrow \quad
-\alpha^{(i)} \Big( y^{(i)} (w^{*T} x^{(i)} + b) - 1 \Big) = 0
-\]
-
-- For support vectors ($\alpha^{(i)} > 0$), this gives:
-\[
-y^{(i)} (w^{*T} x^{(i)} + b^*) = 1
-\]
-
-Rearranging, we obtain:
-\[
-b^{(i)} = y^{(i)} - w^{*T} x^{(i)}
-\]
-
-The final bias is computed as an average across support vectors:
-\[
-b^* = \text{avg}_{\{i : \alpha^{(i)} > 0\}} \; b^{(i)}
-\]
-
-\section*{Dual SVM: Linearly Separable Case}
-
-We start from the primal hard-margin SVM formulation:
-\[
-\min_{w,b} \;\; \tfrac{1}{2} \|w\|^2 
-\quad \text{s.t. } y^{(i)} (w^T x^{(i)} + b) \geq 1 \quad \forall i
-\]
-
-\subsection*{Lagrangian}
-Introduce multipliers $\alpha^{(i)} \geq 0$ for the constraints. The Lagrangian is:
-\[
-\mathcal{L}(w,b,\alpha) 
-= \tfrac{1}{2} w^T w 
-+ \sum_i \alpha^{(i)} \Big[1 - y^{(i)} (w^T x^{(i)} + b)\Big]
-\]
-
-The dual problem is:
-\[
-\max_{\alpha \geq 0} \;\; \min_{w,b} \mathcal{L}(w,b,\alpha)
-\]
-
-\subsection*{Stationarity Conditions}
+\subsection*{Solving Dual SVM}
 
 \begin{itemize}
     \item Gradient with respect to $w$:
@@ -382,7 +331,6 @@ The dual problem is:
     \]
 \end{itemize}
 
-\subsection*{Substituting Back}
 Substitute $w^*$ into $\mathcal{L}$:
 
 \[
@@ -404,9 +352,8 @@ subject to the constraint:
 \sum_i \alpha^{(i)} y^{(i)} = 0
 \]
 
-\subsection*{Final Dual SVM}
+Making our dual formulation:
 \[
-\boxed{
 \begin{aligned}
 \max_{\alpha} \quad & 
 \sum_i \alpha^{(i)} 
@@ -414,17 +361,13 @@ subject to the constraint:
 \text{s.t.} \quad & \alpha^{(i)} \geq 0 \;\; \forall i, \\
 & \sum_i \alpha^{(i)} y^{(i)} = 0
 \end{aligned}
-}
 \]
 
-\subsection*{Interpretation}
-\begin{itemize}
-    \item $w^*$ is a linear combination of training points.
-    \item Only points with $\alpha^{(i)} > 0$ affect $w^*$ (the \textbf{support vectors}).
-    \item The equality constraint enforces balance across classes.
-\end{itemize}
 
-\section*{Dual SVM: Recovering $w^*$ and $b^*$}
+Only points with $\alpha^{(i)} > 0$ affect $w^*$ (the \textbf{support vectors}).
+
+
+\subsection*{Getting our solution $w^*$ and $b^*$}
 
 After solving the dual objective and obtaining the optimal multipliers $\alpha$, we can express the optimal $w$ as:
 \[
@@ -454,8 +397,6 @@ The final bias is computed as an average across support vectors:
 b^* = \text{avg}_{\{i : \alpha^{(i)} > 0\}} \; b^{(i)}
 \]
 
----
-
 \section*{Primal Classifier vs. Dual Classifier}
 
 \subsection*{Primal Classifier}
@@ -477,7 +418,11 @@ f(x) = \text{sign}\!\left( \sum_i \alpha^{(i)} y^{(i)} \langle x^{(i)}, x \rangl
     \item This dual form makes it easy to extend SVMs using kernels by replacing inner products $\langle x^{(i)}, x \rangle$ with kernel functions $K(x^{(i)}, x)$.
 \end{itemize}
 
-
+\textbf{When to use:}
+\begin{itemize}
+    \item Primal: $n \gg d$ (many samples, few features).
+    \item Dual: $d \gg n$ or when using kernels.
+\end{itemize}
 
 \end{document}
 
