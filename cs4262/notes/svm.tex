@@ -424,5 +424,28 @@ f(x) = \text{sign}\!\left( \sum_i \alpha^{(i)} y^{(i)} \langle x^{(i)}, x \rangl
     \item Dual: $d \gg n$ or when using kernels.
 \end{itemize}
 
+\pagebreak
+\section*{Nonlinear SVMs}
+\textbf{Primal Classifier} \(f(x) = \text{sign}(w^T \phi (x) + b)\) \\ 
+\textbf{Dual Classifier} \(f(x) = \text{sign}\left( \sum_i \alpha^{(i)} y^{(i)} (\phi{(x)^T\phi{(x^{(i)})}}) + b \right)\) \\
+
+\section*{Kernel Trick}
+
+Replace inner product with a kernel function
+\[
+K(x,z) = \langle \phi(x), \phi(z)\rangle.
+\]
+So we never compute $\phi(x)$ explicitly. \\
+
+\textbf{Examples:}
+\begin{itemize}
+    \item Linear kernel: $K(x,z) = x^\top z$
+    \item Polynomial kernel: $K(x,z) = (x^\top z + c)^d$
+    \item RBF kernel: $K(x,z) = \exp\!\left(-\tfrac{\|x-z\|^2}{2\sigma^2}\right)$
+\end{itemize}
+These are \textbf{significantly} more efficient to compute!
+
+\pagebreak
+
 \end{document}
 
