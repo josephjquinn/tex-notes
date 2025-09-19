@@ -453,5 +453,95 @@ MSE for regression:
 \min_{w,b} \sum_i (y^{(i)} - w^T \phi{(x^{(i)})} - b)^2
 \]
 
+\subsection*{Primal Problem}
+We want a flat function:
+\[
+f(x) = w^T \phi(x) + b
+\]
+subject to an $\epsilon$-insensitive loss:
+\[
+\min_{w} \frac{1}{2}\|w\|^2
+\quad \text{s.t.} \quad |y^{(i)} - w^T \phi(x^{(i)}) - b| \leq \epsilon \quad \forall i
+\]
+
+
+\subsection*{Dual Problem}
+Introduce Lagrange multipliers $\alpha^{(i)}, \beta^{(i)} \geq 0$:
+\[
+\mathcal{L}(w,\alpha,\beta) 
+= \frac{1}{2}\|w\|^2 
++ \sum_i (\alpha^{(i)} - \beta^{(i)})(y^{(i)} - w^T\phi(x^{(i)}) - b) 
+- \epsilon \sum_i (\alpha^{(i)} + \beta^{(i)})
+\]
+
+Stationarity conditions:
+\[
+\nabla_w \mathcal{L} = w - \sum_i (\alpha^{(i)} - \beta^{(i)})\phi(x^{(i)}) = 0 
+\quad \Rightarrow \quad 
+w^* = \sum_i (\alpha^{(i)} - \beta^{(i)}) \phi(x^{(i)})
+\]
+\[
+\frac{\partial \mathcal{L}}{\partial b} = \sum_i (\alpha^{(i)} - \beta^{(i)}) = 0
+\]
+
+Substituting back:
+\[
+\max_{\alpha, \beta} \sum_i y^{(i)}(\alpha^{(i)} - \beta^{(i)})
+- \frac{1}{2} \sum_{i,j} (\alpha^{(i)} - \beta^{(i)})(\alpha^{(j)} - \beta^{(j)}) 
+\phi(x^{(i)})^T \phi(x^{(j)})
+- \epsilon \sum_i (\alpha^{(i)} + \beta^{(i)})
+\]
+
+Cleaner dual (with kernel $K(x_i, x_j) = \phi(x_i)^T \phi(x_j)$):
+\[
+\max_{\alpha, \beta} 
+y^T (\alpha - \beta) 
+- (\alpha - \beta)^T K (\alpha - \beta)
+- \epsilon e^T (\alpha + \beta)
+\]
+subject to
+\[
+1^T (\alpha - \beta) = 0, \quad \alpha^{(i)}, \beta^{(i)} \geq 0
+\]
+
+
+\subsection*{Soft Margin SVR}
+Introduce slack variables $\xi^{(i)} \geq 0$:
+\[
+\min_{w, \xi} \frac{1}{2}\|w\|^2 + C \sum_i \xi^{(i)}
+\]
+\[
+\text{s.t.} \quad |y^{(i)} - w^T\phi(x^{(i)}) - b| \leq \epsilon + \xi^{(i)}, 
+\quad \xi^{(i)} \geq 0
+\]
+
+Dual form:
+\[
+\max_{\alpha, \beta} 
+y^T (\alpha - \beta) 
+- (\alpha - \beta)^T K (\alpha - \beta) 
+- \epsilon e^T (\alpha + \beta)
+\]
+subject to
+\[
+1^T (\alpha - \beta) = 0, \quad 0 \leq \alpha^{(i)}, \beta^{(i)} \leq C
+\]
+
+\subsection*{Regression Function}
+\begin{itemize}
+\item Primal form:
+\[
+f(x) = w^T \phi(x) + b
+\]
+\item Dual form:
+\[
+f(x) = \sum_i (\alpha^{(i)} - \beta^{(i)}) K(x^{(i)}, x) + b
+\]
+where 
+\[
+K(x, x') = \phi(x)^T \phi(x')
+\]
+\end{itemize}
+
 \end{document}
 
