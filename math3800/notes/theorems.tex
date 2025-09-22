@@ -4,6 +4,8 @@
 \usepackage{amsthm}
 \usepackage{amsfonts}
 \usepackage{amssymb}
+\usepackage{array}
+
 
 \topmargin=-0.45in
 \evensidemargin=0in
@@ -33,37 +35,50 @@
 }
 
 \begin{document}
+\setcounter{section}{-1}
+
+
+\section{Introduction}
+\[
+	\mathbb{N} = \{1,2,3,4,\dots\}
+\]
+\[
+	\mathbb{N}_0 = \{0,1,2,3,4,\dots\}
+\]
+\[
+	\mathbb{Z} = \{\dots,-3,-2,-1,0,1,2,3,\dots\}
+\]
+
+\begin{itemize}
+	\item $\mathbb{N}$: only positive whole numbers (and maybe $0$).
+	\item $\mathbb{Z}$: all whole numbers, positive, negative, and $0$.
+\end{itemize}
+\subsection{Proof Strategies}
+
+\begin{tabular}{|>{\bfseries}m{3cm}|m{10cm}|}
+	\hline
+	Strategy                       & Core Idea                                                                                                                                                             \\
+	\hline
+	Direct                         & Start from given assumptions and proceed step by step until the desired statement emerges.                                                                            \\
+	\hline
+	Contrapositive                 & Instead of proving ``If $P$ is true, then $Q$ is true,'' prove the equivalent statement ``If $Q$ is false, then $P$ is false.'' Often the negative form is easier.    \\
+	\hline
+	Contradiction                  & Instead of proving ``If $P$ is true, then $Q$ is true,'' assume ``$P$ is true and $Q$ is false'' and use the assumptions to reach an impossibility (such as $0 = 1$). \\
+	\hline
+	Induction (ordinary or strong) & Prove an initial case; then show that whenever the statement holds for one (or all earlier) integer(s), it holds for the next.                                        \\
+	\hline
+\end{tabular}
+
 
 \section{Divide and Conquer}
-\subsection{Definitions}
 
-\begin{definition*}
-	The natural numbers are the positive integers $\{1, 2, 3, 4, \ldots\}$. We denote the natural numbers by $\mathbb{N}$ or $\mathbb{Z}_{>0}$. If we wish to include $0$, we write $\mathbb{N}_0$ or $\mathbb{Z}_{\geq 0}$.
-\end{definition*}
+\subsection{Divisibility}
 
 \begin{definition*}
 	Suppose $a$ and $d$ are integers. Then we say $d$ divides $a$, denoted $d \mid a$, if (and only if) there is an integer $k$ such that $a = kd$. We may also say that $d$ is a divisor or factor of $a$, and that $a$ is a multiple of $d$.
 \end{definition*}
 
-\begin{definition*}
-	Suppose $a$, $b$ and $n$ are integers, with $n > 0$. We say that $a$ and $b$ are congruent modulo $n$ if $n \mid (a - b)$. We denote this relationship as
-	\[a \equiv b \pmod{n}\]
-	and read these symbols as ``$a$ is congruent to $b$ modulo $n$''.
-\end{definition*}
 
-\begin{definition*}
-	A common divisor of integers $a$ and $b$ is an integer $d$ such that $d \mid a$ and $d \mid b$.
-\end{definition*}
-
-\begin{definition*}
-	The greatest common divisor of two integers $a$ and $b$, not both $0$, is the largest integer $d$ such that $d \mid a$ and $d \mid b$. The greatest common divisor of two integers $a$ and $b$ is denoted $\gcd(a, b)$ or more briefly as just $(a, b)$.
-\end{definition*}
-
-\begin{definition*}
-	If $\gcd(a, b) = 1$, then $a$ and $b$ are said to be relatively prime.
-\end{definition*}
-
-\subsection{Divisibility}
 
 \begin{theorem*}
 	Let $n$ be an integer. If $14 \mid n$, then $7 \mid n$.
@@ -81,11 +96,14 @@
 	Let $a, n, b, r, k \in \mathbb{Z}$. If $a = nb + r$ and $k \mid a$ and $k \mid b$, then $k \mid r$.
 \end{manualtheorem}
 
-\begin{manualtheorem}{1.33}
-	Let $a, b, n_1, r_1 \in \mathbb{Z}$ with $a$ and $b$ not both $0$. If $a = n_1b + r_1$, then $\gcd(a, b) = \gcd(b, r_1)$.
-\end{manualtheorem}
 
-\subsection{Congruence Theorems}
+\subsection{Congruency}
+\begin{definition*}
+	Suppose $a$, $b$ and $n$ are integers, with $n > 0$. We say that $a$ and $b$ are congruent modulo $n$ if $n \mid (a - b)$. We denote this relationship as
+	\(a \equiv b \pmod{n}\)
+\end{definition*}
+
+
 
 \begin{theorem*}
 	Let $k \in \mathbb{Z}$. If $k \equiv 5 \pmod{2}$, then $k \equiv 3 \pmod{2}$.
@@ -123,8 +141,8 @@
 	Let $a, b, c, n \in \mathbb{Z}$ with $n>0$. If $ac \equiv bc \pmod{n}$ and $(c,n)=1$, then $a \equiv b \pmod{n}$.
 \end{manualtheorem}
 
-\subsection{Summation Theorems}
 
+\subsection{Number Properties}
 \begin{theorem*}
 	For every natural number $n$, $1 + 2 + 2^{2} + \cdots + 2^{n} = 2^{\,n+1}-1$.
 \end{theorem*}
@@ -133,31 +151,75 @@
 	For all $n \in \mathbb{N}$, we have $1 + 2 + \cdots + n = \frac{n(n+1)}{2}$.
 \end{manualtheorem}
 
-\subsection{Number Properties}
-
 \begin{theorem*}
 	The number $n^2 - n$ is even for every $n \in \mathbb{Z}$.
 \end{theorem*}
-
-\subsection{Fundamental Theorems}
 
 \begin{theorem*}
 	Let $S$ be any nonempty set of natural numbers. Then $S$ has a smallest element.
 \end{theorem*}
 
-\begin{manualtheorem}{1.26}
-	Let $n$ and $m$ be natural numbers. Then there exist integers $q$ and $r$ such that $m = nq + r$ and $0 \leq r \leq n - 1$.
+\begin{manualtheorem}{1.27}
+For every natural number n there is a natural number k such that 11k
+differs from n by less than 11. \\Note that the same proof works when 11 is replaced by any natural number.
 \end{manualtheorem}
 
-\begin{manualtheorem}{1.27}
-	If $q, q'$ and $r, r'$ are integers that satisfy $m = nq + r = nq' + r'$ with $0 \leq r, r' \leq n - 1$, then $q = q'$ and $r = r'$.
+\subsection{The Division Algorithm}
+Let $n, m \in \mathbb{N}$ with $n > 0$.
+\begin{theorem*}
+	\textbf{Existence}
+	There exist integers $q$ (quotient) and $r$ (remainder) such that
+	\[
+		m = nq + r, \qquad 0 \leq r \leq n - 1.
+	\]
+\end{theorem*}
+
+\begin{theorem*}
+	\textbf{Uniqueness}
+	If $q, q'$ and $r, r'$ are integers such that
+	\[
+		m = nq + r = nq' + r', \qquad 0 \leq r, r' \leq n - 1,
+	\]
+	then $q = q'$ and $r = r'$.
+\end{theorem*}
+
+
+\subsection{GCD and Linear Diophantine Equations}
+
+\begin{definition*}
+	A common divisor of integers $a$ and $b$ is an integer $d$ such that $d \mid a$ and $d \mid b$.
+\end{definition*}
+
+\begin{definition*}
+	The greatest common divisor of two integers $a$ and $b$, not both $0$, is the largest integer $d$ such that $d \mid a$ and $d \mid b$. The greatest common divisor of two integers $a$ and $b$ is denoted $\gcd(a, b)$ or more briefly as just $(a, b)$.
+\end{definition*}
+
+\begin{definition*}
+	If $\gcd(a, b) = 1$, then $a$ and $b$ are said to be relatively prime.
+\end{definition*}
+\begin{manualtheorem}{1.32}
+Let $a, n, b, r,$ and $k$ be integers. If $a = nb + r$ and $k \mid a$ and $k \mid b$,
+then $k \mid r$.
+\end{manualtheorem}
+
+\begin{manualtheorem}{1.33}
+	Let $a, b, n_{1}, r_{1}$ be integers with $a$ and $b$ not both $0$.  
+If $a = n_{1}b + r_{1}$, then $(a, b) = (b, r_{1})$.
 \end{manualtheorem}
 
 \begin{theorem*}
-	The Euclidean algorithm terminates after finitely many steps and outputs $\gcd(a, b)$, the greatest common divisor of $a$ and $b$.
+	The Euclidean algorithm terminates after finitely many steps and outputs
+(a, b), the greatest common divisor of a and b.
 \end{theorem*}
 
-\subsection{GCD and Linear Diophantine Equations}
+\begin{theorem}
+The Extended Euclidean Algorithm terminates after finitely many steps and 
+produces integers $x$ and $y$ such that
+\[
+\gcd(a,b) = ax + by.
+\]
+\end{theorem}
+
 
 \begin{manualtheorem}{1.38}
 	If $(a,b)=1$, then there exist integers $x,y$ such that $ax+by=1$.
@@ -210,10 +272,10 @@
 	the product of natural numbers less than $p$.
 \end{definition*}
 
-\begin{definition}
+\begin{definition*}
 	A natural number $n$ is $composite$ if and only if $n$ is not $prime$. That is,
 	$n$ is a product of natural numbers less than $n$.
-\end{definition}
+\end{definition*}
 
 \begin{manualtheorem}{2.1}
 	If $n$ is a natural number greater than 1, then there exists a prime $p$
@@ -233,6 +295,27 @@
 	\[
 		n = p_1^{r_1} p_2^{r_2} \cdots p_m^{r_m}.
 	\]
+\end{manualtheorem}
+
+\begin{manualtheorem}{2.9}
+	\textbf{Fundamental Theorem of Arithmetic (Uniqueness Part).}
+	Let $n$ be a natural number. Let $\{p_{1}, p_{2}, \ldots, p_{m}\}$ and $\{q_{1}, q_{2}, \ldots, q_{s}\}$ be sets of primes with $p_{i} \neq p_{j}$ if $i \neq j$ and $q_{i} \neq q_{j}$ if $i \neq j$. Let $\{r_{1}, r_{2}, \ldots, r_{m}\}$ and $\{t_{1}, t_{2}, \ldots, t_{s}\}$ be sets of natural numbers such that
+	
+	\[
+		n = p_{1}^{r_{1}} p_{2}^{r_{2}} \cdots p_{m}^{r_{m}}
+		  = q_{1}^{t_{1}} q_{2}^{t_{2}} \cdots q_{s}^{t_{s}}.
+	\]
+\end{manualtheorem}
+
+\begin{manualtheorem}{2.19}
+Show that there do not exist natural numbers $m$ and $n$ such that
+\[
+2m^2 = n^2.
+\]
+\end{manualtheorem}
+
+\begin{manualtheorem}{2.27}
+Let $p$ be a prime and let $a, b \in \mathbb{Z}$. If $p \mid ab$, then $p \mid a$ or $p \mid b$.
 \end{manualtheorem}
 
 \begin{manualtheorem}{2.32}
@@ -257,47 +340,54 @@
 \end{manualtheorem}
 
 \begin{manualtheorem}
-As n approaches infinity, the proportion of natural numbers up to n which are prime, $\pi (n)/n$, 
-approaches $1 / ln(n)$, that is,
-\[
-\lim_{n \to \infty} \frac{\pi(n)}{n / \ln(n)} = 1.
-\]
+	As n approaches infinity, the proportion of natural numbers up to n which are prime, $\pi (n)/n$,
+	approaches $1 / ln(n)$, that is,
+	\[
+		\lim_{n \to \infty} \frac{\pi(n)}{n / \ln(n)} = 1.
+	\]
 \end{manualtheorem}
 
 \section{A Modular World}
 
 \begin{manualtheorem}{3.8}
-Suppose \(f(x) = a_n x^n + a_{n-1} x^{n-1} + \cdots + a_1 x + a_0\)
-is a polynomial of degree $n > 0$ with integer coefficients.  
-Let $a, b, m \in \mathbb{Z}$ with $m > 0$.  
-If \(a \equiv b \pmod{m},\)
-then \(f(a) \equiv f(b) \pmod{m}.\)
+	Suppose \(f(x) = a_n x^n + a_{n-1} x^{n-1} + \cdots + a_1 x + a_0\)
+	is a polynomial of degree $n > 0$ with integer coefficients.
+	Let $a, b, m \in \mathbb{Z}$ with $m > 0$.
+	If \(a \equiv b \pmod{m},\)
+	then \(f(a) \equiv f(b) \pmod{m}.\)
 \end{manualtheorem}
 
 \begin{manualtheorem}{3.14}
-Given any integer $a$ and any natural number $n$, there exists a unique integer \\ $t 
-\in \{0,1,2,\ldots,n-1\}$ such that $a \equiv t \pmod{n}$.
+	Given any integer $a$ and any natural number $n$, there exists a unique integer \\ $t
+		\in \{0,1,2,\ldots,n-1\}$ such that $a \equiv t \pmod{n}$.
 \end{manualtheorem}
 
-\begin{definition}
-Let $n$ be a natural number. The set $\{0,1,2,\ldots,n-1\}$ is 
-called the canonical complete residue system modulo $n$.
-\end{definition}
+\begin{definition*}
+	Let $n$ be a natural number. The set $\{0,1,2,\ldots,n-1\}$ is
+	called the canonical complete residue system modulo $n$.
+\end{definition*}
+
+\begin{definition*}
+Let $n$ be a natural number. A set $\{a_{1}, a_{2}, \ldots, a_{k}\}$ of integers is called a 
+\emph{complete residue system modulo $n$} if every integer is congruent modulo $n$ to exactly
+one element of the set.
+\end{definition*}
+
 
 \begin{manualtheorem}{3.17}
-Let $n$ be a natural number. Any set $\{a_1, a_2, \ldots, a_n\}$ of $n$ integers 
-for which no two are congruent modulo $n$ is a complete residue system modulo $n$.
+	Let $n$ be a natural number. Any set $\{a_1, a_2, \ldots, a_n\}$ of $n$ integers
+	for which no two are congruent modulo $n$ is a complete residue system modulo $n$.
 \end{manualtheorem}
 
 \begin{manualtheorem}{3.19}
-Let $a, b, c \in \mathbb{Z}$ with $b > 0$. The congruence 
-\[
-ax \equiv c \pmod{b}
-\]
-has a solution if and only if there exist integers $x$ and $y$ such that 
-\[
-ax + by = c.
-\]
+	Let $a, b, c \in \mathbb{Z}$ with $b > 0$. The congruence
+	\[
+		ax \equiv c \pmod{b}
+	\]
+	has a solution if and only if there exist integers $x$ and $y$ such that
+	\[
+		ax + by = c.
+	\]
 \end{manualtheorem}
 
 \end{document}
