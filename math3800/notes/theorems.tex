@@ -160,8 +160,8 @@
 \end{theorem*}
 
 \begin{manualtheorem}{1.27}
-For every natural number n there is a natural number k such that 11k
-differs from n by less than 11. \\Note that the same proof works when 11 is replaced by any natural number.
+	For every natural number n there is a natural number k such that 11k
+	differs from n by less than 11. \\Note that the same proof works when 11 is replaced by any natural number.
 \end{manualtheorem}
 
 \subsection{The Division Algorithm}
@@ -198,26 +198,26 @@ Let $n, m \in \mathbb{N}$ with $n > 0$.
 	If $\gcd(a, b) = 1$, then $a$ and $b$ are said to be relatively prime.
 \end{definition*}
 \begin{manualtheorem}{1.32}
-Let $a, n, b, r,$ and $k$ be integers. If $a = nb + r$ and $k \mid a$ and $k \mid b$,
-then $k \mid r$.
+	Let $a, n, b, r,$ and $k$ be integers. If $a = nb + r$ and $k \mid a$ and $k \mid b$,
+	then $k \mid r$.
 \end{manualtheorem}
 
 \begin{manualtheorem}{1.33}
-	Let $a, b, n_{1}, r_{1}$ be integers with $a$ and $b$ not both $0$.  
-If $a = n_{1}b + r_{1}$, then $(a, b) = (b, r_{1})$.
+	Let $a, b, n_{1}, r_{1}$ be integers with $a$ and $b$ not both $0$.
+	If $a = n_{1}b + r_{1}$, then $(a, b) = (b, r_{1})$.
 \end{manualtheorem}
 
 \begin{theorem*}
 	The Euclidean algorithm terminates after finitely many steps and outputs
-(a, b), the greatest common divisor of a and b.
+	(a, b), the greatest common divisor of a and b.
 \end{theorem*}
 
 \begin{theorem}
-The Extended Euclidean Algorithm terminates after finitely many steps and 
-produces integers $x$ and $y$ such that
-\[
-\gcd(a,b) = ax + by.
-\]
+	The Extended Euclidean Algorithm terminates after finitely many steps and
+	produces integers $x$ and $y$ such that
+	\[
+		\gcd(a,b) = ax + by.
+	\]
 \end{theorem}
 
 
@@ -300,22 +300,22 @@ produces integers $x$ and $y$ such that
 \begin{manualtheorem}{2.9}
 	\textbf{Fundamental Theorem of Arithmetic (Uniqueness Part).}
 	Let $n$ be a natural number. Let $\{p_{1}, p_{2}, \ldots, p_{m}\}$ and $\{q_{1}, q_{2}, \ldots, q_{s}\}$ be sets of primes with $p_{i} \neq p_{j}$ if $i \neq j$ and $q_{i} \neq q_{j}$ if $i \neq j$. Let $\{r_{1}, r_{2}, \ldots, r_{m}\}$ and $\{t_{1}, t_{2}, \ldots, t_{s}\}$ be sets of natural numbers such that
-	
+
 	\[
 		n = p_{1}^{r_{1}} p_{2}^{r_{2}} \cdots p_{m}^{r_{m}}
-		  = q_{1}^{t_{1}} q_{2}^{t_{2}} \cdots q_{s}^{t_{s}}.
+		= q_{1}^{t_{1}} q_{2}^{t_{2}} \cdots q_{s}^{t_{s}}.
 	\]
 \end{manualtheorem}
 
 \begin{manualtheorem}{2.19}
-Show that there do not exist natural numbers $m$ and $n$ such that
-\[
-2m^2 = n^2.
-\]
+	Show that there do not exist natural numbers $m$ and $n$ such that
+	\[
+		2m^2 = n^2.
+	\]
 \end{manualtheorem}
 
 \begin{manualtheorem}{2.27}
-Let $p$ be a prime and let $a, b \in \mathbb{Z}$. If $p \mid ab$, then $p \mid a$ or $p \mid b$.
+	Let $p$ be a prime and let $a, b \in \mathbb{Z}$. If $p \mid ab$, then $p \mid a$ or $p \mid b$.
 \end{manualtheorem}
 
 \begin{manualtheorem}{2.32}
@@ -368,9 +368,9 @@ Let $p$ be a prime and let $a, b \in \mathbb{Z}$. If $p \mid ab$, then $p \mid a
 \end{definition*}
 
 \begin{definition*}
-Let $n$ be a natural number. A set $\{a_{1}, a_{2}, \ldots, a_{k}\}$ of integers is called a 
-\emph{complete residue system modulo $n$} if every integer is congruent modulo $n$ to exactly
-one element of the set.
+	Let $n$ be a natural number. A set $\{a_{1}, a_{2}, \ldots, a_{k}\}$ of integers is called a
+	\emph{complete residue system modulo $n$} if every integer is congruent modulo $n$ to exactly
+	one element of the set.
 \end{definition*}
 
 
@@ -388,6 +388,58 @@ one element of the set.
 	\[
 		ax + by = c.
 	\]
+\end{manualtheorem}
+
+\begin{manualtheorem}{3.24}
+	Let $a, b, n \in \mathbb{Z}$ with $n > 0$. Then
+	\begin{enumerate}
+		\item The congruence $ax \equiv b \pmod{n}$ is solvable in integers if and only if $\gcd(a,n) \mid b$.
+		\item If $x_{0}$ is a solution to the congruence $ax \equiv b \pmod{n}$, then all solutions are given by
+		      \[
+			      x \equiv x_{0} + \frac{n}{\gcd(a,n)} \cdot m \pmod{n}, \quad m \in \mathbb{Z}.
+		      \]
+		\item If $ax \equiv b \pmod{n}$ has a solution, then there are exactly $\gcd(a,n)$ incongruent solutions modulo $n$.
+	\end{enumerate}
+
+\end{manualtheorem}
+
+\begin{manualtheorem}{3.27}
+	Let $a, b, m, n \in \mathbb{Z}$ with $m > 0$ and $n > 0$. Then the system
+	\[
+		\begin{cases}
+			x \equiv a \pmod{n}, \\
+			x \equiv b \pmod{m}
+		\end{cases}
+	\]
+	has a solution if and only if $\gcd(n,m) \mid (a - b)$.
+\end{manualtheorem}
+
+\begin{manualtheorem}{3.28}
+	Let $a, b, m, n \in \mathbb{Z}$ with $m > 0$ and $n > 0$, and suppose $\gcd(m,n) = 1$.
+	Then the system
+	\[
+		\begin{cases}
+			x \equiv a \pmod{n}, \\
+			x \equiv b \pmod{m}
+		\end{cases}
+	\]
+	has a unique solution modulo $nm$.
+\end{manualtheorem}
+
+\begin{manualtheorem}{3.29}[Chinese Remainder Theorem]
+	Let $L \in \mathbb{N}$. Suppose $a_{1}, a_{2}, \ldots, a_{L}$ are integers and
+	$n_{1}, n_{2}, \ldots, n_{L}$ are pairwise relatively prime natural numbers
+	(that is, $\gcd(n_{i}, n_{j}) = 1$ for $i \neq j$, $1 \leq i, j \leq L$).
+	Then the system of $L$ congruences
+	\[
+		\begin{cases}
+			x \equiv a_{1} \pmod{n_{1}}, \\
+			x \equiv a_{2} \pmod{n_{2}}, \\
+			\ \ \vdots                   \\
+			x \equiv a_{L} \pmod{n_{L}}
+		\end{cases}
+	\]
+	has a unique solution modulo $n_{1} n_{2} \cdots n_{L}$.
 \end{manualtheorem}
 
 \end{document}
