@@ -442,5 +442,45 @@ Let $n, m \in \mathbb{N}$ with $n > 0$.
 	has a unique solution modulo $n_{1} n_{2} \cdots n_{L}$.
 \end{manualtheorem}
 
+\textbf{How to solve:}
+\[
+\begin{cases}
+x \equiv a \pmod{m} \\
+x \equiv b \pmod{n}
+\end{cases}
+\]
+
+\begin{enumerate}
+  \item Identify the values:
+    \[
+    x \equiv a \pmod{m}, \quad x \equiv b \pmod{n}
+    \]
+
+  \item Confirm that \( m \) and \( n \) are coprime: \( \gcd(m, n) = 1 \). If true, a unique solution exists modulo \( mn \).
+
+  \item Use the Extended Euclidean Algorithm to find integers \( u \) and \( v \) such that:
+    \[
+    mu + nv = 1
+    \]
+
+  \item Multiply both sides of the equation by \( a - b \):
+    \[
+    m u (a - b) + n v (a - b) = a - b
+    \]
+
+  \item Rearranging, define:
+    \[
+    x_0 = a - m \cdot u \cdot (a - b)
+    \]
+    Then \( x_0 \equiv a \pmod{m} \) and \( x_0 \equiv b \pmod{n} \).
+
+  \item The general solution is:
+    \[
+    x \equiv x_0 \pmod{mn}
+    \quad \text{or} \quad
+    x = x_0 + mn \cdot k, \quad k \in \mathbb{Z}
+    \]
+\end{enumerate}
+
 \end{document}
 
