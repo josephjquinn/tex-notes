@@ -269,6 +269,79 @@
 \end{homeworkProblem}
 
 \begin{homeworkProblem}
+
+	\paragraph{(i)}
+	\begin{proof}
+
+		Assume, for the sake of contradiction, that $n$ is composite. Then we can write
+		\[
+			n = ab
+		\]
+		for integers $a, b > 1$.
+
+		Now apply the factorization identity
+		\[
+			x^{ab} - 1 = (x^a - 1)\big(x^{a(b-1)} + x^{a(b-2)} + \cdots + x^a + 1\big).
+		\]
+		Taking $x = 2$, we obtain
+		\[
+			2^n - 1 = 2^{ab} - 1 = (2^a - 1)\big(2^{a(b-1)} + 2^{a(b-2)} + \cdots + 2^a + 1\big).
+		\]
+
+		Because both factors are greater than $1$, this means $2^n - 1$ has a non 1 factorization. But this contradicts our assumption that $2^n - 1$ is prime.
+
+		Therefore $n$ cannot be composite, and so $n$ must be prime.
+	\end{proof}
+
+	\paragraph{(ii)}
+	\begin{proof}
+		Assume for contradiction that $n$ is an odd composite number, and has an odd factor. Then we can write
+		\[
+			n = ab
+		\]
+		with $a > 1$ odd and $b \geq 1$.
+
+		Now use the factorization identity provided for when a is odd,
+		\[
+			x^{ab} + 1 = (x^b + 1)\big(x^{b(a-1)} - x^{b(a-2)} + \cdots - x^b + 1\big).
+		\]
+		Taking $x = 2$, we obtain
+		\[
+			2^n + 1 = 2^{ab} + 1 = (2^b + 1)\big(2^{b(a-1)} - 2^{b(a-2)} + \cdots - 2^b + 1\big).
+		\]
+
+		We see again that factors are strictly greater than $1$, so $2^n + 1$ has a non 1 factor. But this contradicts our assumption that $2^n + 1$ is prime.
+
+		Therefore $n$ cannot have an odd factor. The only natural numbers without odd factors are the powers of $2$.
+	\end{proof}
+
+\end{homeworkProblem}
+
+\begin{homeworkProblem}
+	\begin{proof}
+		Suppose $n$, $n+2$, and $n+4$ are all prime numbers.
+		And we know every integer n is congruent to 0,1, or 2 mod 3
+
+		Based on this lets consider $n$ modulo $3$.
+
+		\begin{itemize}
+			\item If $n \equiv 0 \pmod{3}$, then $n$ is divisible by $3$. Since $n$ is prime, the only possibility is $n=3$.
+
+			\item If $n \equiv 1 \pmod{3}$, then $n+2 \equiv 0 \pmod{3}$. Hence $n+2$ is divisible by $3$.
+			      If $n+2$ is prime, then $n+2=3 \implies n=1$, which is not prime. Contradiction.
+
+			\item If $n \equiv 2 \pmod{3}$, then $n+4 \equiv 0 \pmod{3}$. Hence $n+4$ is divisible by $3$.
+			      If $n+4$ is prime, then $n+4=3 \implies n=-1$, which is not prime. Contradiction.
+		\end{itemize}
+
+		Thus, the only possible case is $n=3$. Therefore the only prime triple of the form
+		$(n, n+2, n+4)$ is $(3, 5, 7)$.
+	\end{proof}
+
+
+\end{homeworkProblem}
+
+\begin{homeworkProblem}
 	\begin{proof}
 		We want to solve the system of congruences
 		\[
