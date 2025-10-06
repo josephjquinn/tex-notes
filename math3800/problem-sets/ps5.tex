@@ -163,4 +163,114 @@
 	\end{enumerate}
 
 \end{homeworkProblem}
+
+\begin{homeworkProblem}
+	(v1 $\Rightarrow$ v2)
+	\begin{proof}
+		\[
+			a^{p-1} \equiv 1 \pmod{p}.
+		\]
+
+		Let $a$ be any integer.
+
+		\begin{itemize}
+			\item \textbf{Case 1:} Suppose $p \mid a$. Then $a \equiv 0 \pmod{p}$.
+			      Raising both sides to the $p$th power gives
+			      \[
+				      a^p \equiv 0^p \equiv 0 \pmod{p}.
+			      \]
+			      Hence $a^p \equiv a \pmod{p}$.
+
+			\item \textbf{Case 2:} Suppose $(a,p)=1$.
+			      By assumption, $a^{p-1} \equiv 1 \pmod{p}$.
+			      Multiplying both sides of this congruence by $a$, we can write
+			      \[
+				      a \cdot a^{p-1} \equiv a \cdot 1 \pmod{p}.
+			      \]
+			      Simplifying gives
+			      \[
+				      a^p \equiv a \pmod{p}.
+			      \]
+		\end{itemize}
+
+		So in both cases Theorem 4.16 holds.
+
+		\medskip
+
+		(v2 $\Rightarrow$ v1)
+
+		\[
+			a^p \equiv a \pmod{p}.
+		\]
+
+		Let $(a,p)=1$. Then subtracting $a$ from both sides gives
+		\[
+			a^p - a \equiv 0 \pmod{p}.
+		\]
+		This means
+		\[
+			p \mid (a^p - a).
+		\]
+
+		We can rewrite the rhs as
+		\[
+			p \mid a(a^{p-1} - 1).
+		\]
+
+		By Euclid's Lemma:
+		\[
+			p \mid (a^{p-1} - 1).
+		\]
+
+		This is equivalent to
+		\[
+			a^{p-1} \equiv 1 \pmod{p},
+		\]
+		which is Theorem 4.15.
+	\end{proof}
+\end{homeworkProblem}
+
+\begin{homeworkProblem}
+
+	\begin{enumerate}
+		\item $512^{372} \bmod 13$
+
+		      \begin{align*}
+			      512     & \equiv 5 \pmod{13}                                                   &  & (\text{since } 512 = 13 \cdot 39 + 5) \\
+			      5^{12}  & \equiv 1 \pmod{13}                                                   &  & (\text{by Fermat's Little Theorem})   \\
+			      372     & = 12 \cdot 31 + 0                                                                                               \\
+			      5^{372} & = (5^{12})^{31} \cdot 5^{0} \equiv 1^{31} \cdot 1 \equiv 1 \pmod{13}
+		      \end{align*}
+
+		      \[
+			      \boxed{512^{372} \equiv 1 \pmod{13}}
+		      \]
+
+		\item $3444^{3233} \bmod 17$
+
+		      \begin{align*}
+			      3444      & \equiv 10 \pmod{17}                                                        &  & (\text{since } 3444 = 17 \cdot 202 + 10) \\
+			      10^{16}   & \equiv 1 \pmod{17}                                                         &  & (\text{by Fermat's Little Theorem})      \\
+			      3233      & = 16 \cdot 202 + 1                                                                                                       \\
+			      10^{3233} & = (10^{16})^{202} \cdot 10^{1} \equiv 1^{202} \cdot 10 \equiv 10 \pmod{17}
+		      \end{align*}
+
+		      \[
+			      \boxed{3444^{3233} \equiv 10 \pmod{17}}
+		      \]
+
+		\item $123456 \bmod 23$
+
+		      \begin{align*}
+			      123456 & = 23 \cdot 5367 + 15 \\
+			      123456 & \equiv 15 \pmod{23}
+		      \end{align*}
+
+		      \[
+			      \boxed{123456 \equiv 15 \pmod{23}}
+		      \]
+	\end{enumerate}
+
+\end{homeworkProblem}
+
 \end{document}
