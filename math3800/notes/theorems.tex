@@ -482,5 +482,50 @@ x \equiv b \pmod{n}
     \]
 \end{enumerate}
 
+\section{Fermat’s Little Theorem and Euler’s Theorem}
+
+\begin{definition*}{Definition}
+	Let $a$ and $n$ be natural numbers with $\gcd(a,n) = 1$. The smallest natural number $k$ such that $a^{k} \equiv 1 \pmod{n}$ is called the \emph{order} of $a$ modulo $n$ and is denoted $\operatorname{ord}_{n}(a)$.
+\end{definition*}
+
+\begin{manualtheorem}{4.2}
+	Let $a$ and $n$ be natural numbers with $\gcd(a,n) = 1$. Then $\gcd(a^{j}, n) = 1$ for any natural number $j$.
+\end{manualtheorem}
+
+\begin{manualtheorem}{4.4}
+	Let $a$ and $n$ be natural numbers. Then there exist natural numbers $i$ and $j$ with $i \ne j$ such that $a^{i} \equiv a^{j} \pmod{n}$.
+\end{manualtheorem}
+
+\begin{manualtheorem}{4.6}
+	Let $a$ and $n$ be natural numbers with $\gcd(a,n) = 1$. Then there exists a natural number $k$ such that $a^{k} \equiv 1 \pmod{n}$.
+\end{manualtheorem}
+
+\begin{manualtheorem}{4.9}
+	Let $a$ and $n$ be natural numbers with $\gcd(a,n) = 1$ and let $k = \operatorname{ord}_{n}(a)$. For any natural number $m$, $a^{m}$ is congruent modulo $n$ to one of the numbers $a^{1}, a^{2}, \ldots, a^{k}$.
+
+\end{manualtheorem}
+
+\begin{manualtheorem}{4.10}
+	Let $a$ and $n$ be natural numbers with $\gcd(a,n) = 1$, let $k = \operatorname{ord}_{n}(a)$, and let $m$ be a natural number. Then $a^{m} \equiv 1 \pmod{n}$ if and only if $k \mid m$.
+\end{manualtheorem}
+
+\begin{manualtheorem}{4.11}
+	Let $a$ and $n$ be natural numbers with $\gcd(a,n) = 1$. Then $\operatorname{ord}_{n}(a) < n$.
+\end{manualtheorem}
+
+\begin{manualtheorem}{4.13}
+	Let $p$ be a prime and let $a$ be an integer not divisible by $p$; that is, $\gcd(a,p) = 1$. Then the set $\{a, 2a, 3a, \ldots, (p-1)a\}$ is a complete residue system modulo $p$.
+
+\end{manualtheorem}
+
+\begin{manualtheorem}{4.14}
+	Let $p$ be a prime and let $a$ be an integer not divisible by $p$. Then
+	\[
+		a \cdot 2a \cdot 3a \cdots (p-1)a \equiv 1 \cdot 2 \cdot 3 \cdots (p-1) \pmod{p}.
+	\]
+\end{manualtheorem}
+
+
+
 \end{document}
 
