@@ -152,39 +152,38 @@
 \pagebreak
 
 \begin{homeworkProblem}
-    Firstly we can rewrite $x \equiv 1 \pmod 2$ as $x = 2k + 1$ for some integer k.
-    Then we can set this equation equivalent to the second like so:
-    \[
-    2k + 1 \equiv 1 \pmod3
-    \]
-    then solving for k,
-    \[
-    2k \equiv 0 \pmod3 
-    \]
-    \[
-    k \equiv 0 \pmod3 
-    \]
-    Writing this in terms of some integer $l$ results in:
-    \[
-    k = 3l
-    \]
-    Plugging this back into our first equation we have 
-    \[
-    x=2k+1=2(3l)=6l+1
-    \]
-    We then set this equal to our final equation:
-    \[
-    6l +1 \equiv 2\pmod 5
-    \]
-    And solve for l:
-    \[
-    6l \equiv 1\pmod 5
-    \]
-    \[
-    6l \equiv 1\pmod 5
-    \]
-    Plug this into 
+Since $2,3,$ and $5$ are pairwise coprime, the Chinese Remainder Theorem tells us
+that there is a unique solution modulo $2 \cdot 3 \cdot 5 = 30$.
 
+We first solve the system formed by the first two congruences. Since
+\[
+x \equiv 1 \pmod{2}
+\quad\text{and}\quad
+x \equiv 1 \pmod{3},
+\]
+we see that $x \equiv 1 \pmod{6}$. Thus any solution must be of the form
+\[
+x = 1 + 6k, \qquad k \in \mathbb{Z}.
+\]
+Now we impose the third congruence,
+\[
+1 + 6k \equiv 2 \pmod{5}
+\quad\Longrightarrow\quad
+6k \equiv 1 \pmod{5}.
+\]
+Since $6 \equiv 1 \pmod{5}$, this reduces to $k \equiv 1 \pmod{5}$. Hence
+\[
+k = 1 + 5t, \qquad t \in \mathbb{Z},
+\]
+and so
+\[
+x = 1 + 6(1 + 5t) = 7 + 30t.
+\]
+Therefore, the unique solution modulo $30$ is
+\[
+\boxed{x \equiv 7 \pmod{30}}.
+\]
+For example, $x = 7$ and $x = 37$ are both valid solutions.
 
 
 \end{homeworkProblem}
@@ -270,45 +269,130 @@
 \end{homeworkProblem}
 
 \begin{homeworkProblem}
+Compute $3444^{3233} \pmod{17}$.
 
-	\begin{enumerate}
-		\item $512^{372} \bmod 13$
+First note that by the Division Algorithm we have that $3444 \equiv 10 \pmod{17}$, so
+\[
+3444^{3233} \equiv 10^{3233} \pmod{17}.
+\]
+Now since $(10,17) = 1$ we may apply Fermat's Little Theorem. We compute $17 - 1 = 16$ and that $3233 \equiv 1 \pmod{16}$. Therefore, we have that
+\[
+3444^{3233} \equiv 10^{3233} \equiv 10^1 \equiv 10 \pmod{17}.
+\]
 
-		      \begin{align*}
-			      512     & \equiv 5 \pmod{13}                                                   &  & (\text{since } 512 = 13 \cdot 39 + 5) \\
-			      5^{12}  & \equiv 1 \pmod{13}                                                   &  & (\text{by Fermat's Little Theorem})   \\
-			      372     & = 12 \cdot 31 + 0                                                                                               \\
-			      5^{372} & = (5^{12})^{31} \cdot 5^{0} \equiv 1^{31} \cdot 1 \equiv 1 \pmod{13}
-		      \end{align*}
+\bigskip
 
-		      \[
-			      \boxed{512^{372} \equiv 1 \pmod{13}}
-		      \]
+Compute $123^{456} \pmod{23}$.
 
-		\item $3444^{3233} \bmod 17$
+First note that $123 \equiv 8 \pmod{23}$, so
+\[
+123^{456} \equiv 8^{456} \pmod{23}.
+\]
+Now since $(8,23) = 1$ we may apply Fermat's Little Theorem. We compute $23 - 1 = 22$ and that $456 \equiv 16 \pmod{22}$. Therefore, we have that
+\[
+123^{456} \equiv 8^{456} \equiv 8^{16} \pmod{23}.
+\]
+Next we compute $8^{16}$ by repeated squaring:
+\[
+8^2 \equiv 64 \equiv 18,\qquad 18^2 \equiv 324 \equiv 2,\qquad 2^2 \equiv 4,\qquad 4^2 \equiv 16 \pmod{23}.
+\]
+Therefore
+\[
+123^{456} \equiv 16 \pmod{23}.
+\]
 
-		      \begin{align*}
-			      3444      & \equiv 10 \pmod{17}                                                        &  & (\text{since } 3444 = 17 \cdot 202 + 10) \\
-			      10^{16}   & \equiv 1 \pmod{17}                                                         &  & (\text{by Fermat's Little Theorem})      \\
-			      3233      & = 16 \cdot 202 + 1                                                                                                       \\
-			      10^{3233} & = (10^{16})^{202} \cdot 10^{1} \equiv 1^{202} \cdot 10 \equiv 10 \pmod{17}
-		      \end{align*}
+\end{homeworkProblem}
 
-		      \[
-			      \boxed{3444^{3233} \equiv 10 \pmod{17}}
-		      \]
+\begin{homeworkProblem}
+    Let $p$ and $q$ be distinct prime numbers. Prove that $p^{q-1} + q^{p-1} \equiv 1 \pmod{pq}$.
+\begin{proof}
 
-		\item $123456 \bmod 23$
+    Because $p$ divides any positive power of $p$. We can write
+    \[
+        p^{\,q-1} \equiv 0 \pmod{p},
+    \]
 
-		      \begin{align*}
-			      123456 & = 23 \cdot 5367 + 15 \\
-			      123456 & \equiv 15 \pmod{23}
-		      \end{align*}
+    Also, since $p$ and $q$ are distinct primes, we have $(q,p)=1$.  
+    By Fermat's Little Theorem v1 we see
+    \[
+        q^{\,p-1} \equiv 1 \pmod{p}.
+    \]
+    Therefore, by Theorem 1.12,
+    \[
+        p^{\,q-1} + q^{\,p-1} \equiv 0 + 1 \equiv 1 \pmod{p}.
+    \]
 
-		      \[
-			      \boxed{123456 \equiv 15 \pmod{23}}
-		      \]
-	\end{enumerate}
+    Now doing the same for mod q,
+    \[
+        q^{\,p-1} \equiv 0 \pmod{q}.
+    \]
+    Since $(p,q)=1$, we again apply Fermat's Little Theorem:
+    \[
+        p^{\,q-1} \equiv 1 \pmod{q}.
+    \]
+    Therefore,
+    \[
+        p^{\,q-1} + q^{\,p-1} \equiv 1 + 0 \equiv 1 \pmod{q}.
+    \]
+
+
+    Since $p^{\,q-1} + q^{\,p-1} \equiv 1 \pmod{p}$ and  
+    $p^{\,q-1} + q^{\,p-1} \equiv 1 \pmod{q}$, and since $p$ and $q$ are coprime,
+    it follows that
+    \[
+        p^{\,q-1} + q^{\,p-1} \equiv 1 \pmod{pq}.
+    \]
+\end{proof}
+\end{homeworkProblem}
+
+\begin{homeworkProblem}
+
+\begin{proof}
+Recall that
+\[
+\binom{p}{i} = \frac{p!}{i!(p-i)!}.
+\]
+We write
+\[
+p! = p \cdot (p-1)(p-2)\cdots 1,
+\]
+so
+\[
+\binom{p}{i} = p \cdot \frac{(p-1)(p-2)\cdots 1}{i!(p-i)!}.
+\]
+Since $i!$ and $(p-i)!$ contain only factors strictly less than $p$, neither of them is divisible by $p$ (because $p$ is prime). Therefore the denominator is not divisible by $p$, and thus $\binom{p}{i}$ is an integer multiple of $p$.
+Hence $p \mid \binom{p}{i}$.
+\end{proof}
+
+\begin{theorem}[Fermat's Little Theorem, Version II]
+If $p$ is a prime and $a$ is an integer, then $a^p \equiv a \pmod{p}$.
+\end{theorem}
+
+\begin{proof}
+We proceed by induction on $a$.
+
+For $a = 0$, we have $0^p \equiv 0 \pmod{p}$. For $a = 1$, we have $1^p = 1 \equiv 1 \pmod{p}$. Thus the statement holds for $a = 0$ and $a = 1$.
+
+Assume the statement holds for some integer $a$, i.e.\ $a^p \equiv a \pmod{p}$. Consider $a+1$. By the Binomial Theorem,
+\[
+(a+1)^p = \sum_{i=0}^{p} \binom{p}{i} a^{p-i}.
+\]
+Expanding,
+\[
+(a+1)^p = a^p + \binom{p}{1} a^{p-1} + \binom{p}{2} a^{p-2} + \cdots + \binom{p}{p-1} a + 1.
+\]
+By Lemma 4.25, each $\binom{p}{i}$ with $1 \le i \le p-1$ is divisible by $p$. Therefore all middle terms vanish modulo $p$ and we obtain
+\[
+(a+1)^p \equiv a^p + 1 \pmod{p}.
+\]
+Applying the induction hypothesis $a^p \equiv a$, we conclude
+\[
+(a+1)^p \equiv a + 1 \pmod{p}.
+\]
+Thus the statement holds for $a+1$. By induction, it follows that $a^p \equiv a \pmod{p}$ for all integers $a \ge 0$.
+
+For negative $a$, the result follows from the fact that congruences are compatible with additive inverses.
+\end{proof}
 
 \end{homeworkProblem}
 
