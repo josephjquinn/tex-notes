@@ -141,17 +141,72 @@
 \pagebreak
 
 \begin{homeworkProblem}
-  \subsection{1.1}
-  $d(u,v) =\|u - v\|^2$
-  We then expand this into \[
- u^Tu - 2vu + v^Tv 
-  \] 
-  Using a kernel function $K(x,z) = <\phi{(x), \phi{(z)}}$. We can rewrite this as:
-  \[
-  K(u,u) -2K(u,v) + K(v,v)
-  \] 
+	\subsection{1.1}
+	$d(u,v) =\|u - v\|^2$
+	We then expand this into \[
+		u^Tu - 2vu + v^Tv
+	\]
+	Using a kernel function $K(x,z) = <\phi{(x), \phi{(z)}}$. We can rewrite this as:
+	\[
+		K(u,u) -2K(u,v) + K(v,v)
+	\]
 
-  \subsection{1.2}
+	\subsection{1.2}
+\end{homeworkProblem}
+
+\begin{homeworkProblem}
+	i) Maximizing projection variance:
+	\[
+		\mathrm{var} = \frac{1}{N} \sum_{i=1}^{N} (z_i - \bar{z})^2
+		= \frac{1}{N} \sum_{i=1}^{N} \left( \mathbf{w}^T (\mathbf{x}_i - \bar{\mathbf{x}}) \right)^2
+	\]
+
+	\[
+		\text{var} = \frac{1}{N} \sum_{i=1}^{N} \left(w^T(x_i - \bar{x})\right)^2
+		= \frac{1}{N} \sum_{i=1}^{N} w^T(x_i - \bar{x})(x_i - \bar{x})^T w
+	\]
+
+	\[
+		= w^T \left( \frac{1}{N} \sum_{i=1}^{N} (x_i - \bar{x})(x_i - \bar{x})^T \right) w
+		= w^T S w
+	\]
+
+	\[
+		\text{Therefore maximizing the variance can be written as:}
+	\]
+
+	\[
+		\max_{w} \quad w^T S w \quad \text{s.t.} \quad w^T w = 1
+	\]
+
+
+	ii) Minimizing reconstruction error:
+
+	In order to reconstruct from $z \rightarrow x$ we see the following:
+
+	\[
+		\hat{x} = w w^T x
+	\]
+
+	Now we can write the reconstruction error as:
+
+	\begin{align}
+		\frac{1}{N} \sum_{i=1}^{N} \left\| \hat{x}^{(i)} - x^{(i)} \right\|^2
+		 & = \frac{1}{N} \sum_{i=1}^{N} \left\| ww^T x^{(i)} - x^{(i)} \right\|^2
+	\end{align}
+
+	We can further simplify:
+	\[
+		\begin{aligned}
+			  & \frac{1}{N} \sum_{i=1}^{N} \left\| ww^T x^{(i)} - x^{(i)} \right\|^2 \\
+			= & \frac{1}{N} \sum_{i=1}^{N} (ww^T x_i - x_i)^T (ww^T x_i - x_i)       \\
+			= & \frac{1}{N} \sum_{i=1}^{N} x_i^T ww^T ww^T x_i - 2x_i^T ww^T x_i     \\
+			= & -\frac{1}{N} \sum_{i=1}^{N} x_i^T ww^T x_i                           \\
+			= & - w^T \left( \frac{1}{N} \sum_{i=1}^{N} x_i x_i^T \right) w          \\
+			= & w^T S w
+		\end{aligned}
+	\]
+
 
 \end{homeworkProblem}
 
