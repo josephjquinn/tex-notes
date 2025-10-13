@@ -153,7 +153,6 @@
 
 	\subsection{1.2}
 \end{homeworkProblem}
-
 \begin{homeworkProblem}
 	i) Maximizing projection variance:
 	\[
@@ -176,7 +175,7 @@
 	\]
 
 	\[
-		\max_{w} \quad w^T S w \quad \text{s.t.} \quad w^T w = 1
+		\max_{w} \quad w^T S w 
 	\]
 
 
@@ -197,17 +196,21 @@
 
 	We can further simplify:
 	\[
-		\begin{aligned}
-			  & \frac{1}{N} \sum_{i=1}^{N} \left\| ww^T x^{(i)} - x^{(i)} \right\|^2 \\
-			= & \frac{1}{N} \sum_{i=1}^{N} (ww^T x_i - x_i)^T (ww^T x_i - x_i)       \\
-			= & \frac{1}{N} \sum_{i=1}^{N} x_i^T ww^T ww^T x_i - 2x_i^T ww^T x_i     \\
-			= & -\frac{1}{N} \sum_{i=1}^{N} x_i^T ww^T x_i                           \\
-			= & - w^T \left( \frac{1}{N} \sum_{i=1}^{N} x_i x_i^T \right) w          \\
-			= & w^T S w
-		\end{aligned}
+\begin{aligned}
+\min_{w} \;& \frac{1}{N} \sum_{i=1}^{N} \left\| ww^T x^{(i)} - x^{(i)} \right\|^2 \\
+= \min_{w} \;& \frac{1}{N} \sum_{i=1}^{N} (ww^T x_i - x_i)^T (ww^T x_i - x_i) \\
+= \min_{w} \;& \frac{1}{N} \sum_{i=1}^{N} x_i^T ww^T ww^T x_i - 2x_i^T ww^T x_i \\
+= \min_{w} \;& -\frac{1}{N} \sum_{i=1}^{N} x_i^T ww^T x_i \\
+= \min_{w} \;& - w^T \left( \frac{1}{N} \sum_{i=1}^{N} x_i x_i^T \right) w \\
+= \max_{w} \;& w^T S w
+\end{aligned}
 	\]
 
-
+\emph{Both approaches lead to the same optimization problem:}
+\[
+	\max_{w} \quad w^T S w \quad \text{subject to} \quad w^T w = 1
+\]
+\emph{The optimal solution $w^*$ is the eigenvector of $S$ corresponding to the largest eigenvalue.}
 \end{homeworkProblem}
 
 \end{document}
