@@ -146,10 +146,26 @@
 	We then expand this into \[
 		u^Tu - 2vu + v^Tv
 	\]
-	Using a kernel function $K(x,z) = <\phi{(x), \phi{(z)}}$. We can rewrite this as:
+	Using a kernel function $K(x,z) = \phi{(x), \phi{(z)}}$. We can rewrite this as:
 	\[
 		K(u,u) -2K(u,v) + K(v,v)
 	\]
+
+	We know the euclidian distance expands to:
+	\[
+d_{\text{euc}}(x^{(i)}, x^{(j)}) = \|x^{(i)} - x^{(j)}\|^2 
+= x^{(i)T}x^{(i)} + x^{(j)T}x^{(j)} - 2\,x^{(i)T}x^{(j)}
+\]
+
+So for a linear kernel: $K(x,z) = x^\top z$
+
+We get the same result as the euclidian distance formula:
+
+\[
+d_{k}(x^{(i)}, x^{(j)}) = x^{(i)T}x^{(i)} + x^{(j)T}x^{(j)} - 2\,x^{(i)T}x^{(j)}
+\]
+
+
 
 	\subsection{1.2}
 \end{homeworkProblem}
