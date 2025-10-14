@@ -1,0 +1,242 @@
+
+
+\documentclass{article}
+
+\usepackage{fancyhdr}
+\usepackage{extramarks}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{tikz}
+\usepackage[plain]{algorithm}
+\usepackage{algpseudocode}
+\usepackage{amsmath,amssymb}
+
+\usetikzlibrary{automata,positioning}
+
+%
+% Basic Document Settings
+%
+
+\topmargin=-0.45in
+\evensidemargin=0in
+\oddsidemargin=0in
+\textwidth=6.5in
+\textheight=9.0in
+\headsep=0.25in
+
+\linespread{1.1}
+
+\pagestyle{fancy}
+\lhead{\hmwkAuthorName}
+\chead{\hmwkClass: \hmwkTitle}
+\rhead{}
+\lfoot{\lastxmark}
+\cfoot{\thepage}
+
+\renewcommand\headrulewidth{0.4pt}
+\renewcommand\footrulewidth{0.4pt}
+
+\setlength\parindent{0pt}
+
+%
+% Create Problem Sections
+%
+
+\newcommand{\enterProblemHeader}[1]{
+    \nobreak\extramarks{}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+}
+
+\newcommand{\exitProblemHeader}[1]{
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \stepcounter{#1}
+    \nobreak\extramarks{Problem \arabic{#1}}{}\nobreak{}
+}
+
+\setcounter{secnumdepth}{0}
+\newcounter{partCounter}
+\newcounter{homeworkProblemCounter}
+\setcounter{homeworkProblemCounter}{1}
+\nobreak\extramarks{Problem \arabic{homeworkProblemCounter}}{}\nobreak{}
+
+
+
+% Define theorem environment
+\newtheorem*{theorem}{Theorem}
+
+%
+% Homework Problem Environment
+%
+% This environment takes an optional argument. When given, it will adjust the
+% problem counter. This is useful for when the problems given for your
+% assignment aren't sequential. See the last 3 problems of this template for an
+% example.
+%
+\newenvironment{homeworkProblem}[1][-1]{
+    \ifnum#1>0
+        \setcounter{homeworkProblemCounter}{#1}
+    \fi
+    \section{Problem \arabic{homeworkProblemCounter}}
+    \setcounter{partCounter}{1}
+    \enterProblemHeader{homeworkProblemCounter}
+}{
+    \exitProblemHeader{homeworkProblemCounter}
+}
+
+%
+% Homework Details
+%   - Title
+%   - Due date
+%   - Class
+%   - Section/Time
+%   - Instructor
+%   - Author
+%
+
+
+\newcommand{\hmwkTitle}{Problem set\ 6}
+\newcommand{\hmwkDueDate}{October 13, 2025}
+\newcommand{\hmwkClass}{Number Theory}
+\newcommand{\hmwkClassTime}{Section 2}
+\newcommand{\hmwkClassInstructor}{Dr. Eleanor McSpirit}
+\newcommand{\hmwkAuthorName}{\textbf{Joseph Quinn}}
+
+%
+% Title Page
+%
+
+\title{
+    \vspace{2in}
+    \textmd{\textbf{\hmwkClass:\ \hmwkTitle}}\\
+    \normalsize\vspace{0.1in}\small{\hmwkDueDate}\\
+    \vspace{0.1in}\large{\textit{\hmwkClassInstructor\ \hmwkClassTime}}
+    \vspace{3in}
+}
+
+\author{\hmwkAuthorName}
+\date{}
+
+\renewcommand{\part}[1]{\textbf{\large Part \Alph{partCounter}}\stepcounter{partCounter}\\}
+
+%
+% Various Helper Commands
+%
+
+% Useful for algorithms
+\newcommand{\alg}[1]{\textsc{\bfseries \footnotesize #1}}
+
+% For derivatives
+\newcommand{\deriv}[1]{\frac{\mathrm{d}}{\mathrm{d}x} (#1)}
+
+% For partial derivatives
+\newcommand{\pderiv}[2]{\frac{\partial}{\partial #1} (#2)}
+
+% Integral dx
+\newcommand{\dx}{\mathrm{d}x}
+
+% Alias for the Solution section header
+\newcommand{\solution}{\textbf{\large Solution}}
+
+% Probability commands: Expectation, Variance, Covariance, Bias
+\newcommand{\E}{\mathrm{E}}
+\newcommand{\Var}{\mathrm{Var}}
+\newcommand{\Cov}{\mathrm{Cov}}
+\newcommand{\Bias}{\mathrm{Bias}}
+
+%  proof-step macro:
+\newcommand{\step}[2]{& #1 & & \text{#2} \\}
+
+\begin{document}
+
+\maketitle
+\pagebreak
+
+\begin{homeworkProblem}
+	\textbf{(i)}
+	\[
+		12^{49} \mod 15
+	\]
+
+	We compute the first few powers of 12 modulo 15:
+
+	\begin{align*}
+		12^1 & \equiv 12 \mod 15                                         \\
+		12^2 & = 144 \equiv 144 \mod 15 = 9                              \\
+		12^3 & = 12^2 \cdot 12 = 9 \cdot 12 = 108 \equiv 108 \mod 15 = 3 \\
+		12^4 & = 12^3 \cdot 12 = 3 \cdot 12 = 36 \equiv 36 \mod 15 = 6   \\
+		12^5 & = 12^4 \cdot 12 = 6 \cdot 12 = 72 \equiv 72 \mod 15 = 12
+	\end{align*}
+
+	We see that the mods start to repeat every 4th term
+
+	\[
+		12,\ 9,\ 3,\ 6,\ 12,\ 9,\ 3,\ 6,\ \dots
+	\]
+
+	Knowing this is a cycle of length 4 we need to see where 49 would fall in this.
+
+
+	\[
+		49 \mod 4 = 1
+	\]
+
+	So,
+	\[
+		12^{49} \equiv 12^1 \mod 15
+	\]
+
+
+	\[
+		12^{49} \mod 15 = 12
+	\]
+
+	\textbf{(ii)}
+
+	\[
+		13^{9112} \bmod 27.
+	\]
+
+
+	Since $\gcd(13, 27) = 1$, Euler's Theorem tells us that
+	\[
+		13^{\phi(27)} \equiv 1 \pmod{27}.
+	\]
+
+	We compute $\phi(27)$ using the formula $\phi(p^k) = p^k - p^{k-1}$:
+
+	\[
+		\varphi(27) = \varphi(3^3) = 27 - 9 = 18.
+	\]
+
+	Thus,
+	\[
+		13^{18} \equiv 1 \pmod{27}.
+	\]
+
+
+	Now we want to reduce the exponent $9112$ modulo $18$:
+
+	\[
+		9112 \div 18 = 506 \text{ remainder } 4 \quad \Rightarrow \quad 9112 \equiv 4 \pmod{18}.
+	\]
+
+	Therefore,
+	\[
+		13^{9112} \equiv 13^4 \pmod{27}.
+	\]
+
+	\[
+		13^2 = 169 \equiv 169 - 162 = 7 \pmod{27},
+	\]
+	\[
+		13^4 = (13^2)^2 \equiv 7^2 = 49 \equiv 49 - 27 = 22 \pmod{27}.
+	\]
+
+	\[
+		13^{9112} \bmod 27 = 22
+	\]
+
+\end{homeworkProblem}
+
+\end{document}
