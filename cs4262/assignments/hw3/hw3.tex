@@ -153,23 +153,88 @@
 
 	We know the euclidian distance expands to:
 	\[
-d_{\text{euc}}(x^{(i)}, x^{(j)}) = \|x^{(i)} - x^{(j)}\|^2 
-= x^{(i)T}x^{(i)} + x^{(j)T}x^{(j)} - 2\,x^{(i)T}x^{(j)}
-\]
+		d_{\text{euc}}(x^{(i)}, x^{(j)}) = \|x^{(i)} - x^{(j)}\|^2
+		= x^{(i)T}x^{(i)} + x^{(j)T}x^{(j)} - 2\,x^{(i)T}x^{(j)}
+	\]
 
-So for a linear kernel: $K(x,z) = x^\top z$
+	So for a linear kernel: $K(x,z) = x^\top z$
 
-We get the same result as the euclidian distance formula:
+	We get the same result as the euclidian distance formula:
 
-\[
-d_{k}(x^{(i)}, x^{(j)}) = x^{(i)T}x^{(i)} + x^{(j)T}x^{(j)} - 2\,x^{(i)T}x^{(j)}
-\]
+	\[
+		d_{k}(x^{(i)}, x^{(j)}) = x^{(i)T}x^{(i)} + x^{(j)T}x^{(j)} - 2\,x^{(i)T}x^{(j)}
+	\]
 
 
 
 	\subsection{1.2}
+
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=0.4\textwidth]{../../imgs/hw3_1.2.png}
+	\end{figure}
+
 \end{homeworkProblem}
+
+\pagebreak
+
 \begin{homeworkProblem}
+	\subsection*{2.1}
+	
+	\begin{figure}[h]
+		\centering
+
+		% Polynomial (p1-p5)
+		\begin{tabular}{ccccc}
+			\includegraphics[width=0.18\textwidth]{../../imgs/hw3_2.1_p1.png} &
+			\includegraphics[width=0.18\textwidth]{../../imgs/hw3_2.1_p2.png} &
+			\includegraphics[width=0.18\textwidth]{../../imgs/hw3_2.1_p3.png} &
+			\includegraphics[width=0.18\textwidth]{../../imgs/hw3_2.1_p4.png} &
+			\includegraphics[width=0.18\textwidth]{../../imgs/hw3_2.1_p5.png}   \\
+		\end{tabular}
+		\vspace{4pt}
+		\\
+		\textit{Polynomial Kernel Results (d = 1, 2, 3, 4, 6)}
+
+		\vspace{8pt}
+
+		% RBF (p6-p9)
+		\begin{tabular}{cccc}
+			\includegraphics[width=0.22\textwidth]{../../imgs/hw3_2.1_p6.png} &
+			\includegraphics[width=0.22\textwidth]{../../imgs/hw3_2.1_p7.png} &
+			\includegraphics[width=0.22\textwidth]{../../imgs/hw3_2.1_p8.png} &
+			\includegraphics[width=0.22\textwidth]{../../imgs/hw3_2.1_p9.png}   \\
+		\end{tabular}
+		\vspace{4pt}
+		\\
+		\textit{RBF Kernel Results ($\gamma$ = 1, 10, 100, 1000)}
+
+		\vspace{8pt}
+
+		% Custom (p10-p13)
+		\begin{tabular}{cccc}
+			\includegraphics[width=0.22\textwidth]{../../imgs/hw3_2.1_p10.png} &
+			\includegraphics[width=0.22\textwidth]{../../imgs/hw3_2.1_p11.png} &
+			\includegraphics[width=0.22\textwidth]{../../imgs/hw3_2.1_p12.png} &
+			\includegraphics[width=0.22\textwidth]{../../imgs/hw3_2.1_p13.png}   \\
+		\end{tabular}
+		\vspace{4pt}
+		\\
+		\textit{Custom Kernel Results ($\gamma$ = 1, 10, 100, 1000)}
+
+		\caption{Non-parametric regression outputs for Polynomial, RBF, and Custom kernels}
+	\end{figure}
+
+	\subsection*{2.2}
+	\textbf{Original KNN Average Time: } 72.25 seconds \\
+	\textbf{LSH KNN Average Time: } 9.15 seconds
+
+\end{homeworkProblem}
+
+\pagebreak
+
+\begin{homeworkProblem}
+	\subsection*{3.1}
 	i) Maximizing projection variance:
 	\[
 		\mathrm{var} = \frac{1}{N} \sum_{i=1}^{N} (z_i - \bar{z})^2
@@ -191,7 +256,7 @@ d_{k}(x^{(i)}, x^{(j)}) = x^{(i)T}x^{(i)} + x^{(j)T}x^{(j)} - 2\,x^{(i)T}x^{(j)}
 	\]
 
 	\[
-		\max_{w} \quad w^T S w 
+		\max_{w} \quad w^T S w
 	\]
 
 
@@ -212,21 +277,37 @@ d_{k}(x^{(i)}, x^{(j)}) = x^{(i)T}x^{(i)} + x^{(j)T}x^{(j)} - 2\,x^{(i)T}x^{(j)}
 
 	We can further simplify:
 	\[
-\begin{aligned}
-\min_{w} \;& \frac{1}{N} \sum_{i=1}^{N} \left\| ww^T x^{(i)} - x^{(i)} \right\|^2 \\
-= \min_{w} \;& \frac{1}{N} \sum_{i=1}^{N} (ww^T x_i - x_i)^T (ww^T x_i - x_i) \\
-= \min_{w} \;& \frac{1}{N} \sum_{i=1}^{N} x_i^T ww^T ww^T x_i - 2x_i^T ww^T x_i \\
-= \min_{w} \;& -\frac{1}{N} \sum_{i=1}^{N} x_i^T ww^T x_i \\
-= \min_{w} \;& - w^T \left( \frac{1}{N} \sum_{i=1}^{N} x_i x_i^T \right) w \\
-= \max_{w} \;& w^T S w
-\end{aligned}
+		\begin{aligned}
+			\min_{w} \;   & \frac{1}{N} \sum_{i=1}^{N} \left\| ww^T x^{(i)} - x^{(i)} \right\|^2 \\
+			= \min_{w} \; & \frac{1}{N} \sum_{i=1}^{N} (ww^T x_i - x_i)^T (ww^T x_i - x_i)       \\
+			= \min_{w} \; & \frac{1}{N} \sum_{i=1}^{N} x_i^T ww^T ww^T x_i - 2x_i^T ww^T x_i     \\
+			= \min_{w} \; & -\frac{1}{N} \sum_{i=1}^{N} x_i^T ww^T x_i                           \\
+			= \min_{w} \; & - w^T \left( \frac{1}{N} \sum_{i=1}^{N} x_i x_i^T \right) w          \\
+			= \max_{w} \; & w^T S w
+		\end{aligned}
 	\]
 
-\emph{Both approaches lead to the same optimization problem:}
-\[
-	\max_{w} \quad w^T S w \quad \text{subject to} \quad w^T w = 1
-\]
-\emph{The optimal solution $w^*$ is the eigenvector of $S$ corresponding to the largest eigenvalue.}
+	\emph{Both approaches lead to the same optimization problem:}
+	\[
+		\max_{w} \quad w^T S w \quad \text{subject to} \quad w^T w = 1
+	\]
+	\emph{The optimal solution $w^*$ is the eigenvector of $S$ corresponding to the largest eigenvalue.}
+
+	\subsection*{3.2}
+	
+\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.7\textwidth]{../../imgs/hw3_3.2.png}
+	\end{figure}
+
+\subsection*{3.3}
+
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.7\textwidth]{../../imgs/hw3_3.3.png}
+	\end{figure}
+
+
 \end{homeworkProblem}
 
 \end{document}
