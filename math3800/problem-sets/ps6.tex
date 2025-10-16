@@ -153,6 +153,11 @@
 \pagebreak
 
 \begin{homeworkProblem}
+
+
+\end{homeworkProblem}
+
+\begin{homeworkProblem}
 	\textbf{(i)}
 	\[
 		12^{49} \mod 15
@@ -236,6 +241,99 @@
 	\[
 		13^{9112} \bmod 27 = 22
 	\]
+
+\end{homeworkProblem}
+
+\begin{homeworkProblem}
+
+	Let $p$ be a prime number. Show that the natural numbers $1$ and $p - 1$ are their own inverses modulo $p$.
+
+	\medskip
+
+	We want to prove:
+	\[
+		1 \cdot 1 \equiv 1 \pmod{p}
+		\quad \text{and} \quad
+		(p - 1)^2 \equiv 1 \pmod{p}
+	\]
+
+	\textbf{(i)} For the number $1$:
+	\[
+		1 \cdot 1 \equiv 1 \pmod{p}.
+	\]
+	Since $1 \cdot 1 = 1$, and $1 \equiv 1 \pmod{p}$ for any modulus $p$, the result follows immediately. Therefore, $1$ is its own inverse modulo $p$.
+
+	\medskip
+
+	\textbf{(ii)} Now consider $p - 1$. We compute:
+	\[
+		(p - 1)^2 = p^2 - 2p + 1
+	\]
+
+	We know that $p \equiv 0 \pmod{p}$, as $p \mid p \quad $ so:
+
+	\[
+		(p - 1)^2 = p^2 - 2p + 1 \equiv 1 \pmod{p}
+	\]
+
+	We can rewrite this as:
+	\[
+		p(p-2) \equiv 0 \pmod{p}
+	\]
+
+	And we now see that $p \mid p(p-2)$.
+
+	\medskip
+
+	Therefore, $p - 1$ is its own inverse modulo $p$.
+
+\end{homeworkProblem}
+
+\begin{homeworkProblem}
+	\textbf{(i)}
+
+	\begin{itemize}
+		\item d=1 $\quad \phi(1) = 1$
+		\item d=3 $\quad \phi(3) = 2$
+		\item d=5 $\quad \phi(5) = 4$
+		\item d=15 $\quad \phi(5) = (3-1)(5-1) = 8$
+	\end{itemize}
+	\textbf{(ii)}
+
+	\[
+		\sum_{d \mid 15} \phi(d) = \phi(1) + \phi(3) + \phi(5) + \phi(15)
+		= 1 + 2 + 4 + 8 = 15
+	\]
+\end{homeworkProblem}
+
+\pagebreak
+
+\begin{homeworkProblem}
+	\textbf{(i)}
+	Let $p$ be a prime. Then all positive integers $a < p$ satisfy $\gcd(a,p)=1$.\\
+	There are exactly $p-1$ such integers. Therefore, $\phi(p)=p-1$.
+
+
+	\textbf{(ii)}
+	There are $pq - 1$ integers in this range. We subtract those divisible by $p$ and $q$:
+
+	\begin{itemize}
+		\item There are $q - 1$ multiples of $p$ less than $pq$.
+		\item There are $p - 1$ multiples of $q$ less than $pq$.
+	\end{itemize}
+
+	So the number of integers not relatively prime to $pq$ is
+	\[
+		(p - 1) + (q - 1) = p + q - 2.
+	\]
+
+	Therefore,
+	\[
+		\phi(pq) = (pq - 1) - (p + q - 2) = pq - p - q + 1 = (p - 1)(q - 1).
+	\]
+
+	\textbf{(iii)}
+
 
 \end{homeworkProblem}
 
