@@ -153,7 +153,51 @@
 \pagebreak
 
 \begin{homeworkProblem}
+	\paragraph*{(i)}
 
+We see a part in the mods below:
+\begin{align*}
+12^1 &\equiv 12 \mod 15 \\
+12^2 &= 144 \equiv 144 - 135 = 9 \mod 15 \\
+12^3 &= 12 \cdot 9 = 108 \equiv 108 - 105 = 3 \mod 15 \\
+12^4 &= 12 \cdot 3 = 36 \equiv 6 \mod 15 \\
+12^5 &= 12 \cdot 6 = 72 \equiv 12 \mod 15
+\end{align*}
+
+The powers repeat every 4 terms:
+\[
+12,\ 9,\ 3,\ 6,\ 12,\ 9,\ \dots, \text{Cycle length is } 4.
+\]
+
+\[
+49 \mod 4 = 1 \Rightarrow 12^{49} \equiv 12^1 \equiv 12 \mod 15
+\]
+
+\paragraph*{(ii)}
+
+Since \( \gcd(13, 27) = 1 \), we can use Euler’s theorem. Since
+\[
+27 = 3^3 \Rightarrow \phi(27) = 27 - 9 = 18,
+\]
+we have:
+\[
+13^{18} \equiv 1 \mod 27
+\]
+
+Now we want to reduce the exponent modulo 48
+\[
+9112 \mod 18 = 4 \Rightarrow 13^{9112} \equiv 13^4 \mod 27
+\]
+
+And now reduce the full modulo
+\begin{align*}
+13^2 &= 169 \Rightarrow 169 \mod 27 = 169 - 162 = 7 \\
+13^4 &= (13^2)^2 = 7^2 = 49 \Rightarrow 49 \mod 27 = 49 - 27 = 22
+\end{align*}
+
+\[
+ 13^{9112} \equiv 22 \mod 27
+\]
 
 \end{homeworkProblem}
 
@@ -333,6 +377,21 @@
 	\]
 
 	\textbf{(iii)}
+Let $p$ be a prime and $k \in \mathbb{N}$. By definition, $\phi(p^k)$ is the number of positive integers less than or equal to $p^k$ that are coprime to $p^k$.
+
+An integer $a$ is \emph{not} coprime to $p^k$ if and only if $p \mid a$. So we count how many integers between $1$ and $p^k$ are divisible by $p$.
+
+These are the integers:
+\[
+p,\ 2p,\ 3p,\ \dots,\ p^k,
+\]
+which gives a total of $\frac{p^k}{p} = p^{k-1}$ such numbers.
+
+Therefore, the number of integers \emph{coprime} to $p^k$ is:
+\[
+\phi(p^k) = p^k - p^{k-1}.
+\]
+
 
 
 \end{homeworkProblem}
