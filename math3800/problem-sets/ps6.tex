@@ -153,55 +153,6 @@
 \pagebreak
 
 \begin{homeworkProblem}
-	\paragraph*{(i)}
-
-We see a part in the mods below:
-\begin{align*}
-12^1 &\equiv 12 \mod 15 \\
-12^2 &= 144 \equiv 144 - 135 = 9 \mod 15 \\
-12^3 &= 12 \cdot 9 = 108 \equiv 108 - 105 = 3 \mod 15 \\
-12^4 &= 12 \cdot 3 = 36 \equiv 6 \mod 15 \\
-12^5 &= 12 \cdot 6 = 72 \equiv 12 \mod 15
-\end{align*}
-
-The powers repeat every 4 terms:
-\[
-12,\ 9,\ 3,\ 6,\ 12,\ 9,\ \dots, \text{Cycle length is } 4.
-\]
-
-\[
-49 \mod 4 = 1 \Rightarrow 12^{49} \equiv 12^1 \equiv 12 \mod 15
-\]
-
-\paragraph*{(ii)}
-
-Since \( \gcd(13, 27) = 1 \), we can use Euler’s theorem. Since
-\[
-27 = 3^3 \Rightarrow \phi(27) = 27 - 9 = 18,
-\]
-we have:
-\[
-13^{18} \equiv 1 \mod 27
-\]
-
-Now we want to reduce the exponent modulo 48
-\[
-9112 \mod 18 = 4 \Rightarrow 13^{9112} \equiv 13^4 \mod 27
-\]
-
-And now reduce the full modulo
-\begin{align*}
-13^2 &= 169 \Rightarrow 169 \mod 27 = 169 - 162 = 7 \\
-13^4 &= (13^2)^2 = 7^2 = 49 \Rightarrow 49 \mod 27 = 49 - 27 = 22
-\end{align*}
-
-\[
- 13^{9112} \equiv 22 \mod 27
-\]
-
-\end{homeworkProblem}
-
-\begin{homeworkProblem}
 	\textbf{(i)}
 	\[
 		12^{49} \mod 15
@@ -288,6 +239,48 @@ And now reduce the full modulo
 
 \end{homeworkProblem}
 
+\begin{homeworkProblem}
+	\paragraph*{(i)}
+We want to find an integer $x$ such that:
+\[
+9x \equiv 1 \mod 25
+\]
+
+We start with the extended euclidian algorithm:
+\begin{align*}
+25 &= 2 \cdot 9 + 7 \\
+9 &= 1 \cdot 7 + 2 \\
+7 &= 3 \cdot 2 + 1 \\
+2 &= 2 \cdot 1 + 0
+\end{align*}
+
+And substituing gives:
+\[
+1 = 7 - 3 \cdot 2 = 4 \cdot 7 - 3 \cdot 9 = 4(25 - 2 \cdot 9) - 3 \cdot 9 = 4 \cdot 25 - 11 \cdot 9
+\]
+
+Thus:
+\[
+9^{-1} \equiv -11 \equiv 14 \mod 25
+\]
+
+	\paragraph*{(ii)}
+
+From part (i), the inverse of 9 modulo 25 is 14. So:
+\[
+x \equiv 14\mod 25
+\]
+
+This is the unique incongruent solution modulo 25.
+
+	\paragraph*{(iii)}
+
+Multiply both sides of the congruence by the inverse of 9 (which is 14):
+\[
+x \equiv 14 \cdot 21 \mod 25 = 294 \mod 25 = 19
+\]
+
+\end{homeworkProblem}
 \begin{homeworkProblem}
 
 	Let $p$ be a prime number. Show that the natural numbers $1$ and $p - 1$ are their own inverses modulo $p$.
