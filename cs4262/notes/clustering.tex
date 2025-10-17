@@ -219,6 +219,79 @@ The silhouette coefficient measures how well a data point fits within its assign
 
 We want to calculate $s(o)$ for different k values and choose the result with the highest score.
 
+\pagebreak
+
+\section*{Gaussian Mixture Models}
+The idea here is to approximate with a mixture of Gaussian distributions.
+
+Below is hte Gaussian (Normal) distrubtion formula, it tells us how likely (or typical) it is to observe a value near 
+$x$ given a Gaussian distribution with parameters $\mu$ and $\sigma$.
+\[
+p(x; \mu, \sigma) = \mathcal{N}(x; \mu, \sigma) = \frac{1}{\sqrt{2\pi\sigma^2}} \, e^{ -\frac{(x - \mu)^2}{2\sigma^2} }
+\]
+
+We want to estimate the mean ($\mu$) and standard deviation ($\sigma$) from our observed samples $\{x_1, x_2, \dots, x_N\}$. We can do this using \textit{Maximum Likelihood Estimation (MLE)}.
+
+
+\[
+\arg\max_{\mu, \sigma} \, p(x_1, \dots, x_N; \mu, \sigma) = \prod_{n=1}^{N} p(x_n; \mu, \sigma)
+\]
+
+Maximum Log-Likelihood
+
+\[
+\arg\max_{\mu, \sigma} \log \left( \prod_{n=1}^{N} p(x_n; \mu, \sigma) \right) = \sum_{n=1}^{N} \log p(x_n; \mu, \sigma)
+\]
+
+Minimizing Negative Log-Likelihood
+
+\[
+\arg\min_{\mu, \sigma} \sum_{n=1}^{N} 
+\underbrace{
+\left[
+\frac{ \log(2\pi\sigma^2) }{2} + \frac{(x_n - \mu)^2}{2\sigma^2}
+\right]
+}_{L}
+\]
+
+\[
+\Rightarrow
+\begin{cases}
+\frac{\partial L}{\partial \mu} = 0 \Rightarrow \mu_* = \frac{1}{N} \sum_{n=1}^{N} x_n \\[1em]
+\frac{\partial L}{\partial \sigma} = 0 \Rightarrow \sigma^2_* = \frac{1}{N} \sum_{n=1}^{N} (x_n - \mu_*)^2
+\end{cases}
+\]
+
+We should notice these derived formulas are also just the empirical mean and variance formulas.
+
+\paragraph*{2D data}
+If our data is 2 dimensional we see the formulas as so:
+
+\medskip
+
+MLE:
+\[
+p(x; \mu, \Sigma) = \frac{1}{\sqrt{(2\pi)^d \det(\Sigma)}} 
+\exp\left( -\frac{1}{2} (x - \mu)^T \Sigma^{-1} (x - \mu) \right)
+\]
+
+Mean:
+\[
+\frac{\partial L}{\partial \mu} = 0 \quad \Rightarrow \quad 
+\mu_* = \frac{1}{N} \sum_{n=1}^{N} x_n
+\]
+
+Covariance:
+\[
+\frac{\partial L}{\partial \Sigma} = 0 \quad \Rightarrow \quad 
+\Sigma_* = \frac{1}{N} \sum_{n=1}^{N} (x_n - \mu_*)(x_n - \mu_*)^T
+\]
+
+
+
+
+
+
 \end{document}
 
 
