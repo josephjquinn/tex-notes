@@ -482,7 +482,7 @@ EM-GMM Algorithm (Input: x,k=2):
 	\begin{subfigure}[t]{0.3\textwidth}
 		\centering
 		\includegraphics[width=\textwidth]{../imgs/gmm_p6.png}
-    \caption*{\small Converged clusters}
+		\caption*{\small Converged clusters}
 	\end{subfigure}
 
 	\caption{Visualization of the EM algorithm for GMM with $k = 2$ components}
@@ -521,6 +521,30 @@ EM-GMM Algorithm (Input: x,k=2):
 	\item Only hard assignments are allowed
 \end{itemize}
 
+\subsection*{Dimensionality}
+GMMs often fail for high-dimensional data as they require very large amounts of data to estimate the covariance matrices!
+
+\medskip
+
+With this being said we know that high-dimensional data often has a low-dimensional support, e.g., data lives on a low-dimensional
+subspace or a low-dimensional manifold
+
+\medskip
+
+The idea is we want to utilize linear dimensionality reduction to avoid applying GMM in high-dimensions
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=1\textwidth]{../imgs/high-low-dim.png} % 
+\end{figure}
+
+\begin{enumerate}
+	\item Apply PCA to reduce from 24 dimensions to 2.
+
+	\item Perform GMM clustering in the 2D PCA space instead of the original 24D space. 
+
+	\item Map the cluster centers back to the original 24D space via the pseudo-inverse of PCA. 
+\end{enumerate}
 \end{document}
 
 
