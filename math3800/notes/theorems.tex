@@ -57,15 +57,15 @@
 
 \begin{tabular}{|>{\bfseries}m{3cm}|m{10cm}|}
 	\hline
-	Strategy                       & Core Idea                                                                                                                                                             \\
+	Strategy       & Core Idea                                                                                                                                                             \\
 	\hline
-	Direct                         & Start from given assumptions and proceed step by step until the desired statement emerges.                                                                            \\
+	Direct         & Start from given assumptions and proceed step by step until the desired statement emerges.                                                                            \\
 	\hline
-	Contrapositive                 & Instead of proving ``If $P$ is true, then $Q$ is true,'' prove the equivalent statement ``If $Q$ is false, then $P$ is false.'' Often the negative form is easier.    \\
+	Contrapositive & Instead of proving ``If $P$ is true, then $Q$ is true,'' prove the equivalent statement ``If $Q$ is false, then $P$ is false.'' Often the negative form is easier.    \\
 	\hline
-	Contradiction                  & Instead of proving ``If $P$ is true, then $Q$ is true,'' assume ``$P$ is true and $Q$ is false'' and use the assumptions to reach an impossibility (such as $0 = 1$). \\
+	Contradiction  & Instead of proving ``If $P$ is true, then $Q$ is true,'' assume ``$P$ is true and $Q$ is false'' and use the assumptions to reach an impossibility (such as $0 = 1$). \\
 	\hline
-	Induction (ordinary or strong) & Prove an initial case; then show that whenever the statement holds for one (or all earlier) integer(s), it holds for the next.                                        \\
+	Induction      & Prove an initial case; then show that whenever the statement holds for one (or all earlier) integer(s), it holds for the next.                                        \\
 	\hline
 \end{tabular}
 
@@ -427,7 +427,7 @@ Let $n, m \in \mathbb{N}$ with $n > 0$.
 \end{manualtheorem}
 
 \begin{manualtheorem}{3.29}[Chinese Remainder Theorem]
-	Let $L \in \mathbb{N}$. Suppose $a_{1}, a_{2}, \ldots, a_{L}$ are integers and
+	Let $L \in \mathbb{N}$. Suppose $a_{1}, a_{2}, \ldots, a_{L}$ are integers and \\
 	$n_{1}, n_{2}, \ldots, n_{L}$ are pairwise relatively prime natural numbers
 	(that is, $\gcd(n_{i}, n_{j}) = 1$ for $i \neq j$, $1 \leq i, j \leq L$).
 	Then the system of $L$ congruences
@@ -444,47 +444,47 @@ Let $n, m \in \mathbb{N}$ with $n > 0$.
 
 \textbf{How to solve:}
 \[
-\begin{cases}
-x \equiv a \pmod{m} \\
-x \equiv b \pmod{n}
-\end{cases}
+	\begin{cases}
+		x \equiv a \pmod{m} \\
+		x \equiv b \pmod{n}
+	\end{cases}
 \]
 
 \begin{enumerate}
-  \item Identify the values:
-    \[
-    x \equiv a \pmod{m}, \quad x \equiv b \pmod{n}
-    \]
+	\item Identify the values:
+	      \[
+		      x \equiv a \pmod{m}, \quad x \equiv b \pmod{n}
+	      \]
 
-  \item Confirm that \( m \) and \( n \) are coprime: \( \gcd(m, n) = 1 \). If true, a unique solution exists modulo \( mn \).
+	\item Confirm that \( m \) and \( n \) are coprime: \( \gcd(m, n) = 1 \). If true, a unique solution exists modulo \( mn \).
 
-  \item Use the Extended Euclidean Algorithm to find integers \( u \) and \( v \) such that:
-    \[
-    mu + nv = 1
-    \]
+	\item Use the Extended Euclidean Algorithm to find integers \( u \) and \( v \) such that:
+	      \[
+		      mu + nv = 1
+	      \]
 
-  \item Multiply both sides of the equation by \( a - b \):
-    \[
-    m u (a - b) + n v (a - b) = a - b
-    \]
+	\item Multiply both sides of the equation by \( a - b \):
+	      \[
+		      m u (a - b) + n v (a - b) = a - b
+	      \]
 
-  \item Rearranging, define:
-    \[
-    x_0 = a - m \cdot u \cdot (a - b)
-    \]
-    Then \( x_0 \equiv a \pmod{m} \) and \( x_0 \equiv b \pmod{n} \).
+	\item Rearranging, define:
+	      \[
+		      x_0 = a - m \cdot u \cdot (a - b)
+	      \]
+	      Then \( x_0 \equiv a \pmod{m} \) and \( x_0 \equiv b \pmod{n} \).
 
-  \item The general solution is:
-    \[
-    x \equiv x_0 \pmod{mn}
-    \quad \text{or} \quad
-    x = x_0 + mn \cdot k, \quad k \in \mathbb{Z}
-    \]
+	\item The general solution is:
+	      \[
+		      x \equiv x_0 \pmod{mn}
+		      \quad \text{or} \quad
+		      x = x_0 + mn \cdot k, \quad k \in \mathbb{Z}
+	      \]
 \end{enumerate}
 
 \section{Fermat’s Little Theorem and Euler’s Theorem}
 
-\begin{definition*}{Definition}
+\begin{definition*}
 	Let $a$ and $n$ be natural numbers with $\gcd(a,n) = 1$. The smallest natural number $k$ such that $a^{k} \equiv 1 \pmod{n}$ is called the \emph{order} of $a$ modulo $n$ and is denoted $\operatorname{ord}_{n}(a)$.
 \end{definition*}
 
@@ -499,6 +499,17 @@ x \equiv b \pmod{n}
 \begin{manualtheorem}{4.6}
 	Let $a$ and $n$ be natural numbers with $\gcd(a,n) = 1$. Then there exists a natural number $k$ such that $a^{k} \equiv 1 \pmod{n}$.
 \end{manualtheorem}
+
+\begin{manualtheorem}{4.8}
+	Let $a$ and $n$ be natural numbers with $\gcd(a,n) = 1$, and let
+	$k = \operatorname{ord}_n(a)$. Then the numbers
+	$a^1, a^2, \ldots, a^k$ are pairwise incongruent modulo $n$; that is,
+	\[
+		a^i \not\equiv a^j \pmod{n} \quad \text{whenever } i \neq j.
+	\]
+\end{manualtheorem}
+
+\subsection{Fermat’s Little Theorem}
 
 \begin{manualtheorem}{4.9}
 	Let $a$ and $n$ be natural numbers with $\gcd(a,n) = 1$ and let $k = \operatorname{ord}_{n}(a)$. For any natural number $m$, $a^{m}$ is congruent modulo $n$ to one of the numbers $a^{1}, a^{2}, \ldots, a^{k}$.
@@ -525,7 +536,221 @@ x \equiv b \pmod{n}
 	\]
 \end{manualtheorem}
 
+\begin{manualtheorem}{4.15}[Fermat's Little Theorem, Version I]
+	If $p$ is a prime and $a$ is an integer such that $\gcd(a, p) = 1$, then
+	\[
+		a^{p-1} \equiv 1 \pmod{p}.
+	\]
+\end{manualtheorem}
 
+\begin{manualtheorem}{4.16}[Fermat's Little Theorem, Version II]
+	If $p$ is a prime and $a$ is any integer, then
+	\[
+		a^{p} \equiv a \pmod{p}.
+	\]
+\end{manualtheorem}
+
+\begin{manualtheorem}{4.18}
+	Let $p$ be a prime and $a$ be an integer. If $\gcd(a, p) = 1$, then
+	\[
+		\operatorname{ord}_p(a) \mid (p - 1).
+	\]
+\end{manualtheorem}
+
+\subsection{Euler’s Theorem}
+
+\begin{definition*}
+	For a natural number $n$, the Euler $\phi$-function, $\phi(n)$, is equal to the number of natural numbers less than or equal to $n$ that are relatively prime to $n$.
+	(Note that $\varphi(1) = 1$.)
+\end{definition*}
+
+\begin{manualtheorem}{4.31}
+	Let $a, n \in \mathbb{N}$ with $\gcd(a, n) = 1$, and let $x_1, x_2, \ldots, x_{\varphi(n)}$ be the distinct natural numbers less than or equal to $n$ that are relatively prime to $n$.
+
+	Let $i$ and $j$ be natural numbers less than or equal to $\varphi(n)$. Then
+	\[
+		a x_i \equiv a x_j \pmod{n} \quad \text{implies} \quad i = j.
+	\]
+\end{manualtheorem}
+
+\begin{manualtheorem}{4.32}[Euler's Theorem]
+	If $a$ and $n$ are integers with $n > 0$ and $\gcd(a, n) = 1$, then
+	\[
+		a^{\varphi(n)} \equiv 1 \pmod{n}.
+	\]
+\end{manualtheorem}
+
+As long as we can compute $\phi{(n)}$, Euler’s Theorem can be used just like Fermat’s
+Little Theorem for computing powers of numbers modulo $n$.
+
+\subsection{Inverses and Wilson’s Theorem}
+
+\begin{definition*}
+	Let $p$ be a prime and let $a$ and $b$ be integers such that
+	\[
+		ab \equiv 1 \pmod{p}.
+	\]
+	Then $a$ and $b$ are said to be \emph{inverses modulo $p$}.
+\end{definition*}
+
+\begin{manualtheorem}{4.36}
+	Let $p$ be a prime and let $a$ be an integer such that $1 \leq a < p$. Then there exists a unique natural number $b$ less than $p$ such that
+	\[
+		ab \equiv 1 \pmod{p}.
+	\]
+\end{manualtheorem}
+
+\begin{manualtheorem}{4.38}
+	Let $p$ be a prime and let $a$ and $b$ be integers such that $1 < a, b < p - 1$ and
+	\[
+		ab \equiv 1 \pmod{p}.
+	\]
+	Then $a \neq b$.
+\end{manualtheorem}
+
+\begin{manualtheorem}{4.40}
+	If $p$ is a prime larger than $3$, then
+	\[
+		2 \cdot 3 \cdot 4 \cdots (p - 2) \equiv 1 \pmod{p}.
+	\]
+\end{manualtheorem}
+
+\begin{manualtheorem}{4.41}[Wilson's Theorem]
+	If $p$ is a prime, then
+	\[
+		(p - 1)! \equiv -1 \pmod{p}.
+	\]
+\end{manualtheorem}
+
+\begin{manualtheorem}{4.42}[Converse of Wilson's Theorem]
+	If $n$ is a natural number such that
+	\[
+		(n - 1)! \equiv -1 \pmod{n},
+	\]
+	then $n$ is prime.
+\end{manualtheorem}
+
+\section{Public Key Cryptography}
+
+\begin{manualtheorem}{4.21}
+	Let $n$ and $m$ be natural numbers that are relatively prime, and let $a$ be an integer. If
+	\[
+		x \equiv a \pmod{n} \quad \text{and} \quad x \equiv a \pmod{m},
+	\]
+	then
+	\[
+		x \equiv a \pmod{nm}.
+	\]
+\end{manualtheorem}
+
+\begin{manualtheorem}{5.1}
+	If $p$ and $q$ are distinct primes and $W$ is a natural number with $\gcd(W, pq) = 1$, then
+	\[
+		W^{(p - 1)(q - 1)} \equiv 1 \pmod{pq}.
+	\]
+\end{manualtheorem}
+
+\begin{manualtheorem}{5.2}
+	Let $p$ and $q$ be distinct primes, $k$ a natural number, and $W$ a natural number less than $pq$. Then
+	\[
+		W^{1 + k(p - 1)(q - 1)} \equiv W \pmod{pq}.
+	\]
+\end{manualtheorem}
+
+\begin{manualtheorem}{5.3}
+	Let $p$ and $q$ be distinct primes, $E$ a natural number relatively prime to $(p - 1)(q - 1)$. Then there exist natural numbers $D$ and $y$ such that
+	\[
+		ED = 1 + y(p - 1)(q - 1).
+	\]
+\end{manualtheorem}
+
+\begin{manualtheorem}{5.4}
+	Let $p$ and $q$ be distinct primes, $W$ a natural number less than $pq$, and $E$, $D$, and $y$ be natural numbers such that
+	\[
+		ED = 1 + y(p - 1)(q - 1).
+	\]
+	Then
+	\[
+		W^{ED} \equiv W \pmod{pq}.
+	\]
+\end{manualtheorem}
+
+What have we proven now? We have shown that raising $W$ to a certain power ($ED$) and reducing modulo $pq$ recovers $W$.
+
+Note that
+\[
+	W^{ED} = (W^{E})^{D}.
+\]
+
+\textbf{RSA Public Key Coding System}
+
+\medskip
+
+The number $W$ is the message Bob wants to send to Alice without anyone else gaining access to what the message says.
+
+\begin{enumerate}
+	\item \textbf{Step 1: Key Generation.}
+
+	      Alice does the following:
+	      \begin{enumerate}
+		      \item Choose two distinct primes $p$ and $q$ and compute the modulus $n = pq$.
+		      \item Compute $\phi(n) = (p - 1)(q - 1)$.
+		      \item Pick an encoding exponent $E$ with $1 < E < \phi(n)$ and $\gcd(E, \phi(n)) = 1$.
+		      \item Find the decoding exponent $D$ by solving
+		            \[
+			            ED \equiv 1 \pmod{\phi(n)} \quad (1 < D < \phi(n)).
+		            \]
+	      \end{enumerate}
+
+	      The pair $(n, E)$ is called the \textbf{public key} and the pair $(n, D)$ is called the \textbf{private key}.
+	      Alice publishes the public key for anyone to see but keeps her private key secret.
+
+	\item \textbf{Step 2: Encryption.}
+
+	      Now Bob wants to send Alice a message.
+	      To encrypt $W$, he uses Alice’s public key to compute
+	      \[
+		      C := W^{E} \pmod{n}.
+	      \]
+	      This ciphertext $C$ is sent to Alice.
+	      Without knowledge of $n$'s prime decomposition, it is computationally infeasible for anyone to recover $W$ by brute force.
+	      Bob does not need to know any private information to send his encrypted message.
+
+	\item \textbf{Step 3: Decryption.}
+
+	      Alice receives $C$ and computes
+	      \[
+		      C^{D} \pmod{n},
+	      \]
+	      which equals
+	      \[
+		      (W^{E})^{D} \equiv W \pmod{n}.
+	      \]
+	      Thus, she recovers the original message $W$.
+\end{enumerate}
+
+\section{Polynomial Congruences and Primitive Roots}
+
+\begin{definition}
+	Recall that $r$ is a \emph{root} of the polynomial
+	\[
+		f(x) = a_n x^n + a_{n-1} x^{n-1} + \cdots + a_0
+	\]
+	if $f(r) = 0$.
+\end{definition}
+
+\begin{manualtheorem}{6.1}
+	Let
+	\[
+		f(x) = a_n x^n + a_{n-1} x^{n-1} + \cdots + a_0
+	\]
+	be a polynomial of degree $n > 0$ with integer coefficients and assume $a_n \neq 0$.
+
+	Then an integer $r$ is a root of $f(x)$ if and only if there exists a polynomial $g(x)$ of degree $n - 1$ with integer coefficients such that
+	\[
+		f(x) = (x - r)g(x).
+	\]
+\end{manualtheorem}
 
 \end{document}
 
