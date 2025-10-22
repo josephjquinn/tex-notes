@@ -545,6 +545,94 @@ The idea is we want to utilize linear dimensionality reduction to avoid applying
 
 	\item Map the cluster centers back to the original 24D space via the pseudo-inverse of PCA. 
 \end{enumerate}
+
+
+\section*{Spectral Clustering}
+This method clusters data based on links in a graph,
+
+Given data points \( X_1, \dots, X_n \) and similarities \( w(X_i, X_j) \), partition the data into groups so that points in a group are similar and points in different groups are dissimilar.
+
+\medskip
+
+\textbf{Similarity Graph}: \( G(V, E, W) \) 
+\begin{itemize}
+  \item \( V \) Vertices (Data points)
+  \item \( E \) Edge if similarity \( > 0 \)
+  \item \( W \) Edge weights (similarities)
+\end{itemize}
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.55\textwidth]{../imgs/sim-graph.png} % 
+\end{figure}
+
+We have a few options for calculating the similarity of a dataset: 
+
+\begin{itemize}
+    \item \textbf{RBF kernel as similarity function (fully connected)} \hfill 
+    \[
+        w_{ij} = e^{\frac{-\|x_i - x_j\|^2}{2\sigma^2}}
+    \]
+    
+    \item \textbf{k-nearest neighbor:} Each vertex is connected to its \( k \)-nearest neighbors
+\end{itemize}
+
+\paragraph*{Graph Terminology}
+
+\begin{itemize}
+    \item \textbf{Degree of nodes}
+    \[
+        d_i = \sum_j w_{i,j}
+    \]
+    The degree of node \(i\) is the sum of weights to connected nodes.
+
+    \item \textbf{Volume of a set}
+    \[
+        \text{vol}(A) = \sum_{i \in A} d_i, \quad A \subseteq V
+    \]
+    The volume of a set \(A\) is the sum of node degrees over all nodes in set \(A\).
+\end{itemize}
+
+\vspace{1em}
+
+\subsection*{Matrix Definitions}
+
+\begin{itemize}
+    \item \textbf{Weighted adjacency matrix \(W\)}: 
+    The row and column indices represent the nodes, and the entries represent the weights (similarities).
+
+    \item \textbf{Degree matrix \(D\)}: 
+    A diagonal matrix where the value at entry \((i, i)\) is the degree of node \(i\).
+\end{itemize}
+
+\pagebreak
+
+\paragraph*{Graph Cut}
+
+
+\begin{itemize}
+    \item Consider a partition of the graph into two parts \( A \) and \( B \).
+    
+    \item \textbf{Cut}\((A, B)\): sum of the weights of the set of edges that connect the two groups
+    \[
+        \text{cut}(A, B) = \sum_{i \in A,\, j \in B} w_{ij} = 0.3
+    \]
+    
+    Our goal is to find the partition that minimizes the cut.
+
+\end{itemize}
+
+\begin{figure}[!ht]
+	\centering
+	\includegraphics[width=0.4\textwidth]{../imgs/gcut} % 
+\end{figure}
+
+\end{document}
+
+
+
+
+
 \end{document}
 
 
