@@ -541,9 +541,9 @@ The idea is we want to utilize linear dimensionality reduction to avoid applying
 \begin{enumerate}
 	\item Apply PCA to reduce from 24 dimensions to 2.
 
-	\item Perform GMM clustering in the 2D PCA space instead of the original 24D space. 
+	\item Perform GMM clustering in the 2D PCA space instead of the original 24D space.
 
-	\item Map the cluster centers back to the original 24D space via the pseudo-inverse of PCA. 
+	\item Map the cluster centers back to the original 24D space via the pseudo-inverse of PCA.
 \end{enumerate}
 
 
@@ -554,11 +554,11 @@ Given data points \( X_1, \dots, X_n \) and similarities \( w(X_i, X_j) \), part
 
 \medskip
 
-\textbf{Similarity Graph}: \( G(V, E, W) \) 
+\textbf{Similarity Graph}: \( G(V, E, W) \)
 \begin{itemize}
-  \item \( V \) Vertices (Data points)
-  \item \( E \) Edge if similarity \( > 0 \)
-  \item \( W \) Edge weights (similarities)
+	\item \( V \) Vertices (Data points)
+	\item \( E \) Edge if similarity \( > 0 \)
+	\item \( W \) Edge weights (similarities)
 \end{itemize}
 
 \begin{figure}[h]
@@ -566,31 +566,31 @@ Given data points \( X_1, \dots, X_n \) and similarities \( w(X_i, X_j) \), part
 	\includegraphics[width=0.55\textwidth]{../imgs/sim-graph.png} % 
 \end{figure}
 
-We have a few options for calculating the similarity of a dataset: 
+We have a few options for calculating the similarity of a dataset:
 
 \begin{itemize}
-    \item \textbf{RBF kernel as similarity function (fully connected)} \hfill 
-    \[
-        w_{ij} = e^{\frac{-\|x_i - x_j\|^2}{2\sigma^2}}
-    \]
-    
-    \item \textbf{k-nearest neighbor:} Each vertex is connected to its \( k \)-nearest neighbors
+	\item \textbf{RBF kernel as similarity function (fully connected)} \hfill
+	      \[
+		      w_{ij} = e^{\frac{-\|x_i - x_j\|^2}{2\sigma^2}}
+	      \]
+
+	\item \textbf{k-nearest neighbor:} Each vertex is connected to its \( k \)-nearest neighbors
 \end{itemize}
 
 \paragraph*{Graph Terminology}
 
 \begin{itemize}
-    \item \textbf{Degree of nodes}
-    \[
-        d_i = \sum_j w_{i,j}
-    \]
-    The degree of node \(i\) is the sum of weights to connected nodes.
+	\item \textbf{Degree of nodes}
+	      \[
+		      d_i = \sum_j w_{i,j}
+	      \]
+	      The degree of node \(i\) is the sum of weights to connected nodes.
 
-    \item \textbf{Volume of a set}
-    \[
-        \text{vol}(A) = \sum_{i \in A} d_i, \quad A \subseteq V
-    \]
-    The volume of a set \(A\) is the sum of node degrees over all nodes in set \(A\).
+	\item \textbf{Volume of a set}
+	      \[
+		      \text{vol}(A) = \sum_{i \in A} d_i, \quad A \subseteq V
+	      \]
+	      The volume of a set \(A\) is the sum of node degrees over all nodes in set \(A\).
 \end{itemize}
 
 \vspace{1em}
@@ -598,11 +598,11 @@ We have a few options for calculating the similarity of a dataset:
 \subsection*{Matrix Definitions}
 
 \begin{itemize}
-    \item \textbf{Weighted adjacency matrix \(W\)}: 
-    The row and column indices represent the nodes, and the entries represent the weights (similarities).
+	\item \textbf{Weighted adjacency matrix \(W\)}:
+	      The row and column indices represent the nodes, and the entries represent the weights (similarities).
 
-    \item \textbf{Degree matrix \(D\)}: 
-    A diagonal matrix where the value at entry \((i, i)\) is the degree of node \(i\).
+	\item \textbf{Degree matrix \(D\)}:
+	      A diagonal matrix where the value at entry \((i, i)\) is the degree of node \(i\).
 \end{itemize}
 
 \pagebreak
@@ -611,14 +611,14 @@ We have a few options for calculating the similarity of a dataset:
 
 
 \begin{itemize}
-    \item Consider a partition of the graph into two parts \( A \) and \( B \).
-    
-    \item \textbf{Cut}\((A, B)\): sum of the weights of the set of edges that connect the two groups
-    \[
-        \text{cut}(A, B) = \sum_{i \in A,\, j \in B} w_{ij} = 0.3
-    \]
-    
-    Our goal is to find the partition that minimizes the cut.
+	\item Consider a partition of the graph into two parts \( A \) and \( B \).
+
+	\item Cut\((A, B)\): sum of the weights of the set of edges that connect the two groups
+	      \[
+		      \text{cut}(A, B) = \sum_{i \in A,\, j \in B} w_{ij} = 0.3
+	      \]
+
+	      Our goal is to find the partition that minimizes the cut.
 
 \end{itemize}
 
@@ -627,11 +627,135 @@ We have a few options for calculating the similarity of a dataset:
 	\includegraphics[width=0.4\textwidth]{../imgs/gcut} % 
 \end{figure}
 
-\end{document}
+Min-cut: Partition graph into two sets A and B such that weight of edges
+connecting vertices in A to vertices in B is minimum
+
+This is an easy to solve O(VE) algorithm, But this is not satisfactory partition often isolates vertices
+
+\begin{figure}[!ht]
+	\centering
+	\includegraphics[width=0.4\textwidth]{../imgs/mincutissues.png} % 
+\end{figure}
+
+\subsection*{Normalized Cut}
+To help combat this we used a normalized cut technique.
+
+\[
+	\text{Ncut}(A, B) = \text{cut}(A, B) \cdot \frac{\text{Vol}(A) + \text{Vol}(B)}{\text{Vol}(A)\text{Vol}(B)}
+\]
+This way we consider the connectivity between groups relative to the volume of each group
+
+\medskip
+
+We want to minimize Ncut, but This is hard to optimize directly, because it's combinatorial (we would have to try all possible partitions of the graph A and B).
+
+\medskip
+
+To help with this we utilize the Laplacian to give us a relaxed solution.
+
+\subsection*{Laplacian}
+The Laplacian of a graph is defined as:
+
+\[
+	L = D - W
+\]
+
+% W: adjacency (weight) matrix
+% D: diagonal degree matrix
+
+\textit{The matrix $L$ satisfies the following properties:}
+
+\begin{enumerate}
+	\item For every vector $f \in \mathbb{R}^n$ we have
+	      \[
+		      \mathbf{f}^T L \mathbf{f} = \frac{1}{2} \sum_{i,j=1}^{N} w_{ij}(f_i - f_j)^2.
+	      \]
+
+	\item $L$ is symmetric and positive semi-definite.
+
+	\item The smallest eigenvalue of $L$ is $0$, the corresponding eigenvector is the constant one vector $\mathbf{1}$.
+\end{enumerate}
+
+\vspace{1em}
+
+In spectral clustering, we solve the following optimization problem (relaxed):
+
+\[
+	\min_{\mathbf{f}} \quad \mathbf{f}^T L \mathbf{f} \quad \text{subject to} \quad \mathbf{f}^T D \mathbf{f} = 1
+\]
+
+This leads to the following generalized eigenvalue problem:
+
+\[
+	D^{-1} L \mathbf{f} = \lambda \mathbf{f}
+\]
+
+The solution is given by selecting the **second smallest eigenvector** \( \mathbf{f} \).
+
+\begin{itemize}
+	\item The smallest eigenvalue is \( \lambda = 0 \), with eigenvector \( \mathbf{1} \) (the constant vector)
+	\item The second eigenvector encodes the best relaxed cut and is used for clustering
+\end{itemize}
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.7\textwidth]{../imgs/relaxed_spec.png}
+\end{figure}
 
 
+Example clustering
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.7\textwidth]{../imgs/spec-example.png}
+\end{figure}
 
+\pagebreak
 
+\subsection*{Multiple Clusters}
+
+In two-way spectral clustering, we use a single eigenvector (typically the second smallest eigenvector)
+to partition the graph into two clusters.
+However, for clustering into more than two groups, we use multiple eigenvectors.
+
+The idea is to use several eigenvectors corresponding to the smallest non-zero eigenvalues of the
+generalized eigenvalue problem:
+\[
+	(D^{-1}L)\mathbf{f}_k = \lambda_k \mathbf{f}_k
+\]
+These eigenvectors provide a low-dimensional representation of the data, known as the \emph{spectral embedding}.
+
+\subsection*{Spectral Clustering Algorithm}
+
+\textbf{Input:}
+\begin{itemize}
+	\item Degree matrix \( D \)
+	\item Weighted adjacency matrix \( W \)
+\end{itemize}
+
+\textbf{Steps:}
+\begin{enumerate}
+	\item Compute the Laplacian:
+	      \[
+		      L = D - W
+	      \]
+
+	\item Solve the generalized eigenvalue problem:
+	      \[
+		      D^{-1}L \, \mathbf{f}_k = \lambda_k \mathbf{f}_k
+	      \]
+	      and compute the first \( k \) eigenvectors \( \mathbf{f}_1, \dots, \mathbf{f}_k \)
+
+	\item Let \( U \in \mathbb{R}^{N \times k} \) be the matrix containing \( \mathbf{f}_1, \dots, \mathbf{f}_k \) as columns
+
+	\item For \( i = 1, \dots, N \), let \( \mathbf{y}_i \in \mathbb{R}^k \) be the vector corresponding to the \( i \)-th row of \( U \)
+
+	\item Cluster the points \( \{ \mathbf{y}_i \}_{i=1}^N \subset \mathbb{R}^k \) using the \( k \)-means algorithm into clusters \( C_1, \dots, C_k \)
+\end{enumerate}
+
+\textbf{Output:}
+\[
+	A_i = \{ j \mid \mathbf{y}_j \in C_i \}, \quad \text{for } i = 1, \dots, k
+\]
 
 \end{document}
 
