@@ -1,0 +1,503 @@
+\documentclass{article}
+
+\usepackage{fancyhdr}
+\usepackage{extramarks}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{tikz}
+\usepackage[plain]{algorithm}
+\usepackage{algpseudocode}
+\usepackage{amsmath,amssymb}
+
+\usetikzlibrary{automata,positioning}
+
+%
+% Basic Document Settings
+%
+
+\topmargin=-0.45in
+\evensidemargin=0in
+\oddsidemargin=0in
+\textwidth=6.5in
+\textheight=9.0in
+\headsep=0.25in
+
+\linespread{1.1}
+
+\pagestyle{fancy}
+\lhead{\hmwkAuthorName}
+\chead{\hmwkClass: \hmwkTitle}
+\rhead{}
+\lfoot{\lastxmark}
+\cfoot{\thepage}
+
+\renewcommand\headrulewidth{0.4pt}
+\renewcommand\footrulewidth{0.4pt}
+
+\setlength\parindent{0pt}
+
+%
+% Create Problem Sections
+%
+
+\newcommand{\enterProblemHeader}[1]{
+    \nobreak\extramarks{}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+}
+
+\newcommand{\exitProblemHeader}[1]{
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \stepcounter{#1}
+    \nobreak\extramarks{Problem \arabic{#1}}{}\nobreak{}
+}
+
+\setcounter{secnumdepth}{0}
+\newcounter{partCounter}
+\newcounter{homeworkProblemCounter}
+\setcounter{homeworkProblemCounter}{1}
+\nobreak\extramarks{Problem \arabic{homeworkProblemCounter}}{}\nobreak{}
+
+
+
+% Define theorem environment
+\newtheorem*{theorem}{Theorem}
+
+%
+% Homework Problem Environment
+%
+% This environment takes an optional argument. When given, it will adjust the
+% problem counter. This is useful for when the problems given for your
+% assignment aren't sequential. See the last 3 problems of this template for an
+% example.
+%
+\newenvironment{homeworkProblem}[1][-1]{
+    \ifnum#1>0
+        \setcounter{homeworkProblemCounter}{#1}
+    \fi
+    \section{Problem \arabic{homeworkProblemCounter}}
+    \setcounter{partCounter}{1}
+    \enterProblemHeader{homeworkProblemCounter}
+}{
+    \exitProblemHeader{homeworkProblemCounter}
+}
+
+%
+% Homework Details
+%   - Title
+%   - Due date
+%   - Class
+%   - Section/Time
+%   - Instructor
+%   - Author
+%
+
+
+\newcommand{\hmwkTitle}{Problem set\ 7}
+\newcommand{\hmwkDueDate}{October 20, 2025}
+\newcommand{\hmwkClass}{Number Theory}
+\newcommand{\hmwkClassTime}{Section 2}
+\newcommand{\hmwkClassInstructor}{Dr. Eleanor McSpirit}
+\newcommand{\hmwkAuthorName}{\textbf{Joseph Quinn}}
+
+%
+% Title Page
+%
+
+\title{
+    \vspace{2in}
+    \textmd{\textbf{\hmwkClass:\ \hmwkTitle}}\\
+    \normalsize\vspace{0.1in}\small{\hmwkDueDate}\\
+    \vspace{0.1in}\large{\textit{\hmwkClassInstructor\ \hmwkClassTime}}
+    \vspace{3in}
+}
+
+\author{\hmwkAuthorName}
+\date{}
+
+\renewcommand{\part}[1]{\textbf{\large Part \Alph{partCounter}}\stepcounter{partCounter}\\}
+
+%
+% Various Helper Commands
+%
+
+% Useful for algorithms
+\newcommand{\alg}[1]{\textsc{\bfseries \footnotesize #1}}
+
+% For derivatives
+\newcommand{\deriv}[1]{\frac{\mathrm{d}}{\mathrm{d}x} (#1)}
+
+% For partial derivatives
+\newcommand{\pderiv}[2]{\frac{\partial}{\partial #1} (#2)}
+
+% Integral dx
+\newcommand{\dx}{\mathrm{d}x}
+
+% Alias for the Solution section header
+\newcommand{\solution}{\textbf{\large Solution}}
+
+% Probability commands: Expectation, Variance, Covariance, Bias
+\newcommand{\E}{\mathrm{E}}
+\newcommand{\Var}{\mathrm{Var}}
+\newcommand{\Cov}{\mathrm{Cov}}
+\newcommand{\Bias}{\mathrm{Bias}}
+
+%  proof-step macro:
+\newcommand{\step}[2]{& #1 & & \text{#2} \\}
+
+\begin{document}
+
+\maketitle
+\pagebreak
+
+\begin{homeworkProblem}
+
+	\paragraph{(i)}
+
+	\[
+		n = pq = 5 \times 11 = 55
+	\]
+	\[
+		\varphi(n) = (p - 1)(q - 1) = 4 \times 10 = 40.
+	\]
+
+	\paragraph{(ii)}
+
+	We must have
+	\[
+		E D \equiv 1 \pmod{\varphi(n)}.
+	\]
+	Or,
+	\[
+		E \times 23 \equiv 1 \pmod{40}.
+	\]
+	Ill use the extended euclidian elgorithm to solve this,
+
+	\[
+		\begin{aligned}
+			40 & = 1(23) + 17, \\
+			23 & = 1(17) + 6,  \\
+			17 & = 2(6) + 5,   \\
+			6  & = 1(5) + 1,   \\
+			5  & = 5(1) + 0.
+		\end{aligned}
+	\]
+
+	Back-substituting gives:
+	\[
+		\begin{aligned}
+			1 & = 6 - 1(5)              \\
+			  & = 6 - 1(17 - 2(6))      \\
+			  & = 3(6) - 1(17)          \\
+			  & = 3(23 - 1(17)) - 1(17) \\
+			  & = 3(23) - 4(17)         \\
+			  & = 3(23) - 4(40 - 1(23)) \\
+			  & = 7(23) - 4(40).
+		\end{aligned}
+	\]
+
+	\[
+		1 = 7(23) - 4(40).
+	\]
+	And we see that,
+	\[
+		E \equiv 7 \pmod{40}.
+	\]
+	So the public encryption exponent is $E = 7$.
+
+	\paragraph{(iii)}
+
+	The public key consists of the pair $(n, E)$:
+	\[
+		(n, E) = (55, 7).
+	\]
+
+
+	\paragraph{(iv)}
+	\[
+		W \equiv C^D \pmod{n} = 9^{23} \pmod{55}.
+	\]
+
+	To decrypt we will apply the Chinese Remainder Theorem,
+
+	\[
+		55 = 5 \times 11.
+	\]
+	Compute separately mod $5$ and $11$.
+
+	Mod 5:
+	\[
+		9 \equiv 4 \pmod{5}, \quad 4^2 \equiv 1 \pmod{5}.
+	\]
+	Thus,
+	\[
+		4^{23} = (4^2)^{11} \cdot 4 \equiv 1^{11} \cdot 4 \equiv 4 \pmod{5}.
+	\]
+	So $W \equiv 4 \pmod{5}$.
+
+	Mod 11:
+	\[
+		9 \equiv -2 \pmod{11}.
+	\]
+	By Fermat's Little Theorem, $(-2)^{10} \equiv 1 \pmod{11}$.
+	Hence,
+	\[
+		(-2)^{23} = (-2)^{20} \cdot (-2)^3 \equiv 1^2 \cdot (-8) \equiv -8 \equiv 3 \pmod{11}.
+	\]
+	So $W \equiv 3 \pmod{11}$.
+
+	CRT:
+	\[
+		\begin{cases}
+			W \equiv 4 \pmod{5}, \\
+			W \equiv 3 \pmod{11}.
+		\end{cases}
+	\]
+	Let $W = 3 + 11k$. Substitute into the first congruence:
+	\[
+		3 + 11k \equiv 4 \pmod{5} \Rightarrow 3 + k \equiv 4 \pmod{5} \Rightarrow k \equiv 1 \pmod{5}.
+	\]
+	So $k = 1 + 5t$, and thus:
+	\[
+		W = 3 + 11(1 + 5t) = 14 + 55t.
+	\]
+	This gives us
+	\[
+		W \equiv 14 \pmod{55}.
+	\]
+
+	Decrypted message: $W = 14$.
+
+\end{homeworkProblem}
+
+\begin{homeworkProblem}
+	\paragraph{(i)}
+
+	Let $p$ be a prime.
+	An integer $a$ is called a \emph{primitive root modulo $p$} if its powers generate all the nonzero residues modulo $p$.
+	and if
+	\[
+		\operatorname{ord}_p(a) = p - 1,
+	\]
+
+	\medskip
+
+	To check if $a$ is a primitive root modulo $p$:
+	\begin{enumerate}
+		\item Factor $p - 1$ into primes: $p - 1 = q_1^{e_1} q_2^{e_2} \cdots q_t^{e_t}$.
+		\item Verify that for each distinct prime factor $q_i$ of $p - 1$,
+		      \[
+			      a^{(p-1)/q_i} \not\equiv 1 \pmod{p}.
+		      \]
+		      If this holds for all $q_i$, then $a$ is a primitive root modulo $p$.
+	\end{enumerate}
+
+	\paragraph{(i)}
+
+	Here $p = 11$, so $\varphi(11) = 10 = 2 \times 5$.
+
+	We must find $a$ such that $a^{10} \equiv 1 \pmod{11}$, but neither $a^{5} \equiv 1$ nor $a^{2} \equiv 1 \pmod{11}$.
+
+	Lets try $a = 2$.
+
+	\[
+		\begin{aligned}
+			2^1    & \equiv 2 \pmod{11},           \\
+			2^2    & \equiv 4 \pmod{11},           \\
+			2^3    & \equiv 8 \pmod{11},           \\
+			2^4    & \equiv 16 \equiv 5 \pmod{11}, \\
+			2^5    & \equiv 10 \pmod{11},          \\
+			2^6    & \equiv 9 \pmod{11},           \\
+			2^7    & \equiv 7 \pmod{11},           \\
+			2^8    & \equiv 3 \pmod{11},           \\
+			2^9    & \equiv 6 \pmod{11},           \\
+			2^{10} & \equiv 1 \pmod{11}.
+		\end{aligned}
+	\]
+
+	The powers of $2$ modulo $11$ give all nonzero residues $\{1, 2, 3, 4, 5, 6, 7, 8, 9, 10\}$.
+	Since the smallest exponent $k$ such that $2^k \equiv 1$ is $k = 10$, we have
+	\[
+		\operatorname{ord}_{11}(2) = 10 = 11 - 1.
+	\]
+	Therefore, $2$ is a primitive root modulo $11$.
+
+	\paragraph{(iii)}
+
+	If we look at  $a = 3$.
+
+	\[
+		3^1 \equiv 3, \quad
+		3^2 \equiv 9, \quad
+		3^3 \equiv 27 \equiv 5, \quad
+		3^4 \equiv 15 \equiv 4, \quad
+		3^5 \equiv 12 \equiv 1 \pmod{11}.
+	\]
+
+	Here the smallest exponent giving $1$ is $k = 5$, so
+	\[
+		\operatorname{ord}_{11}(3) = 5 < 10.
+	\]
+	Thus $3$ does not generate all residues modulo $11$, and it is \emph{not} a primitive root.
+\end{homeworkProblem}
+
+\begin{homeworkProblem}
+
+	By assumption, $b$ is an inverse of $a$ modulo $p$.
+	That means
+	\[
+		a b \equiv 1 \pmod{p}.
+	\]
+
+	\medskip
+
+	\textbf{($\Rightarrow$)} Suppose $a x \equiv c \pmod{p}$.
+
+	Multiply both sides by $b$:
+	\[
+		b (a x) \equiv b c \pmod{p}.
+	\]
+
+	Since $b a \equiv 1 \pmod{p}$, we get
+	\[
+		x \equiv b c \pmod{p}.
+	\]
+
+	\medskip
+
+	\textbf{($\Leftarrow$)} Conversely, suppose $x \equiv b c \pmod{p}$.
+
+	Multiply both sides by $a$:
+	\[
+		a x \equiv a (b c) \pmod{p}.
+	\]
+
+	Because $a b \equiv 1 \pmod{p}$, we have
+	\[
+		a x \equiv c \pmod{p}.
+	\]
+
+	\medskip
+
+	Thus the two congruences are equivalent:
+	\[
+		a x \equiv c \pmod{p}
+		\quad \Longleftrightarrow \quad
+		x \equiv b c \pmod{p}.
+	\]
+\end{homeworkProblem}
+
+\begin{homeworkProblem}
+	\paragraph{(i)}
+	If $x \equiv c \pmod{mn}$, then $mn \mid (x - c)$.
+	Since $m \mid mn$ and $n \mid mn$, it follows that
+	\[
+		x \equiv c \pmod{m} \quad \text{and} \quad x \equiv c \pmod{n}.
+	\]
+	Hence we may take $a = c$ and $b = c$.
+
+
+	\paragraph{(ii)}
+	\[
+		x \equiv a \pmod{m}
+		\quad \text{and} \quad
+		x \equiv b \pmod{n}.
+	\]
+	Because $\gcd(m,n)=1$, there exist integers $u$ and $v$ satisfying the Bézout identity
+	\[
+		m u + n v = 1.
+	\]
+	Multiplying both sides by $(b - a)$ gives
+	\[
+		m u (b - a) + n v (b - a) = b - a.
+	\]
+	Now define
+	\[
+		x = a + m u (b - a).
+	\]
+	Then
+	\[
+		x \equiv a \pmod{m}
+		\quad \text{(since $m \mid m u (b - a)$),}
+	\]
+	and
+	\[
+		x \equiv a + (1 - n v)(b - a) \equiv b \pmod{n}.
+	\]
+	Finally we get,
+	\[
+		x \equiv a + m u (b - a) \pmod{mn}
+	\]
+	is a simultaneous solution of the two given congruences.
+\end{homeworkProblem}
+
+\begin{homeworkProblem}
+	\textbf{($\Rightarrow$)}
+	Assume $a^x \equiv a^y \pmod{p}$.
+	Multiplying both sides by the inverse of $a^y$ (which exists since $(a,p)=1$), we obtain
+	\[
+		a^{x - y} \equiv 1 \pmod{p}.
+	\]
+	By the definition of order, $k \mid (x - y)$, hence
+	\[
+		x \equiv y \pmod{k}.
+	\]
+
+	\medskip
+
+	\textbf{($\Leftarrow$)}
+	Conversely, assume $x \equiv y \pmod{k}$, so that $x = y + qk$ for some integer $q$.
+	Then
+	\[
+		a^x = a^{y + qk} = a^y (a^k)^q \equiv a^y (1)^q \equiv a^y \pmod{p}.
+	\]
+	\medskip
+
+	Thus,
+	\[
+		a^x \equiv a^y \pmod{p}
+		\quad \Longleftrightarrow \quad
+		x \equiv y \pmod{\operatorname{ord}_p(a)}.
+	\]
+\end{homeworkProblem}
+
+\begin{homeworkProblem}
+
+	We want to solve $109^{202} \bmod 100$, which gives us the last two digits of $109^{202}$.
+
+	\medskip
+
+	Since $109 \equiv 9 \pmod{100}$, we have
+	\[
+		109^{202} \equiv 9^{202} \pmod{100}.
+	\]
+
+	Because $\gcd(9,100)=1$, we can use Euler’s theorem:
+	\[
+		9^{\varphi(100)} \equiv 1 \pmod{100}.
+	\]
+
+	Using the given factorization $\varphi(100) = \varphi(4)\varphi(25)$, we compute
+	\[
+		\varphi(4) = 2, \quad \varphi(25) = 20, \quad \text{so} \quad \varphi(100) = 40.
+	\]
+
+	Thus
+	\[
+		9^{40} \equiv 1 \pmod{100}.
+	\]
+
+	We reduce the exponent modulo $40$:
+	\[
+		202 \equiv 2 \pmod{40}.
+	\]
+	Hence
+	\[
+		9^{202} \equiv 9^2 \equiv 81 \pmod{100}.
+	\]
+
+	Therefore, the last two digits of $109^{202}$ are 81.
+
+\end{homeworkProblem}
+
+\end{document}
