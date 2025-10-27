@@ -731,6 +731,8 @@ The number $W$ is the message Bob wants to send to Alice without anyone else gai
 
 \section{Polynomial Congruences and Primitive Roots}
 
+\subsection{Lagrange’s Theorem}
+
 \begin{definition}
 	Recall that $r$ is a \emph{root} of the polynomial
 	\[
@@ -751,6 +753,38 @@ The number $W$ is the message Bob wants to send to Alice without anyone else gai
 		f(x) = (x - r)g(x).
 	\]
 \end{manualtheorem}
+
+\begin{manualtheorem}{6.2}
+	Let
+	\[
+		f(x) = a_n x^n + a_{n-1} x^{n-1} + \cdots + a_0
+	\]
+	be a polynomial of degree $n > 0$ with integer coefficients. Let $p$ be a prime number and $r$ an integer.
+
+	Then, if $f(r) \equiv 0 \pmod{p}$, there exists a polynomial $g(x)$ of degree $n - 1$ such that
+	\[
+		(x - r)g(x) \equiv a_n x^n + a_{n-1} x^{n-1} + \cdots + a_1 x + b_0
+	\]
+	where $a_0 \equiv b_0 \pmod{p}$.
+\end{manualtheorem}
+
+\begin{manualtheorem}{6.3}[Lagrange's Theorem]
+	If $p$ is a prime and
+	\[
+		f(x) = a_n x^n + a_{n-1} x^{n-1} + \cdots + a_0
+	\]
+	is a polynomial of degree $n > 0$ with integer coefficients such that $p \nmid a_n$, then
+	\[
+		f(x) \equiv 0 \pmod{p}
+	\]
+	has at most $n$ non-congruent solutions.
+\end{manualtheorem}
+
+\subsection{Primative Roots}
+
+\begin{definition}
+	Let $p$ be a prime. An integer $g$ such that $\operatorname{ord}_p(g) = p - 1$ is called a \emph{primitive root modulo} $p$.
+\end{definition}
 
 \end{document}
 
