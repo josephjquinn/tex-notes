@@ -1,0 +1,114 @@
+\documentclass[11pt]{article}
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{geometry}
+\usepackage{graphicx}
+\geometry{margin=1in}
+\setlength\parindent{0pt}
+\title{Foundations of Machine Learning -- Neural Networks}
+\author{}
+\date{}
+
+\begin{document}
+\maketitle
+
+
+\section*{Neural Networks}
+
+Lets revisit our regression optimization
+
+\medskip
+
+\textbf{Loss:}
+
+\[
+\arg\min_{w} \frac{1}{N} \sum_{n=1}^{N} \left( w^T \phi(x^{(i)}) - y^{(i)} \right)^2 
+= \arg\min_{w} \| \Phi w - y \|^2
+\]
+
+\[
+\text{Where } \Phi = 
+\begin{bmatrix}
+\phi(x^{(1)}), \ldots, \phi(x^{(N)})
+\end{bmatrix}^T 
+\in \mathbb{R}^{N \times M}, \quad
+w \in \mathbb{R}^M
+\]
+
+\textbf{Optimization:}
+
+\begin{enumerate}
+    \item Closed form solution:
+    \[
+    w^* = (\Phi^T \Phi)^{-1} \Phi^T y
+    \]
+
+    \item Gradient descent:
+    \[
+    w^{(t)} = w^{(t-1)} - \epsilon \nabla_w \text{Loss}(w^{(t-1)})
+    \]
+\end{enumerate}
+
+Before, it was more or less a guess an check system to determine which bias function would be best to use for a given
+dataset, but with neural networks we can learn the bias function during training!
+
+\[
+\min_{w, \{\phi_j\}_{j=1}^M} 
+\sum_i 
+\left(
+    \left(
+        \sum_j w_j \phi_j(x^{(i)})
+    \right)
+    - y^{(i)}
+\right)^2
+\]
+
+The building block of neural networks is the perceptron
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.5\textwidth]{../imgs/perceptron.png} % 
+\end{figure}
+
+\pagebreak
+
+\paragraph{Multilayer Perceptron (MLP)}
+We can take this building block and create a system with multiple hidden layers.
+
+\medskip
+
+The Universal Approximation Theorem states that an MLP An MLP with varying complexity can approximate any continuous function to any desired degree of accuracy.
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.5\textwidth]{../imgs/mlp-ex.png} % 
+\end{figure}
+
+\subsection*{Problems with MLP}
+A 256x256 (RGB) image $\Rightarrow$ roughly 200k dimensional input x
+
+A fully connected network would need a very large number of parameters, and very likely would overfit the data
+
+Also generic deep networks also do not capture hte "natural" invariances we expect in images (translation, scale)
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.9\textwidth]{../imgs/img-transofrmations.png} 
+\end{figure}
+
+\pagebreak
+
+\subsection*{Convolution}
+
+MLPs treat every pixel as unique, so they must relearn the same feature (like a beak) at each position, 
+wasting parameters and computation. CNNs solve this by sharing weights through filters that slide across the image, 
+allowing one detector to recognize a pattern anywhere—making learning more efficient and translation-invariant.
+
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.9\textwidth]{../imgs/convulution-ex.png}  
+\end{figure}
+
+
+
+\end{document}
+
+
