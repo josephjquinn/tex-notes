@@ -1,0 +1,352 @@
+
+\documentclass{article}
+
+\usepackage{fancyhdr}
+\usepackage{extramarks}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{tikz}
+\usepackage[plain]{algorithm}
+\usepackage{algpseudocode}
+\usepackage{amsmath,amssymb}
+
+\usetikzlibrary{automata,positioning}
+
+%
+% Basic Document Settings
+%
+
+\topmargin=-0.45in
+\evensidemargin=0in
+\oddsidemargin=0in
+\textwidth=6.5in
+\textheight=9.0in
+\headsep=0.25in
+
+\linespread{1.1}
+
+\pagestyle{fancy}
+\lhead{\hmwkAuthorName}
+\chead{\hmwkClass: \hmwkTitle}
+\rhead{}
+\lfoot{\lastxmark}
+\cfoot{\thepage}
+
+\renewcommand\headrulewidth{0.4pt}
+\renewcommand\footrulewidth{0.4pt}
+
+\setlength\parindent{0pt}
+
+%
+% Create Problem Sections
+%
+
+\newcommand{\enterProblemHeader}[1]{
+    \nobreak\extramarks{}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+}
+
+\newcommand{\exitProblemHeader}[1]{
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \stepcounter{#1}
+    \nobreak\extramarks{Problem \arabic{#1}}{}\nobreak{}
+}
+
+\setcounter{secnumdepth}{0}
+\newcounter{partCounter}
+\newcounter{homeworkProblemCounter}
+\setcounter{homeworkProblemCounter}{1}
+\nobreak\extramarks{Problem \arabic{homeworkProblemCounter}}{}\nobreak{}
+
+
+
+% Define theorem environment
+\newtheorem*{theorem}{Theorem}
+
+%
+% Homework Problem Environment
+%
+% This environment takes an optional argument. When given, it will adjust the
+% problem counter. This is useful for when the problems given for your
+% assignment aren't sequential. See the last 3 problems of this template for an
+% example.
+%
+\newenvironment{homeworkProblem}[1][-1]{
+    \ifnum#1>0
+        \setcounter{homeworkProblemCounter}{#1}
+    \fi
+    \section{Problem \arabic{homeworkProblemCounter}}
+    \setcounter{partCounter}{1}
+    \enterProblemHeader{homeworkProblemCounter}
+}{
+    \exitProblemHeader{homeworkProblemCounter}
+}
+
+%
+% Homework Details
+%   - Title
+%   - Due date
+%   - Class
+%   - Section/Time
+%   - Instructor
+%   - Author
+%
+
+
+\newcommand{\hmwkTitle}{Problem set\ 8}
+\newcommand{\hmwkDueDate}{November 1, 2025}
+\newcommand{\hmwkClass}{Number Theory}
+\newcommand{\hmwkClassTime}{Section 2}
+\newcommand{\hmwkClassInstructor}{Dr. Eleanor McSpirit}
+\newcommand{\hmwkAuthorName}{\textbf{Joseph Quinn}}
+
+%
+% Title Page
+%
+
+\title{
+    \vspace{2in}
+    \textmd{\textbf{\hmwkClass:\ \hmwkTitle}}\\
+    \normalsize\vspace{0.1in}\small{\hmwkDueDate}\\
+    \vspace{0.1in}\large{\textit{\hmwkClassInstructor\ \hmwkClassTime}}
+    \vspace{3in}
+}
+
+\author{\hmwkAuthorName}
+\date{}
+
+\renewcommand{\part}[1]{\textbf{\large Part \Alph{partCounter}}\stepcounter{partCounter}\\}
+
+%
+% Various Helper Commands
+%
+
+% Useful for algorithms
+\newcommand{\alg}[1]{\textsc{\bfseries \footnotesize #1}}
+
+% For derivatives
+\newcommand{\deriv}[1]{\frac{\mathrm{d}}{\mathrm{d}x} (#1)}
+
+% For partial derivatives
+\newcommand{\pderiv}[2]{\frac{\partial}{\partial #1} (#2)}
+
+% Integral dx
+\newcommand{\dx}{\mathrm{d}x}
+
+% Alias for the Solution section header
+\newcommand{\solution}{\textbf{\large Solution}}
+
+% Probability commands: Expectation, Variance, Covariance, Bias
+\newcommand{\E}{\mathrm{E}}
+\newcommand{\Var}{\mathrm{Var}}
+\newcommand{\Cov}{\mathrm{Cov}}
+\newcommand{\Bias}{\mathrm{Bias}}
+
+%  proof-step macro:
+\newcommand{\step}[2]{& #1 & & \text{#2} \\}
+
+\begin{document}
+
+\maketitle
+\pagebreak
+
+\begin{homeworkProblem}
+	\begin{proof}
+		By definition, $\operatorname{ord}_p(a^k)$ is the smallest positive integer $t$ such that
+		\[
+			(a^k)^t \equiv 1 \pmod{p}.
+		\]
+		This means
+		\[
+			a^{kt} \equiv 1 \pmod{p}.
+		\]
+
+		Since $\operatorname{ord}_p(a) = d$, we know that $a^d \equiv 1 \pmod{p}$
+		and that $d$ is the smallest such positive integer.
+		Hence, for $a^{kt} \equiv 1 \pmod{p}$ to hold, we must have
+		\[
+			d \mid k t.
+		\]
+
+		Let $g = \gcd(d,k)$. Then we can write $d = g d_1$ and $k = g k_1$
+		where $\gcd(d_1, k_1) = 1$.
+		Substituting into the divisibility condition gives
+		\[
+			g d_1 \mid g k_1 t \quad \Longrightarrow \quad d_1 \mid k_1 t.
+		\]
+		Because $\gcd(d_1, k_1) = 1$, it follows that $d_1 \mid t$.
+		Thus, the smallest such $t$ is $t = d_1$.
+
+		Therefore,
+		\[
+			\operatorname{ord}_p(a^k) = d_1 = \frac{d}{\gcd(d,k)}.
+		\]
+	\end{proof}
+\end{homeworkProblem}
+\begin{homeworkProblem}
+	\textbf{(i)}
+	Suppose $m,n \in \mathbb{N}$ with $m \mid n$. Write $n = m k$.
+	If $(m,k) = 1$, then by the multiplicativity of Euler's $\phi$-function,
+	\[
+		\phi(n) = \phi(mk) = \phi(m)\phi(k),
+	\]
+	so $\phi(m) \mid \phi(n)$.
+
+	If $(m,k) > 1$, write the prime-power decompositions
+	\[
+		m = p_1^{a_1}\cdots p_r^{a_r}, \qquad
+		n = p_1^{b_1}\cdots p_r^{b_r}, \qquad a_i \le b_i.
+	\]
+	By Lemma~6.12 and the multiplicativity of $\phi$, we have
+	$\phi(p_i^{a_i}) \mid \phi(p_i^{b_i})$ for each $i$, hence
+	$\phi(m) \mid \phi(n)$.
+
+	\medskip
+	\textbf{(ii)}\quad
+	The converse is false. For instance,
+	\[
+		\phi(3) = 2, \quad \phi(8) = 4,
+	\]
+	so $\varphi(3) \mid \phi(8)$, but $3 \nmid 8$.
+\end{homeworkProblem}
+
+\pagebreak
+
+\begin{homeworkProblem}
+	\textbf{4.}
+	\[
+		\begin{aligned}
+			\phi(45)
+			 & = \phi(3^2 \cdot 5) \\
+			 & = \phi(3^2)\phi(5)  \\
+			 & = (3^2 - 3)(5 - 1)  \\
+			 & = 6 \times 4 = 24.
+		\end{aligned}
+	\]
+
+	\textbf{5.}
+	\[
+		\begin{aligned}
+			\quad \phi(98)
+			 & = \phi(2 \cdot 7^2) \\
+			 & = \phi(2)\phi(7^2)  \\
+			 & = (2 - 1)(7^2 - 7)  \\
+			 & = 1 \times 42 = 42.
+		\end{aligned}
+	\]
+
+	\textbf{6.}
+	\[
+		\begin{aligned}
+			\phi(5^6 11^4 17^{10})
+			 & = \phi(5^6)\phi(11^4)\phi(17^{10})          \\
+			 & = (5^6 - 5^5)(11^4 - 11^3)(17^{10} - 17^9)  \\
+			 & = 12500 \times 13310 \times 17^9 \times 16.
+		\end{aligned}
+	\]
+\end{homeworkProblem}
+\begin{homeworkProblem}
+	\begin{proof}
+
+
+		Since $p$ is prime, the multiplicative group $(\mathbb{Z}/p\mathbb{Z})^\times$ is cyclic of order $p-1$.
+		Let $g$ be a primitive root modulo $p$. Then every nonzero residue can be written as
+		\[
+			x \equiv g^t \pmod{p}
+		\]
+		for some integer $t$.
+
+		Substituting into the given congruence gives
+		\[
+			(g^t)^k \equiv 1 \pmod{p} \quad \Rightarrow \quad g^{tk} \equiv 1 \pmod{p}.
+		\]
+		Since $g$ has order $p-1$, we must have
+		\[
+			p-1 \mid tk.
+		\]
+		This means
+		\[
+			tk \equiv 0 \pmod{p-1}.
+		\]
+
+		The number of distinct solutions $t$ modulo $p-1$ to this linear congruence is $\gcd(k, p-1)$.
+		Each such $t$ yields a distinct $x = g^t \pmod{p}$.
+
+		Hence, the congruence $x^k \equiv 1 \pmod{p}$ has exactly $\gcd(k, p-1)$ incongruent solutions.
+	\end{proof}
+\end{homeworkProblem}
+\begin{homeworkProblem}
+	For a prime $p$, the number of primitive roots modulo $p$ is $\phi(p - 1)$.
+
+	\[
+		p - 1 = 251 - 1 = 250 = 2 \times 5^3.
+	\]
+	\[
+		\phi(250) = \phi(2)\phi(5^3) = (2 - 1)(5^3 - 5^2) = 1 \times 100 = 100.
+	\]
+
+	There are 100 primitive roots modulo 251.
+\end{homeworkProblem}
+
+\begin{homeworkProblem}
+
+	We want to solve $x^{49} \equiv 100 \pmod{151}$.
+
+	Since $151$ is prime, $\phi(151) = 150$. We first find the inverse of $49$ modulo $150$.
+
+	\[
+		150 = 3(49) + 3, \quad 49 = 16(3) + 1.
+	\]
+	Back-substituting:
+	\[
+		1 = 49 - 16(3) = 49 - 16(150 - 3(49)) = 49(49) - 16(150).
+	\]
+	Hence $49^{-1} \equiv 49 \pmod{150}$.
+
+	Thus
+	\[
+		x \equiv 100^{49} \pmod{151}.
+	\]
+
+	Compute by repeated squaring:
+	\[
+		100^2 \equiv 34,\quad 100^4 \equiv 99,\quad 100^8 \equiv 137,\quad 100^{16} \equiv 45,\quad 100^{32} \equiv 62.
+	\]
+	Then
+	\[
+		100^{49} \equiv 100^{32+16+1} \equiv 62 \cdot 45 \cdot 100 \equiv 103 \pmod{151}.
+	\]
+
+	\[
+		x \equiv 103 \pmod{151}.
+	\]
+
+\end{homeworkProblem}
+\begin{homeworkProblem}
+
+	\begin{proof}
+		Assume $b \not\equiv 0 \pmod p$.
+		Since $(\mathbb{Z}/p\mathbb{Z})^\times$ is cyclic of order $p-1$,
+		let $g$ be a primitive root modulo $p$.
+		Then every nonzero residue can be written as $x \equiv g^r$ and $b \equiv g^t$ for some integers $r,t$.
+
+		The congruence $x^k \equiv b \pmod p$ becomes
+		\[
+			(g^r)^k \equiv g^t \pmod p \quad \Rightarrow \quad g^{kr} \equiv g^t \pmod p.
+		\]
+		Hence
+		\[
+			kr \equiv t \pmod{p-1}.
+		\]
+		This linear congruence in $r$ has a solution if and only if $\gcd(k,p-1)\mid t$,
+		and in that case has exactly $\gcd(k,p-1)$ incongruent solutions modulo $p-1$.
+		Each such $r$ yields a distinct $x = g^r \pmod p$.
+
+		Therefore, the number of $k$th roots of $b$ modulo $p$ is $0$ or $\gcd(k,p-1)$,
+		depending on whether $\gcd(k,p-1)$ divides the exponent $t$.
+		If $b \equiv 0 \pmod p$, then $x^k \equiv 0 \pmod p$ has exactly one solution $x \equiv 0$.
+	\end{proof}
+
+\end{homeworkProblem}
+\end{document}
