@@ -786,5 +786,65 @@ The number $W$ is the message Bob wants to send to Alice without anyone else gai
 	Let $p$ be a prime. An integer $g$ such that $\operatorname{ord}_p(g) = p - 1$ is called a \emph{primitive root modulo} $p$.
 \end{definition}
 
+\pagebreak
+
+\section{The Golden Rule: Quadratic Reciprocity}
+
+\subsection{Quadratic Congruences}
+
+\begin{manualtheorem}{7.1}
+	Let $p$ be a prime and let $a, b, c \in \mathbb{Z}$ with $p \nmid a$.
+	Then there exist integers $b_0$ and $c_0$ such that the set of solutions to
+	\[
+		a x^2 + b x + c \equiv 0 \pmod{p}
+	\]
+	is equal to the set of solutions to a congruence of the form
+	\[
+		x^2 + b_0 x + c_0 \equiv 0 \pmod{p}.
+	\]
+\end{manualtheorem}
+
+\begin{proof}
+	Since $p \nmid a$, the integer $a$ has a multiplicative inverse modulo $p$,
+	denoted $a^{-1}$. That is, $a a^{-1} \equiv 1 \pmod{p}$.
+
+	Multiplying both sides of the congruence
+	\[
+		a x^2 + b x + c \equiv 0 \pmod{p}
+	\]
+	by $a^{-1}$ gives
+	\[
+		a^{-1}(a x^2 + b x + c) \equiv 0 \pmod{p}.
+	\]
+	Simplifying, we obtain
+	\[
+		x^2 + (a^{-1} b)x + (a^{-1} c) \equiv 0 \pmod{p}.
+	\]
+	Define
+	\[
+		b_0 \equiv a^{-1} b \pmod{p}, \qquad c_0 \equiv a^{-1} c \pmod{p}.
+	\]
+	Then the congruence becomes
+	\[
+		x^2 + b_0 x + c_0 \equiv 0 \pmod{p}.
+	\]
+
+	For any integer $x$, we have
+	\[
+		a x^2 + b x + c \equiv 0 \pmod{p}
+		\iff
+		a^{-1}(a x^2 + b x + c) \equiv 0 \pmod{p}
+		\iff
+		x^2 + b_0 x + c_0 \equiv 0 \pmod{p}.
+	\]
+	Hence the two congruences have exactly the same set of solutions modulo $p$.
+
+	Therefore, taking
+	\[
+		b_0 \equiv a^{-1} b \pmod{p}, \qquad c_0 \equiv a^{-1} c \pmod{p},
+	\]
+	the theorem follows.
+\end{proof}
+
 \end{document}
 

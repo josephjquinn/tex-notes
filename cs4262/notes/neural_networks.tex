@@ -21,45 +21,45 @@ Lets revisit our regression optimization
 \textbf{Loss:}
 
 \[
-\arg\min_{w} \frac{1}{N} \sum_{n=1}^{N} \left( w^T \phi(x^{(i)}) - y^{(i)} \right)^2 
-= \arg\min_{w} \| \Phi w - y \|^2
+	\arg\min_{w} \frac{1}{N} \sum_{n=1}^{N} \left( w^T \phi(x^{(i)}) - y^{(i)} \right)^2
+	= \arg\min_{w} \| \Phi w - y \|^2
 \]
 
 \[
-\text{Where } \Phi = 
-\begin{bmatrix}
-\phi(x^{(1)}), \ldots, \phi(x^{(N)})
-\end{bmatrix}^T 
-\in \mathbb{R}^{N \times M}, \quad
-w \in \mathbb{R}^M
+	\text{Where } \Phi =
+	\begin{bmatrix}
+		\phi(x^{(1)}), \ldots, \phi(x^{(N)})
+	\end{bmatrix}^T
+	\in \mathbb{R}^{N \times M}, \quad
+	w \in \mathbb{R}^M
 \]
 
 \textbf{Optimization:}
 
 \begin{enumerate}
-    \item Closed form solution:
-    \[
-    w^* = (\Phi^T \Phi)^{-1} \Phi^T y
-    \]
+	\item Closed form solution:
+	      \[
+		      w^* = (\Phi^T \Phi)^{-1} \Phi^T y
+	      \]
 
-    \item Gradient descent:
-    \[
-    w^{(t)} = w^{(t-1)} - \epsilon \nabla_w \text{Loss}(w^{(t-1)})
-    \]
+	\item Gradient descent:
+	      \[
+		      w^{(t)} = w^{(t-1)} - \epsilon \nabla_w \text{Loss}(w^{(t-1)})
+	      \]
 \end{enumerate}
 
 Before, it was more or less a guess an check system to determine which bias function would be best to use for a given
 dataset, but with neural networks we can learn the bias function during training!
 
 \[
-\min_{w, \{\phi_j\}_{j=1}^M} 
-\sum_i 
-\left(
-    \left(
-        \sum_j w_j \phi_j(x^{(i)})
-    \right)
-    - y^{(i)}
-\right)^2
+	\min_{w, \{\phi_j\}_{j=1}^M}
+	\sum_i
+	\left(
+	\left(
+		\sum_j w_j \phi_j(x^{(i)})
+		\right)
+	- y^{(i)}
+	\right)^2
 \]
 
 The building block of neural networks is the perceptron
@@ -90,22 +90,138 @@ A fully connected network would need a very large number of parameters, and very
 Also generic deep networks also do not capture hte "natural" invariances we expect in images (translation, scale)
 \begin{figure}[h]
 	\centering
-	\includegraphics[width=0.9\textwidth]{../imgs/img-transofrmations.png} 
+	\includegraphics[width=0.9\textwidth]{../imgs/img-transofrmations.png}
 \end{figure}
 
 \pagebreak
 
 \subsection*{Convolution}
 
-MLPs treat every pixel as unique, so they must relearn the same feature (like a beak) at each position, 
-wasting parameters and computation. CNNs solve this by sharing weights through filters that slide across the image, 
+MLPs treat every pixel as unique, so they must relearn the same feature (like a beak) at each position,
+wasting parameters and computation. CNNs solve this by sharing weights through filters that slide across the image,
 allowing one detector to recognize a pattern anywhere—making learning more efficient and translation-invariant.
 
 
 \begin{figure}[h]
 	\centering
-	\includegraphics[width=0.9\textwidth]{../imgs/convulution-ex.png}  
+	\includegraphics[width=0.9\textwidth]{../imgs/convulution-ex.png}
 \end{figure}
+
+\subsection*{Convolution Operator}
+
+A convolution filter is a small matrix of weights (for example, 3×3 or 5×5) that slides over the image.
+Each position of the filter covers a small patch of the image and performs a dot product between its weights and the pixel values in that patch.
+
+\medskip
+
+Convolution filters detect local patterns such as edges, textures, and shapes.
+They share weights across the image, reducing parameters and improving spatial efficiency. Through successive layers, they build hierarchical features, progressing from simple to complex representations. This structure allows the network to recognize features regardless of their position, providing translation invariance.
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.7\textwidth]{../imgs/conv2.png}
+\end{figure}
+
+\pagebreak
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.55\textwidth]{../imgs/conv3.png}
+\end{figure}
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.55\textwidth]{../imgs/conv4.png}
+\end{figure}
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.55\textwidth]{../imgs/conv5.png}
+\end{figure}
+
+\begin{figure}[!ht]
+	\centering
+	\includegraphics[width=0.55\textwidth]{../imgs/conv6.png}
+\end{figure}
+
+\pagebreak
+
+\subsection*{Max Pooling Operator}
+Max pooling reduces the spatial size of feature maps while keeping key information.
+It slides a small window (e.g. 2×2) over the input and outputs the maximum value within each window.
+This keeps the strongest activations, discards weaker ones, and lowers computation.
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.7\textwidth]{../imgs/pool1.jpg}
+\end{figure}
+
+\textbf{Full CNN in practice}
+
+\begin{figure}[!ht]
+	\centering
+\includegraphics[width=0.7\textwidth]{../imgs/fullcnn.png}
+\end{figure}
+
+
+
+\subsection*{Convolution Operator}
+
+A convolution filter is a small matrix of weights (for example, 3×3 or 5×5) that slides over the image.
+Each position of the filter covers a small patch of the image and performs a dot product between its weights and the pixel values in that patch.
+
+\medskip
+
+Convolution filters detect local patterns such as edges, textures, and shapes.
+They share weights across the image, reducing parameters and improving spatial efficiency. Through successive layers, they build hierarchical features, progressing from simple to complex representations. This structure allows the network to recognize features regardless of their position, providing translation invariance.
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.7\textwidth]{../imgs/conv2.png}
+\end{figure}
+
+\pagebreak
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.55\textwidth]{../imgs/conv3.png}
+\end{figure}
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.55\textwidth]{../imgs/conv4.png}
+\end{figure}
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.55\textwidth]{../imgs/conv5.png}
+\end{figure}
+
+\begin{figure}[!ht]
+	\centering
+	\includegraphics[width=0.55\textwidth]{../imgs/conv6.png}
+\end{figure}
+
+\pagebreak
+
+\subsection*{Max Pooling Operator}
+Max pooling reduces the spatial size of feature maps while keeping key information.
+It slides a small window (e.g. 2×2) over the input and outputs the maximum value within each window.
+This keeps the strongest activations, discards weaker ones, and lowers computation.
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.7\textwidth]{../imgs/pool1.jpg}
+\end{figure}
+
+\textbf{Full CNN in practice}
+
+\begin{figure}[!ht]
+	\centering
+\includegraphics[width=0.7\textwidth]{../imgs/fullcnn.png}
+\end{figure}
+
+
 
 \section*{Recurrent Neural Networks}
  
