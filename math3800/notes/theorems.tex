@@ -803,48 +803,48 @@ The number $W$ is the message Bob wants to send to Alice without anyone else gai
 		x^2 + b_0 x + c_0 \equiv 0 \pmod{p}.
 	\]
 \end{manualtheorem}
+\begin{manualtheorem}{7.2}
+	Let $p$ be a prime, and let $b$ and $c$ be integers.
+	Then there exists a linear change of variable, $y = x + \alpha$ with $\alpha$ an integer, transforming the congruence $x^2 + bx + c \equiv 0 \pmod{p}$ into a congruence of the form $y^2 \equiv \beta \pmod{p}$ for some integer $\beta$.
+\end{manualtheorem}
 
-\begin{proof}
-	Since $p \nmid a$, the integer $a$ has a multiplicative inverse modulo $p$,
-	denoted $a^{-1}$. That is, $a a^{-1} \equiv 1 \pmod{p}$.
+\begin{definition*}
+	If $a$ is an integer and $p$ is a prime and $a \equiv b^2 \pmod{p}$ for some integer $b$, then $a$ is called a \emph{quadratic residue modulo $p$}. If $a$ is not congruent to any square modulo $p$, then $a$ is a \emph{quadratic non-residue modulo $p$}.
+\end{definition*}
 
-	Multiplying both sides of the congruence
-	\[
-		a x^2 + b x + c \equiv 0 \pmod{p}
-	\]
-	by $a^{-1}$ gives
-	\[
-		a^{-1}(a x^2 + b x + c) \equiv 0 \pmod{p}.
-	\]
-	Simplifying, we obtain
-	\[
-		x^2 + (a^{-1} b)x + (a^{-1} c) \equiv 0 \pmod{p}.
-	\]
-	Define
-	\[
-		b_0 \equiv a^{-1} b \pmod{p}, \qquad c_0 \equiv a^{-1} c \pmod{p}.
-	\]
-	Then the congruence becomes
-	\[
-		x^2 + b_0 x + c_0 \equiv 0 \pmod{p}.
-	\]
+\begin{manualtheorem}{7.7}
+	Suppose $p$ is an odd prime and $p$ does not divide either of the two integers $a$ or $b$. Then:
+	\begin{enumerate}
+		\item If $a$ and $b$ are both quadratic residues modulo $p$, then $ab$ is a quadratic residue modulo $p$.
+		\item If $a$ is a quadratic residue modulo $p$ and $b$ is a quadratic non-residue modulo $p$, then $ab$ is a quadratic non-residue modulo $p$.
+		\item If $a$ and $b$ are both quadratic non-residues modulo $p$, then $ab$ is a quadratic residue modulo $p$.
+	\end{enumerate}
 
-	For any integer $x$, we have
-	\[
-		a x^2 + b x + c \equiv 0 \pmod{p}
-		\iff
-		a^{-1}(a x^2 + b x + c) \equiv 0 \pmod{p}
-		\iff
-		x^2 + b_0 x + c_0 \equiv 0 \pmod{p}.
-	\]
-	Hence the two congruences have exactly the same set of solutions modulo $p$.
+	The last point may seem strange, as the product of two non-squares need not be a square in the integers.
+\end{manualtheorem}
 
-	Therefore, taking
+\begin{definition*}
+	For an odd prime $p$ and a natural number $a$, the \emph{Legendre symbol} $\left( \frac{a}{p} \right)$ is defined by
 	\[
-		b_0 \equiv a^{-1} b \pmod{p}, \qquad c_0 \equiv a^{-1} c \pmod{p},
+		\left( \frac{a}{p} \right) =
+		\begin{cases}
+			1  & \text{if } a \text{ is a quadratic residue modulo } p,     \\[4pt]
+			-1 & \text{if } a \text{ is a quadratic non-residue modulo } p, \\[4pt]
+			0  & \text{if } p \text{ divides } a.
+		\end{cases}
 	\]
-	the theorem follows.
-\end{proof}
+\end{definition*}
+
+Theorem~7.7 can be recast as saying that the Legendre symbol is \emph{completely multiplicative}:
+
+\begin{manualtheorem}{7.8}
+	Suppose $p$ is an odd prime and $a,b \in \mathbb{Z}$. Then
+	\[
+		\left( \frac{ab}{p} \right)
+		= \left( \frac{a}{p} \right)
+		\left( \frac{b}{p} \right).
+	\]
+\end{manualtheorem}
 
 \end{document}
 
