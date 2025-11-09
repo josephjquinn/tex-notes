@@ -107,8 +107,108 @@ allowing one detector to recognize a pattern anywhere—making learning more eff
 	\includegraphics[width=0.9\textwidth]{../imgs/convulution-ex.png}  
 \end{figure}
 
+\section*{Recurrent Neural Networks}
+ 
+The idea of RNNs is to allow us to have sequences of variable lengths and spatial/temporal correlations, 
+such as sentences, videos, or time services that we want to analyze.
 
+How we do this is by setting our hidden layers to have a recurrence as part of their input.
+
+
+\paragraph{Elmans Network}
+We do this through elman's networks which allows our hidden layers to have 
+a recurrence as part of its input The ac1va1on value ht depends on $x_t$ but also $h_t-1$
+\begin{figure}[!ht]
+	\centering
+	\includegraphics[width=0.9\textwidth]{../imgs/elman-net.png}  
+\end{figure}
+
+\pagebreak
+
+If we look at the full network structure below we see this is a many-to-many relationship with many input nodes and many output nodes.
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.9\textwidth]{../imgs/rnn-net.png}  
+\end{figure}
+
+In order to predict a future value we simply add another node to our output
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.9\textwidth]{../imgs/rnn-plus1.png}  
+\end{figure}
+
+\paragraph{Shared Parameters}
+No matter how many times you unroll an RNN the number of weights and biasses will remain the same.
+The parameters for the weights / biases are shared across the network.
+\paragraph{Porblems With Basic RNNs}
+One of the main problems with basic RNNs is the vanishing / exploding gradient problem. 
+
+\medskip
+
+Lets say our $w_h$ is set to 2, if we unroll our network lets say 50 times, then our input value becomes $= input \times 2^{50}$
+This becomes a massive number and what this results in is that when we try to cacluate our gradient, because this number is so large our gradient also becomes very large leading to 
+our gradient decent taking too big of steps.
+
+\medskip
+
+On the other side of the coin, lets say our $w_h$ is set to 0.5, if we unroll our network lets say 50 times, our input $= input \times 0.5^{50}$
+Now we have a number very very close to 0 resulting in our gradient decent taking to small of steps and having difficulty finding the minimum.
+
+\subsection*{Other Use Cases}
+\textbf{Image Captioning}
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.9\textwidth]{../imgs/rnn-image-cap.png}  
+\end{figure}
+
+\textbf{Sentiment Classification}
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.9\textwidth]{../imgs/rnn-sen-clas.png}  
+\end{figure}
+
+\pagebreak
+
+\section*{Graphs}
+
+Graph examples
+\begin{itemize}
+    \item Social Networks
+    \item Knowledge 
+    \item Communication
+    \item Neurons
+\end{itemize}
+
+There are three general types of predication tasks on graphs: 
+
+\begin{itemize}
+    \item graph-level: Goal is to predict the property of an entire graph
+    \begin{figure}[h]
+	\centering
+	\includegraphics[width=0.8\textwidth]{../imgs/graph-level.png}  
+\end{figure}
+    \item node-level: Goal is to predict the identity or role of each node within a graph
+    \begin{figure}[h]
+	\centering
+	\includegraphics[width=0.8\textwidth]{../imgs/node-level.png}  
+\end{figure}
+    \item edge-level: Goal is to predict the edge information (e.g. relationship between nodes)
+    \begin{figure}[h]
+	\centering
+	\includegraphics[width=0.8\textwidth]{../imgs/edge-level.png}  
+\end{figure}
+\end{itemize}
+
+\paragraph{Representation of Graphs}
+
+Types of information that we will potentially want to use to make predictions:
+\begin{itemize}
+\item Nodes: node identity, number of neighbors
+\item Edges: edge identity, connectivity
+\item Global-context: number of nodes, longest path
+\end{itemize}
 
 \end{document}
-
-
