@@ -331,70 +331,14 @@
 \end{homeworkProblem}
 
 \begin{homeworkProblem}
-	\textbf{(i)}
-	\[
-		\left(\frac{-1}{p}\right) =
-		\begin{cases}
-			1  & \text{if } p \equiv 1 \pmod{4}, \\
-			-1 & \text{if } p \equiv 3 \pmod{4}.
-		\end{cases}
-	\]
-	Hence $x^2 \equiv -1 \pmod{p}$ has a solution iff $p \equiv 1 \pmod{4}$.
-
-	\textbf{(ii)}
-
-
-	\begin{proof}
-		By Euler's Criterion (Theorem~7.9),
-		\[
-			\left( \frac{2}{p} \right) \equiv 2^{(p-1)/2} \pmod{p}.
-		\]
-		If $2^{(p-1)/2} \equiv 1 \pmod{p}$, then $2$ is a quadratic residue modulo $p$;
-		if $2^{(p-1)/2} \equiv -1 \pmod{p}$, then $2$ is a quadratic non-residue.
-
-		Let $g$ be a primitive root modulo $p$. Then $2 \equiv g^k \pmod{p}$ for some integer $k$.
-		Using $g^{(p-1)/2} \equiv -1 \pmod{p}$ (from the proof of Theorem~7.9), we have
-		\[
-			2^{(p-1)/2} \equiv (g^k)^{(p-1)/2} \equiv (-1)^k \pmod{p}.
-		\]
-		Hence,
-		\[
-			\left( \frac{2}{p} \right) =
-			\begin{cases}
-				1  & \text{if $k$ is even}, \\
-				-1 & \text{if $k$ is odd}.
-			\end{cases}
-		\]
-
-		To relate $k$ to $p$, note from Theorem~7.10 that
-		\[
-			\left( \frac{-1}{p} \right) =
-			\begin{cases}
-				1  & \text{if } p \equiv 1 \pmod{4}, \\
-				-1 & \text{if } p \equiv 3 \pmod{4}.
-			\end{cases}
-		\]
-		Then, by Theorem~7.8,
-		\[
-			\left( \frac{-2}{p} \right)
-			= \left( \frac{-1}{p} \right)
-			\left( \frac{2}{p} \right).
-		\]
-		Combining these results and comparing parities gives the pattern
-		\[
-			\left( \frac{2}{p} \right) =
-			\begin{cases}
-				1  & \text{if } p \equiv 1,7 \pmod{8}, \\
-				-1 & \text{if } p \equiv 3,5 \pmod{8}.
-			\end{cases}
-		\]
-		Therefore, the congruence $x^2 \equiv 2 \pmod{p}$ has a solution if and only if
-		\[
-			p \equiv 1 \text{ or } 7 \pmod{8}.
-		\]
-	\end{proof}
-
-\end{homeworkProblem}
-
+\textbf{(i)}
+\[
+	\left(\frac{-1}{p}\right) =
+	\begin{cases}
+		1  & \text{if } p \equiv 1 \pmod{4}, \\
+		-1 & \text{if } p \equiv 3 \pmod{4}.
+	\end{cases}
+\]
+Hence $x^2 \equiv -1 \pmod{p}$ has a solution iff $p \equiv 1 \pmod{4}$.
 
 \end{document}
