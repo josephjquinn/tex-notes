@@ -327,4 +327,146 @@ Types of information that we will potentially want to use to make predictions:
 \item Global-context: number of nodes, longest path
 \end{itemize}
 
+The reason we don't just use adjacency matrix as input vector to a neural network is because it is not permutation invariant, and is space-inefficient (very sparse adjacency matrices).
+
+\paragraph*{GNN}
+This involves a separate multilayer perceptron (MLP) on each component of a graph
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.8\textwidth]{../imgs/gnn-net.png}  
+\end{figure}
+
+\paragraph*{GNN Pooling}
+This is a way to collect information from edges and give them to nodes for prediction.
+\medskip
+
+For each item to be pooled, gather each of their embeddings and concatenate them into a matrix. The gathered embeddings are then aggregated, usually via a sum operation.
+
+\pagebreak
+
+\section*{Deep Sets}
+
+With sets, we have a group of data where order does not matter, when working with standard MLPS on this input data we run into the issue 
+where different permutations of hte data lead to different  results:
+
+\begin{figure}[h]
+    \centering
+    \begin{minipage}{0.45\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{../imgs/set-ex.png}
+        \label{fig:set-ex}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.45\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{../imgs/set-permutations.png}
+        \label{fig:set-permutations}
+    \end{minipage}
+\end{figure}
+
+One option that we have is for each permutation of our input data
+
+\begin{enumerate}
+  \item \textbf{Generate all permutations:} \\
+  Since the order of elements shouldn’t matter, you can imagine training the neural network to produce the same output for all possible input orders.
+  \begin{itemize}
+    \item For \( N = 5 \), that’s \( 5! = 120 \) permutations — quickly intractable as \( N \) grows.
+  \end{itemize}
+
+  \item \textbf{Neural network \(\psi\):} \\
+  Each permutation of the set is fed into a neural network \(\psi\), producing embeddings \( h_1, h_2, h_3, \ldots \)
+
+  \item \textbf{Aggregate function \(f\):} \\
+  These embeddings are combined using a \textbf{permutation-invariant} aggregation (e.g., sum, mean, max).
+
+  \item \textbf{Final mapping \(\phi\):} \\
+  The aggregated representation is passed through another neural network \(\phi\) to produce the final output \( y \).
+\end{enumerate}
+
+But there is a problem, generating all $N!$ permutations is computationally infeasible. To reduce cost, one could use only k-tuples (subsets of the full set) where 
+$k<N$, but that only partially captures the full combinatorial space.
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.8\textwidth]{../imgs/permute-nn-set.png}  
+\end{figure}
+
+\[
+ P(N,k) = \frac{N!}{(N-k)!} = \text{\# of permutations of N elements taken k at a time}
+\]
+
+Having a higher k captures more relationships (higher-order dependencies) between elements.
+whereas a smaller k is cheaper but models only limited interactions.
+
+\paragraph*{Deep Set} When $k=1$, this is a special case called a deep set.
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.55\textwidth]{../imgs/deep-set.png}  
+\end{figure}
+
+\section*{Self Supervised Learning}
+The idea here is that this is an technique where a model learns from unlabeled data by generating its own training signals.
+
+\medskip
+
+Instead of relying on human-annotated labels, the model creates pseudo-labels or pretext tasks from raw data. By solving these tasks, 
+it learns useful internal representations that can later be fine-tuned for real downstream tasks.
+
+\medskip
+
+The reason for this existing is the cost of good quality labelled data is very high in terms of time and money
+
+\pagebreak
+\paragraph*{Process}
+\begin{enumerate}
+    \item \textbf{Pretext task} --- The model predicts some part of the data from other parts. \\
+    Examples:
+    \begin{itemize}
+        \item Predict the missing word in a sentence (language models).
+        \item Predict the rotation angle of an image (vision models).
+        \item Reconstruct masked pixels or audio segments.
+    \end{itemize}
+
+    \item \textbf{Representation learning} --- By solving the pretext task, the model learns general features of the data (like patterns, structures, relationships).
+
+    \item \textbf{Fine-tuning} --- These learned representations are transferred to a smaller labeled dataset for a supervised task.
+\end{enumerate}
+
+\paragraph*{Examples}
+\begin{itemize}
+	\item Pretext task: train a model to predict the rotation degree of rotated images with
+cats and dogs (we can collect million of images from internet, labeling is not
+required)
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.55\textwidth]{../imgs/ssl-cat2.png}  
+\end{figure}
+
+
+\item Downstream task: use transfer learning and fine-tune the learned model from the
+pretext task for classification of cats vs dogs with very few labeled examples
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.55\textwidth]{../imgs/ssl-cat1.png}  
+\end{figure}
+\end{itemize}
+
+Another example of a pretext task:
+Predict missing pieces (context encoders or inpainting)
+\begin{itemize}
+	\item Training data: remove a random region in images
+\item Pretext task: fill in a missing piece in the image
+The model needs to understand the content of the entire image, and produce a
+plausible replacement for the missing piece
+
+\end{itemize}
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.5\textwidth]{../imgs/ssl-img1.png}  
+\end{figure}
+
+
 \end{document}
