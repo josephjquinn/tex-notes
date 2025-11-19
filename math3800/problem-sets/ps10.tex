@@ -236,17 +236,6 @@
 \end{homeworkProblem}
 
 \begin{homeworkProblem}
-	Let $p$ and $q$ be distinct odd primes with
-	\[
-		p = q + 4k \qquad (k \in \mathbb{Z}).
-	\]
-	We show that
-	\[
-		\left( \frac{a}{p} \right)
-		=
-		\left( \frac{a}{q} \right).
-	\]
-
 	\begin{proof}
 
 		By Gauss' Lemma,
@@ -255,11 +244,9 @@
 			\qquad
 			\left( \frac{a}{q} \right) = (-1)^{g_q},
 		\]
-		where $g_p$ (resp.\ $g_q$) is the number of negative representatives of
+		where $g_p$ is the number of negative representatives of
 		\[
 			a, 2a, \dots, \frac{p-1}{2}a
-			\qquad
-			\left(\text{resp.\ } a,2a,\dots,\frac{q-1}{2}a\right)
 		\]
 		in the symmetric residue system.
 
@@ -274,8 +261,7 @@
 			\left(\frac{q-1}{2}+2k\right)a.
 		\]
 
-		When reduced modulo $p$ or modulo $q$, each of these additional terms appears in
-		\emph{pairs} of the form $\pm r$. Such pairs contribute an \emph{even} number of
+		When reduced modulo $p$ or modulo $q$, each of these additional contribute an even number of 
 		negative representatives.  Therefore:
 		\[
 			g_p \equiv g_q \pmod{2}.
@@ -284,7 +270,7 @@
 		\[
 			(-1)^{g_p} = (-1)^{g_q},
 		\]
-		and hence
+		and 
 		\[
 			\left( \frac{a}{p} \right)
 			=
@@ -293,4 +279,107 @@
 
 	\end{proof}
 \end{homeworkProblem}
+
+\begin{homeworkProblem}
+
+	\[
+		2 = 1^{2} + 1^{2},
+	\]
+	\[
+		10 = 1^{2} + 3^{2},
+	\]
+	\[
+		18 = 3^{2} + 3^{2},
+	\]
+	\[
+		20 = 2^{2} + 4^{2}.
+	\]
+\end{homeworkProblem}
+
+\begin{homeworkProblem}
+\begin{proof}
+Since $p \mid (ax^{2} + bxy + cy^{2})$ and $p \nmid a$, we complete the square:
+\[
+ax^{2} + bxy + cy^{2}
+= a\left(x + \frac{b}{2a}y\right)^{2}
+ - a\left(\frac{b^{2}-4ac}{4a^{2}}\right)y^{2}.
+\]
+Reducing modulo $p$ gives
+\[
+a\left(x + \frac{b}{2a}y\right)^{2}
+ \equiv \frac{D}{4a}\, y^{2} \pmod p.
+\]
+Multiplying both sides by $4a$, which is invertible mod $p$, yields
+\[
+(2ax + by)^{2} \equiv D\,y^{2} \pmod p.
+\]
+Define
+\[
+X := 2ax + by.
+\]
+Then we have the key congruence
+\[
+X^{2} \equiv D\,y^{2} \pmod p.
+\]
+
+Because $p \mid (ax^{2} + bxy + cy^{2})$ and $p \nmid a$, the congruence above implies
+$p \nmid y$ (otherwise $p \mid x$, contradicting $(x,y)=1$). Hence $X \not\equiv 0 \pmod p$
+and $y \not\equiv 0 \pmod p$.
+
+Taking Legendre symbols,
+\[
+\left( \frac{X^{2}}{p} \right)
+=
+\left( \frac{D\,y^{2}}{p} \right).
+\]
+Using multiplicativity of the Legendre symbol,
+\[
+\left( \frac{X}{p} \right)^{2}
+=
+\left( \frac{D}{p} \right)
+\left( \frac{y}{p} \right)^{2}.
+\]
+But squares have Legendre value $1$, so
+\[
+1 = \left( \frac{D}{p} \right)\cdot 1.
+\]
+Thus
+\[
+\left( \frac{D}{p} \right) = 1,
+\]
+which means $D$ is a quadratic residue modulo $p$.
+
+For the special case $p \mid (x^{2} - Dy^{2})$ and $(x,y)=1$, take $a=1$, $b=0$, $c=-D$ so
+that $D=b^{2}-4ac=4D$. Since $4$ is a square modulo $p$, the conclusion that $D$ is a
+square modulo $p$ follows immediately.
+
+\end{proof}
+\end{homeworkProblem}
+
+\begin{homeworkProblem}
+    We determine for which odd primes $p$ the quadratic congruence
+    \[
+        x^2 \equiv 2 \pmod{p}
+    \]
+    has a solution.  This holds exactly when
+    \[
+        \left( \frac{2}{p} \right) = 1.
+    \]
+
+    By Theorem 7.16 from the notes,
+    \[
+        \left( \frac{2}{p} \right)
+        =
+        \begin{cases}
+            1 & \text{if } p \equiv 1 \text{ or } 7 \pmod{8}, \\[6pt]
+            -1 & \text{if } p \equiv 3 \text{ or } 5 \pmod{8}.
+        \end{cases}
+    \]
+    Therefore $2$ is a quadratic residue modulo $p$ precisely when
+    \[
+        p \equiv 1 \quad \text{or} \quad p \equiv 7 \pmod{8}.
+    \]
+
+\end{homeworkProblem}
+
 \end{document}
