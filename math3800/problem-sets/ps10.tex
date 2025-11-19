@@ -1,0 +1,296 @@
+
+\documentclass{article}
+
+\usepackage{fancyhdr}
+\usepackage{extramarks}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{tikz}
+\usepackage[plain]{algorithm}
+\usepackage{algpseudocode}
+\usepackage{amsmath,amssymb}
+
+\usetikzlibrary{automata,positioning}
+
+%
+% Basic Document Settings
+%
+
+\topmargin=-0.45in
+\evensidemargin=0in
+\oddsidemargin=0in
+\textwidth=6.5in
+\textheight=9.0in
+\headsep=0.25in
+
+\linespread{1.1}
+
+\pagestyle{fancy}
+\lhead{\hmwkAuthorName}
+\chead{\hmwkClass: \hmwkTitle}
+\rhead{}
+\lfoot{\lastxmark}
+\cfoot{\thepage}
+
+\renewcommand\headrulewidth{0.4pt}
+\renewcommand\footrulewidth{0.4pt}
+
+\setlength\parindent{0pt}
+
+%
+% Create Problem Sections
+%
+
+\newcommand{\enterProblemHeader}[1]{
+    \nobreak\extramarks{}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+}
+
+\newcommand{\exitProblemHeader}[1]{
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \stepcounter{#1}
+    \nobreak\extramarks{Problem \arabic{#1}}{}\nobreak{}
+}
+
+\setcounter{secnumdepth}{0}
+\newcounter{partCounter}
+\newcounter{homeworkProblemCounter}
+\setcounter{homeworkProblemCounter}{1}
+\nobreak\extramarks{Problem \arabic{homeworkProblemCounter}}{}\nobreak{}
+
+
+
+% Define theorem environment
+\newtheorem*{theorem}{Theorem}
+
+%
+% Homework Problem Environment
+%
+% This environment takes an optional argument. When given, it will adjust the
+% problem counter. This is useful for when the problems given for your
+% assignment aren't sequential. See the last 3 problems of this template for an
+% example.
+%
+\newenvironment{homeworkProblem}[1][-1]{
+    \ifnum#1>0
+        \setcounter{homeworkProblemCounter}{#1}
+    \fi
+    \section{Problem \arabic{homeworkProblemCounter}}
+    \setcounter{partCounter}{1}
+    \enterProblemHeader{homeworkProblemCounter}
+}{
+    \exitProblemHeader{homeworkProblemCounter}
+}
+
+%
+% Homework Details
+%   - Title
+%   - Due date
+%   - Class
+%   - Section/Time
+%   - Instructor
+%   - Author
+%
+
+
+\newcommand{\hmwkTitle}{Problem set\ 10}
+\newcommand{\hmwkDueDate}{November 17, 2025}
+\newcommand{\hmwkClass}{Number Theory}
+\newcommand{\hmwkClassTime}{Section 2}
+\newcommand{\hmwkClassInstructor}{Dr. Eleanor McSpirit}
+\newcommand{\hmwkAuthorName}{\textbf{Joseph Quinn}}
+
+%
+% Title Page
+%
+
+\title{
+    \vspace{2in}
+    \textmd{\textbf{\hmwkClass:\ \hmwkTitle}}\\
+    \normalsize\vspace{0.1in}\small{\hmwkDueDate}\\
+    \vspace{0.1in}\large{\textit{\hmwkClassInstructor\ \hmwkClassTime}}
+    \vspace{3in}
+}
+
+\author{\hmwkAuthorName}
+\date{}
+
+\renewcommand{\part}[1]{\textbf{\large Part \Alph{partCounter}}\stepcounter{partCounter}\\}
+
+%
+% Various Helper Commands
+%
+
+% Useful for algorithms
+\newcommand{\alg}[1]{\textsc{\bfseries \footnotesize #1}}
+
+% For derivatives
+\newcommand{\deriv}[1]{\frac{\mathrm{d}}{\mathrm{d}x} (#1)}
+
+% For partial derivatives
+\newcommand{\pderiv}[2]{\frac{\partial}{\partial #1} (#2)}
+
+% Integral dx
+\newcommand{\dx}{\mathrm{d}x}
+
+% Alias for the Solution section header
+\newcommand{\solution}{\textbf{\large Solution}}
+
+% Probability commands: Expectation, Variance, Covariance, Bias
+\newcommand{\E}{\mathrm{E}}
+\newcommand{\Var}{\mathrm{Var}}
+\newcommand{\Cov}{\mathrm{Cov}}
+\newcommand{\Bias}{\mathrm{Bias}}
+
+%  proof-step macro:
+\newcommand{\step}[2]{& #1 & & \text{#2} \\}
+
+\begin{document}
+
+\maketitle
+\pagebreak
+
+
+\begin{homeworkProblem}
+	Since $p = 23$, we have
+	\[
+		\frac{p-1}{2} = 11.
+	\]
+	We consider the multiples
+	\[
+		12,\; 24,\; 36,\; 48,\; 60,\; 72,\; 84,\; 96,\; 108,\; 120,\; 132
+	\]
+	and reduce each into the symmetric residue system
+	\[
+		\{-11,-10,\dots,-1,0,1,\dots,10,11\}.
+	\]
+
+	\[
+		\begin{aligned}
+			12  & \equiv -11 \pmod{23}, \\
+			24  & \equiv 1 \pmod{23},   \\
+			36  & \equiv -10 \pmod{23}, \\
+			48  & \equiv 2 \pmod{23},   \\
+			60  & \equiv -9 \pmod{23},  \\
+			72  & \equiv 3 \pmod{23},   \\
+			84  & \equiv -8 \pmod{23},  \\
+			96  & \equiv 4 \pmod{23},   \\
+			108 & \equiv -7 \pmod{23},  \\
+			120 & \equiv 5 \pmod{23},   \\
+			132 & \equiv -6 \pmod{23}.
+		\end{aligned}
+	\]
+
+	Among these eleven residues, the negative ones are
+	\[
+		-11,\; -10,\; -9,\; -8,\; -7,\; -6,
+	\]
+	so $g = 6$. By Gauss' Lemma,
+	\[
+		\left( \frac{12}{23} \right) = (-1)^g = (-1)^6 = 1.
+	\]
+
+	Therefore, $12$ is a quadratic residue modulo $23$.
+\end{homeworkProblem}
+
+\begin{homeworkProblem}
+	We will use Euler's Criterion:
+	\[
+		\left( \frac{a}{p} \right) \equiv a^{\frac{p-1}{2}} \pmod{p}.
+	\]
+
+
+	Since $p = 97$, Euler's Criterion requires computing $1248^{48} \pmod{97}$.
+
+	First reduce $1248$ modulo $97$:
+	\[
+		1248 \equiv 84 \pmod{97}.
+	\]
+
+	And simplifying gives us \[
+		84^{48} \equiv \pmod{97}
+	\]
+
+	\[
+		\begin{aligned}
+			84^2    & = 7056 \equiv 72 \pmod{97},             \\[4pt]
+			84^4    & \equiv 72^2 = 5184 \equiv 43 \pmod{97}, \\[4pt]
+			84^8    & \equiv 43^2 = 1849 \equiv 6 \pmod{97},  \\[4pt]
+			84^{16} & \equiv 6^2 = 36 \pmod{97},              \\[4pt]
+			84^{32} & \equiv 36^2 = 1296 \equiv 35 \pmod{97}.
+		\end{aligned}
+	\]
+
+	Now I will combine the powers to get:
+	\[
+		84^{48} = 84^{32} \cdot 84^{16}
+		\equiv 35 \cdot 36 = 1260 \pmod{97}.
+	\]
+	Reduce:
+	\[
+		1260 \equiv 96 \equiv -1 \pmod{97}.
+	\]
+
+	Therefore, $1248$ is a quadratic non-residue modulo $97$.
+\end{homeworkProblem}
+
+\begin{homeworkProblem}
+	Let $p$ and $q$ be distinct odd primes with
+	\[
+		p = q + 4k \qquad (k \in \mathbb{Z}).
+	\]
+	We show that
+	\[
+		\left( \frac{a}{p} \right)
+		=
+		\left( \frac{a}{q} \right).
+	\]
+
+	\begin{proof}
+
+		By Gauss' Lemma,
+		\[
+			\left( \frac{a}{p} \right) = (-1)^{g_p},
+			\qquad
+			\left( \frac{a}{q} \right) = (-1)^{g_q},
+		\]
+		where $g_p$ (resp.\ $g_q$) is the number of negative representatives of
+		\[
+			a, 2a, \dots, \frac{p-1}{2}a
+			\qquad
+			\left(\text{resp.\ } a,2a,\dots,\frac{q-1}{2}a\right)
+		\]
+		in the symmetric residue system.
+
+		Because $p = q + 4k$, the bounds of the symmetric intervals satisfy
+		\[
+			\frac{p-1}{2} = \frac{q-1}{2} + 2k.
+		\]
+		The extra $2k$ multiples of $a$ contribute values of the form
+		\[
+			\left(\frac{q+1}{2}a\right),
+			\left(\frac{q+3}{2}a\right), \dots,
+			\left(\frac{q-1}{2}+2k\right)a.
+		\]
+
+		When reduced modulo $p$ or modulo $q$, each of these additional terms appears in
+		\emph{pairs} of the form $\pm r$. Such pairs contribute an \emph{even} number of
+		negative representatives.  Therefore:
+		\[
+			g_p \equiv g_q \pmod{2}.
+		\]
+		Thus
+		\[
+			(-1)^{g_p} = (-1)^{g_q},
+		\]
+		and hence
+		\[
+			\left( \frac{a}{p} \right)
+			=
+			\left( \frac{a}{q} \right).
+		\]
+
+	\end{proof}
+\end{homeworkProblem}
+\end{document}

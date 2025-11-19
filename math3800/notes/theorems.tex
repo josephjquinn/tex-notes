@@ -849,7 +849,7 @@ Theorem~7.7 can be recast as saying that the Legendre symbol is \emph{completely
 \begin{manualtheorem}{7.9}[Euler’s Criterion]
 	Suppose $p$ is an odd prime and $p$ does not divide the natural number $a$. Then
 	\[
-		a^{(p-1)/2} \equiv 
+		a^{(p-1)/2} \equiv
 		\left( \frac{a}{p} \right) \pmod{p},
 	\]
 	where $\left( \frac{a}{p} \right)$ denotes the Legendre symbol.
@@ -861,8 +861,49 @@ Theorem~7.7 can be recast as saying that the Legendre symbol is \emph{completely
 		\left( \frac{-1}{p} \right) =
 		\begin{cases}
 			\;\;1 & \text{if } p \equiv 1 \pmod{4}, \\
-			-1 & \text{if } p \equiv 3 \pmod{4}.
+			-1    & \text{if } p \equiv 3 \pmod{4}.
 		\end{cases}
+	\]
+\end{manualtheorem}
+
+\begin{manualtheorem}{7.12}
+	(Infinitude of Primes of the Form $4k+1$).
+	There are infinitely many primes congruent to $1 \pmod{4}$.
+\end{manualtheorem}
+
+\begin{manualtheorem}{7.13}
+	Let $p$ be a prime, let $a$ be an integer not divisible by $p$, and let
+	$r_1, r_2, \dots, r_{(p-1)/2}$ be the representatives of
+	$a, 2a, \dots, \frac{p-1}{2}a$ in the complete residue system
+	\[
+		\left\{
+		-\frac{p-1}{2}, \dots, -1, 0, 1, \dots, \frac{p-1}{2}
+		\right\}.
+	\]
+	Then
+	\[
+		r_1 r_2 \cdots r_{(p-1)/2}
+		= (-1)^{g} \left( \frac{p-1}{2}! \right),
+	\]
+	where $g$ is the number of the $r_i$ which are negative.
+
+	\emph{Hint:} It suffices to show that we never have
+	$r_i \equiv -r_j \pmod{p}$ for any $i$ and $j$.
+\end{manualtheorem}
+
+\begin{manualtheorem}{7.14}
+	(Gauss' Lemma).
+	Let $p$ be a prime and let $a$ be an integer not divisible by $p$.
+	Let $g$ be the number of negative representatives of
+	$a, 2a, \dots, \frac{p-1}{2}a$ in the complete residue system
+	\[
+		\left\{
+		-\frac{p-1}{2}, \dots, -1, 0, 1, \dots, \frac{p-1}{2}
+		\right\}.
+	\]
+	Then
+	\[
+		\left( \frac{a}{p} \right) = (-1)^g.
 	\]
 \end{manualtheorem}
 
