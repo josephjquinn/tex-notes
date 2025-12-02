@@ -1,0 +1,376 @@
+
+
+\documentclass{article}
+
+\usepackage{fancyhdr}
+\usepackage{extramarks}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{tikz}
+\usepackage[plain]{algorithm}
+\usepackage{algpseudocode}
+\usepackage{amsmath,amssymb}
+
+\usetikzlibrary{automata,positioning}
+
+%
+% Basic Document Settings
+%
+
+\topmargin=-0.45in
+\evensidemargin=0in
+\oddsidemargin=0in
+\textwidth=6.5in
+\textheight=9.0in
+\headsep=0.25in
+
+\linespread{1.1}
+
+\pagestyle{fancy}
+\lhead{\hmwkAuthorName}
+\chead{\hmwkClass: \hmwkTitle}
+\rhead{}
+\lfoot{\lastxmark}
+\cfoot{\thepage}
+
+\renewcommand\headrulewidth{0.4pt}
+\renewcommand\footrulewidth{0.4pt}
+
+\setlength\parindent{0pt}
+
+%
+% Create Problem Sections
+%
+
+\newcommand{\enterProblemHeader}[1]{
+    \nobreak\extramarks{}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+}
+
+\newcommand{\exitProblemHeader}[1]{
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \stepcounter{#1}
+    \nobreak\extramarks{Problem \arabic{#1}}{}\nobreak{}
+}
+
+\setcounter{secnumdepth}{0}
+\newcounter{partCounter}
+\newcounter{homeworkProblemCounter}
+\setcounter{homeworkProblemCounter}{1}
+\nobreak\extramarks{Problem \arabic{homeworkProblemCounter}}{}\nobreak{}
+
+
+
+% Define theorem environment
+\newtheorem*{theorem}{Theorem}
+
+%
+% Homework Problem Environment
+%
+% This environment takes an optional argument. When given, it will adjust the
+% problem counter. This is useful for when the problems given for your
+% assignment aren't sequential. See the last 3 problems of this template for an
+% example.
+%
+\newenvironment{homeworkProblem}[1][-1]{
+    \ifnum#1>0
+        \setcounter{homeworkProblemCounter}{#1}
+    \fi
+    \section{Problem \arabic{homeworkProblemCounter}}
+    \setcounter{partCounter}{1}
+    \enterProblemHeader{homeworkProblemCounter}
+}{
+    \exitProblemHeader{homeworkProblemCounter}
+}
+
+%
+% Homework Details
+%   - Title
+%   - Due date
+%   - Class
+%   - Section/Time
+%   - Instructor
+%   - Author
+%
+
+
+\newcommand{\hmwkTitle}{Problem set\ 11}
+\newcommand{\hmwkDueDate}{November 24, 2025}
+\newcommand{\hmwkClass}{Number Theory}
+\newcommand{\hmwkClassTime}{Section 2}
+\newcommand{\hmwkClassInstructor}{Dr. Eleanor McSpirit}
+\newcommand{\hmwkAuthorName}{\textbf{Joseph Quinn}}
+
+%
+% Title Page
+%
+
+\title{
+    \vspace{2in}
+    \textmd{\textbf{\hmwkClass:\ \hmwkTitle}}\\
+    \normalsize\vspace{0.1in}\small{\hmwkDueDate}\\
+    \vspace{0.1in}\large{\textit{\hmwkClassInstructor\ \hmwkClassTime}}
+    \vspace{3in}
+}
+
+\author{\hmwkAuthorName}
+\date{}
+
+\renewcommand{\part}[1]{\textbf{\large Part \Alph{partCounter}}\stepcounter{partCounter}\\}
+
+%
+% Various Helper Commands
+%
+
+% Useful for algorithms
+\newcommand{\alg}[1]{\textsc{\bfseries \footnotesize #1}}
+
+% For derivatives
+\newcommand{\deriv}[1]{\frac{\mathrm{d}}{\mathrm{d}x} (#1)}
+
+% For partial derivatives
+\newcommand{\pderiv}[2]{\frac{\partial}{\partial #1} (#2)}
+
+% Integral dx
+\newcommand{\dx}{\mathrm{d}x}
+
+% Alias for the Solution section header
+\newcommand{\solution}{\textbf{\large Solution}}
+
+% Probability commands: Expectation, Variance, Covariance, Bias
+\newcommand{\E}{\mathrm{E}}
+\newcommand{\Var}{\mathrm{Var}}
+\newcommand{\Cov}{\mathrm{Cov}}
+\newcommand{\Bias}{\mathrm{Bias}}
+
+%  proof-step macro:
+\newcommand{\step}[2]{& #1 & & \text{#2} \\}
+
+\begin{document}
+
+\maketitle
+\pagebreak
+
+\begin{homeworkProblem}
+	\begin{proof}
+		We prove the theorem by proving its contrapositive.
+		Assume that $p$ is a prime such that
+		\[
+			p \ne 2 \quad\text{and}\quad p \not\equiv 1 \pmod{4}.
+		\]
+		Since every odd prime is congruent to either $1$ or $3$ modulo $4$, this means that
+		\[
+			p \equiv 3 \pmod{4}.
+		\]
+
+		We show that such a prime cannot be written as a sum of two squares.
+		Suppose, for contradiction, that there exist natural numbers $a$ and $b$ such that
+		\[
+			p = a^{2} + b^{2}.
+		\]
+
+		Consider this equation modulo $4$.
+		Since every square is congruent to either $0$ or $1$ modulo $4$, the possible values of
+		$a^{2} + b^{2} \pmod{4}$ are
+		\[
+			0+0,\; 0+1,\; 1+0,\; 1+1,
+		\]
+		which yield the residues $0,1,2 \pmod{4}$.
+		In particular, $a^{2} + b^{2}$ can never be congruent to $3 \pmod{4}$.
+
+		But $p \equiv 3 \pmod{4}$, so this is impossible.
+		Thus no such $a$ and $b$ can exist, and a prime congruent to $3 \pmod{4}$ cannot be a sum of two natural squares.
+	\end{proof}
+\end{homeworkProblem}
+
+\begin{homeworkProblem}
+	\begin{proof}
+		Since $(a,b,c)$ is a primitive Pythagorean triple with $a$ even, we have
+		\[
+			a^2 + b^2 = c^2, \qquad \gcd(a,b,c)=1,
+		\]
+		and $b$ and $c$ are odd.
+
+		\medskip
+		\noindent\textbf{(i)}
+		A square modulo $3$ is congruent only to $0$ or $1$. Thus
+		\[
+			a^2 + b^2 \equiv 0,1,2 \pmod{3}.
+		\]
+		The value $2 \pmod{3}$ is impossible for a square, so we must avoid the case
+		$a^2 \equiv b^2 \equiv 1 \pmod{3}$, which would give $c^2 \equiv 2 \pmod{3}$.
+		Therefore, not both of $a$ and $b$ are congruent to $1 \pmod{3}$.
+
+		If both were divisible by $3$, then $3 \mid a$ and $3 \mid b$, and hence
+		$3 \mid c$, contradicting primitivity.
+		Thus exactly one of $a$ and $b$ is divisible by $3$.
+
+		\medskip
+		\noindent\textbf{(ii)}
+		Since $a$ is even and $(a,b,c)$ is primitive, $b$ and $c$ are odd.
+		Squares modulo $4$ satisfy
+		\[
+			x^2 \equiv
+			\begin{cases}
+				0 \pmod{4}, & x \text{ even}, \\
+				1 \pmod{4}, & x \text{ odd}.
+			\end{cases}
+		\]
+		Thus
+		\[
+			a^2 \equiv 0 \pmod{4}, \qquad b^2 \equiv 1 \pmod{4}, \qquad
+			c^2 = a^2 + b^2 \equiv 1 \pmod{4}.
+		\]
+
+		Since $b$ is odd, $4 \nmid b$.
+		If $4 \mid a$ and $4 \mid b$, then both would be even, contradicting primitivity.
+		Thus exactly one of $a$ and $b$ is divisible by $4$ (in fact $a$ is).
+
+		\pagebreak
+		\textbf{(iii)}
+		Squares modulo $5$ take the values $0,1,4$.
+		Hence $a^2 + b^2 \pmod{5}$ may take the values
+		\[
+			0,1,4,2,3.
+		\]
+		But $c^2$ must be $0,1$, or $4 \pmod{5}$.
+		Thus the cases $a^2 + b^2 \equiv 2,3 \pmod{5}$ must be avoided.
+
+		If neither $a$ nor $b$ is divisible by $5$, then $a^2,b^2\in\{1,4\}$.
+		To avoid the forbidden residues $2$ and $3$, we must have one of $a^2,b^2$
+		congruent to $1$ and the other to $4$, giving
+		\[
+			c^2 \equiv 0 \pmod{5},
+		\]
+		so $5 \mid c$.
+
+		If exactly one of $a,b$ is divisible by $5$, say $5 \mid a$, then
+		\[
+			a^2 \equiv 0,\qquad b^2 \equiv 1 \text{ or } 4,
+		\]
+		so $c^2 \equiv 1$ or $4 \pmod{5}$, and hence $5 \nmid c$.
+
+		If both $a$ and $b$ were divisible by $5$, primitivity would be violated.
+
+		Therefore exactly one of $a$, $b$, and $c$ is divisible by $5$.
+	\end{proof}
+
+\end{homeworkProblem}
+
+\begin{homeworkProblem}
+
+	To find infinitely many integer solutions to
+	\[
+		x^{2} + 2y^{2} = z^{2},
+	\]
+	we imitate the construction of Pythagorean triples.
+	Let $m$ and $n$ be natural numbers with $m > n$.
+	Consider the triple
+	\[
+		(x,y,z) = (m^{2} - 2n^{2},\; 2mn,\; m^{2} + 2n^{2}).
+	\]
+
+	We verify that this satisfies the equation.
+	Compute the left-hand side:
+	\[
+		(m^{2} - 2n^{2})^{2} + 2(2mn)^{2}
+		= m^{4} - 4m^{2}n^{2} + 4n^{4} + 8m^{2}n^{2}
+		= m^{4} + 4m^{2}n^{2} + 4n^{4}.
+	\]
+	The right-hand side is
+	\[
+		(m^{2} + 2n^{2})^{2}
+		= m^{4} + 4m^{2}n^{2} + 4n^{4}.
+	\]
+
+	Thus
+	\[
+		(m^{2} - 2n^{2})^{2} + 2(2mn)^{2}
+		= (m^{2} + 2n^{2})^{2},
+	\]
+	so $(x,y,z)$ is indeed a solution.
+
+	Since every choice of $m>n$ produces a different triple, this gives infinitely many integer solutions to
+	\[
+		x^{2} + 2y^{2} = z^{2}.
+	\]
+
+\end{homeworkProblem}
+
+\begin{homeworkProblem}
+
+	We determine whether the Diophantine equation
+	\[
+		x^{2} + y^{2} = 175
+	\]
+	has an integer solution.
+
+	Factor the right-hand side:
+	\[
+		175 = 25 \cdot 7 = 5^{2} \cdot 7.
+	\]
+	The prime $7$ satisfies $7 \equiv 3 \pmod{4}$ and appears with exponent $1$ in the
+	factorization of $175$.
+
+	By the sum of two squares theorem, a natural number can be written as a sum of two
+	squares if and only if every prime $q \equiv 3 \pmod{4}$ in its prime factorization
+	occurs with an even exponent. Since $7$ occurs to an odd power, $175$ cannot be written
+	as a sum of two squares.
+
+	Therefore, the equation $x^{2} + y^{2} = 175$ has no integer solutions.
+
+\end{homeworkProblem}
+
+\begin{homeworkProblem}
+
+	Let $x,y,z \in \mathbb{Z}$ and let $p$ be a prime.
+
+	\medskip
+	\noindent\textbf{(i)}
+	Assume that
+	\[
+		x^{p-1} + y^{p-1} = z^{p-1}.
+	\]
+	Suppose, for contradiction, that $p \nmid x$, $p \nmid y$, and $p \nmid z$.
+	Then by Fermat's Little Theorem,
+	\[
+		x^{p-1} \equiv y^{p-1} \equiv z^{p-1} \equiv 1 \pmod{p}.
+	\]
+	Reducing the given equation modulo $p$ yields
+	\[
+		1 + 1 \equiv 1 \pmod{p},
+	\]
+	which simplifies to $2 \equiv 1 \pmod{p}$, an impossibility.
+	Hence at least one of $x,y,z$ must be divisible by $p$.
+	Therefore
+	\[
+		p \mid xyz.
+	\]
+
+	\medskip
+	\noindent\textbf{(ii)}
+	Assume that
+	\[
+		x^{p} + y^{p} = z^{p}.
+	\]
+	Applying Fermat's Little Theorem gives
+	\[
+		x^{p} \equiv x,\qquad y^{p} \equiv y,\qquad z^{p} \equiv z \pmod{p}.
+	\]
+	Reducing the equation modulo $p$ yields
+	\[
+		x + y \equiv z \pmod{p},
+	\]
+	or equivalently,
+	\[
+		x + y - z \equiv 0 \pmod{p}.
+	\]
+	Thus
+	\[
+		p \mid (x + y - z).
+	\]
+
+\end{homeworkProblem}
+
+\end{document}
