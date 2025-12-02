@@ -1,0 +1,356 @@
+
+
+\documentclass[11pt]{article}
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{geometry}
+\setlength\parindent{0pt}
+\geometry{margin=1in}
+\title{Foundations of Machine Learning -- Final Review}
+\author{Joseph Quinn}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section{Linear Regression}
+\begin{itemize}
+	\item MSE
+
+	      \[
+		      \min_{f} \; \frac{1}{N} \sum_{i=1}^{N} \Big(f\big(x^{(i)}\big) - y^{(i)}\Big)^2
+	      \]
+	\item Likelihood
+
+	      \[
+		      p(y \mid x, f, \sigma)
+		      \;=\;
+		      \prod_{i=1}^N p\!\big(y^{(i)} \mid x^{(i)}, f, \sigma\big).
+	      \]
+	\item Optimization function
+	      \[
+		      \min_{w} \; \frac{1}{N} \|y - Xw\|^2.
+	      \]
+	\item Closed form solution
+	      \[
+		      w^* = (X^T X)^{-1} X^T y
+	      \]
+	\item Ridge regression closed form solution
+	      \[
+		      w^* = (X^T X + \lambda I)^{-1} X^T y
+	      \]
+
+	\item Gradient decent formula
+	      \[
+		      w^{(t)} = w^{(t-1)} - \epsilon \nabla_w \mathcal{L}(w^{(t-1)})
+	      \]
+	\item Robust regression
+	      \[
+		      \mathcal{L}(w) = \sum_{i=1}^N \alpha^{(i)} \bigl\lVert y^{(i)} - f(x^{(i)}) \bigr\rVert^2
+	      \]
+
+	      \[
+		      \alpha^{(i)} = h(\epsilon^{(i)})
+		      = \frac{1}{\max(\delta, \epsilon)},
+	      \]
+
+	      $\delta$ = Threshold \\
+	      $\epsilon$ = Data point error
+
+\end{itemize}
+
+\section{Logistic Regression}
+\begin{itemize}
+	\item Model formula
+	      \[
+		      f(x) = \sigma(w^T \hat{x}) = \frac{1}{1 + e^{-w^T \hat{x}}}
+	      \]
+	\item Classification likelihood formulation
+	      \[
+		      p(y|x,w) = f(x)^y (1 - f(x))^{(1-y)}
+	      \]
+\end{itemize}
+
+\section{Non-linear Regression}
+\begin{itemize}
+	\item Closed form solution
+	      \[
+		      w^* = (\Phi^T \Phi)^{-1} \Phi^T y
+	      \]
+\end{itemize}
+
+\section{Support Vector Machines}
+\begin{itemize}
+	\item (Primal) model
+	      \[
+		      f(x) = \text{sign}(w^T x + b)
+	      \]
+	\item (Dual) model
+	      \[
+		      f(x) = \text{sign}\!\left( \sum_i \alpha^{(i)} y^{(i)} \langle x^{(i)}, x \rangle + b \right)
+	      \]
+	\item Hyperplane
+
+	      \[
+		      w^T x + b = 0
+	      \]
+	\item Margin
+	      \[
+		      \rho = \frac{2}{\|w\|}
+	      \]
+	\item (Hard Margin) optimization function
+	      \[
+		      \min_{w,b} \; w^Tw \; \; \text{s.t.} \; \; y^{(i)} \big(w^T x^{(i)} + b\big) \;\geq\; 1,
+		      \; \; \forall i
+	      \]
+
+	\item (Soft Margin) optimization function
+
+	      \[
+		      \min_{w,b,\{\xi_i\}} \quad w^T w + C \sum_i \xi^{(i)} \; \; \text{s.t} \quad y^{(i)} \big(w^T x^{(i)} + b\big) \;\geq\; 1 - \xi^{(i)}, \; \; \forall i \;\; \xi^{(i)} \;\geq\; 0, \quad \forall i
+	      \]
+	\item Hinge loss
+	      \[
+		      \xi^{(i)} = \max \big(0, \, 1 - (w^T x^{(i)} + b)y^{(i)}\big)
+	      \]
+	\item Lagrangian
+	      \[
+		      \mathcal{L}(x, \alpha, \beta) = f(x) + \alpha g(x) + \beta h(x)
+	      \]
+	\item KKT conditions
+	      \begin{enumerate}
+		      \item Stationary:
+		            \[
+			            \nabla_x \mathcal{L}(x^*, \alpha^*, \beta^*) = 0
+		            \]
+		      \item Feasibility:
+		            \[
+			            \alpha^* \geq 0, \quad g(x^*) \leq 0, \quad h(x^*) = 0
+		            \]
+		      \item Complementary slackness:
+		            \[
+			            \alpha^* g(x^*) = 0
+		            \]
+	      \end{enumerate}
+	\item SVM primal problem
+
+	      \[
+		      \min_{w,b} \;\; \tfrac{1}{2} w^T w
+		      \quad \text{s.t.} \quad
+		      y^{(i)} \big(w^T x^{(i)} + b \big) \geq 1
+	      \]
+	\item SVM dual problem
+	      \[
+		      \max_{\{\alpha^{(i)} \geq 0\}_i}
+		      \;\; \min_{w,b} \left(
+		      \tfrac{1}{2} w^T w \;+\;
+		      \sum_i \alpha^{(i)} \Big[1 - y^{(i)} (w^T x^{(i)} + b) \Big]
+		      \right)
+	      \]
+
+	\item (Primal) non-linear SVM formula
+	      \[
+		      f(x) = \text{sign}(w^T \phi (x) + b)
+	      \]
+	\item (Dual) non-linear SVM formula
+	      \[
+		      f(x) = \text{sign}\left( \sum_i \alpha^{(i)} y^{(i)} (\phi{(x)^T\phi{(x^{(i)})}}) + b \right)
+	      \]
+
+	\item Kernel trick
+
+	      \[
+		      K(x,z) = \langle \phi(x), \phi(z)\rangle.
+	      \]
+
+	\item (Primal) SVM regression model
+
+	      \[
+		      f(x) = w^T \phi(x) + b
+	      \]
+	\item (Dual) SVM regression model
+	      \[
+		      f(x) = \sum_i (\alpha^{(i)} - \beta^{(i)}) K(x^{(i)}, x) + b
+	      \]
+	      where
+	      \[
+		      K(x, x') = \phi(x)^T \phi(x')
+	      \]
+
+\end{itemize}
+
+\section{Metrics}
+\begin{itemize}
+	\item Accuracy
+	      \[
+		      \frac{TP + TN}{TP + TN + FP + FN}
+	      \]
+	\item Precision
+	      \[
+		      \frac{TP}{TP+FP}
+	      \]
+	\item Recall
+	      \[
+		      \frac{TP}{TP + FN}
+	      \]
+
+	\item F1-Score
+	      \[
+		      F_1 = 2\frac{Precision \cdot Recall}{Precision + Recall}
+	      \]
+	\item True positive rate (TPR)
+	      \[
+		      \frac{TP}{TP+FN}
+	      \]
+
+	\item False positive rate (FPR)
+	      \[
+		      \frac{FP}{FP+TN}
+	      \]
+\end{itemize}
+
+\section{KNN Classifier}
+\begin{itemize}
+	\item Algorithm
+	      \[
+		      X_K = \{ x^{(\pi(k))} \}_{k=1}^K
+	      \]
+	      such that
+	      \[
+		      d(x, x^{(i)}) < d(x, x^{(j)}) \quad \forall x^{(i)} \in X_K, \ \forall x^{(j)} \notin X_K
+	      \]
+	      Then assign $x$ to the most frequent class among its $K$ nearest neighbors.
+	\item Distance formula
+
+	      \[
+		      d_p(u, v) = \left( \sum_i |u_i - v_i|^p \right)^{\tfrac{1}{p}}
+	      \]
+\end{itemize}
+
+\section{Dimension Reduction}
+\begin{itemize}
+	\subsection{PCA}
+	\item Reduction formulation
+
+	      \[
+		      f: \mathbb{R}^d \rightarrow \mathbb{R}^k \quad k<d
+	      \]
+	      \[
+		      x \in \mathbb{R}^d
+	      \]
+	      \[
+		      z = f(x) \in \mathbb{R}^k
+	      \]
+	      \[
+		      \hat{x} = w w^T x
+	      \]
+	\item Mean of projection
+	      \[
+		      \mathbf{w}^T \left( \frac{1}{N} \sum_{i=1}^{N} \mathbf{x}_i \right)
+		      = \mathbf{w}^T \bar{\mathbf{x}}
+	      \]
+	\item Variance of projection
+	      \[
+		      = w^T \left( \frac{1}{N} \sum_{i=1}^{N} (x_i - \bar{x})(x_i - \bar{x})^T \right) w
+		      = w^T S w
+	      \]
+	\item Optimization problem
+	      \[
+		      \max_{w} \quad w^T S w \quad \text{s.t.} \quad w^T w = 1
+	      \]
+	\item Transpose trick
+
+	      \[
+		      S = \frac{1}{N}XX^T \in \mathbb{R}^{DXD}
+	      \]
+
+	      If d $>>$ n we can instead use this:
+	      \[
+		      G = \frac{1}{N}X^TX \in R^{NXN}
+	      \]
+\end{itemize}
+\subsection{PCA}
+\begin{itemize}
+	\item Distance between class means
+	      \[
+		      \begin{aligned}
+			       & w^T \left( \frac{1}{K} \sum_{k} (\mu^{(k)} - \bar{\mu})(\mu^{(k)} - \bar{\mu})^T \right) w \\
+			       & = w^T S_b w
+		      \end{aligned}
+	      \]
+	\item Within class variance
+	      \[
+		      \begin{aligned}
+			       & w^T \left( \frac{1}{N} \sum_{k} \sum_{i \in \mathcal{C}_k} (x^{(i)} - \mu^{(k)})(x^{(i)} - \mu^{(k)})^T \right) w \\
+			       & = w^T S_w w
+		      \end{aligned}
+	      \]
+
+\end{itemize}
+
+\subsection{PCA}
+\begin{itemize}
+	\item Encoder:
+	      \[
+		      z = \phi(x), \qquad \phi: \mathbb{R}^d \rightarrow \mathbb{R}^k
+	      \]
+
+	\item Decoder:
+	      \[
+		      \hat{x} = \psi(z), \qquad \psi: \mathbb{R}^k \rightarrow \mathbb{R}^d
+	      \]
+\end{itemize}
+\subsection{CCA}
+\begin{itemize}
+	\item Cross-covariance matrix
+	      \[
+		      S_{xy} = \frac{1}{N} \sum_{i=1}^N (x^{(i)} - \bar{x})(y^{(i)} - \bar{y})^\top
+		      \quad \Rightarrow \quad
+	      \]
+	\item Optimization function
+	      \[
+		      \max_{u,v} \; u^\top S_{xy} v
+	      \]
+\end{itemize}
+
+\section{K-means clustering}
+\begin{itemize}
+	\item Optimization problem
+	      \[
+		      \min_{C, Z} \quad \sum_{k=1}^{K} \sum_{i \,:\, c(i)=k} \left\| x^{(i)} - \mu^{(k)} \right\|^2
+	      \]
+	\item Optimization subproblems
+	      \begin{itemize}
+		      \item \textbf{For fixed } $Z = [\mu^{(1)}, \dots, \mu^{(K)}]^T$, \textbf{optimize } $C$:
+		            \[
+			            \min_{C} \quad \sum_{i=1}^{N} \left\| x^{(i)} - \mu^{(c(i))} \right\|^2
+		            \]
+
+		      \item \textbf{For fixed } $C$, \textbf{optimize } $Z$:
+		            \[
+			            \min_{Z} \quad \sum_{k=1}^{K} \sum_{i} \left\| x^{(i)} - \mu^{(k)} \right\|^2\quad s.t \; c^{(i)} = k
+		            \]
+
+	      \end{itemize}
+
+	\item Process
+	      \begin{enumerate}
+		      \item Initilaize with K random centroids
+		      \item Repeat until convergence
+		            \begin{itemize}
+			            \item Assign a cluster to every sample $x^{(i)} \Rightarrow c^{(i)} = \arg\min_k dist(x^{(i)}, u^{(k)})$
+			            \item Update centroids according to clusters: \[
+				                  \mu^{(k)} =
+				                  \frac{\displaystyle \sum_{i=1}^{N} \mathbf{1}_{c_i = k} \, x^{(i)}}
+				                  {\displaystyle \sum_{i=1}^{N} \mathbf{1}_{c_i = k}}
+			                  \]
+
+		            \end{itemize}
+	      \end{enumerate}
+
+\end{itemize}
+
+\section{Gaussian Mixture Models}
+
+
+\end{document}
+
