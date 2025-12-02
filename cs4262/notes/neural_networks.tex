@@ -69,6 +69,7 @@ The building block of neural networks is the perceptron
 	\includegraphics[width=0.5\textwidth]{../imgs/perceptron.png} % 
 \end{figure}
 
+
 \pagebreak
 
 \paragraph{Multilayer Perceptron (MLP)}
@@ -105,55 +106,6 @@ allowing one detector to recognize a pattern anywhere—making learning more eff
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=0.9\textwidth]{../imgs/convulution-ex.png}
-\end{figure}
-
-\subsection*{Convolution Operator}
-
-A convolution filter is a small matrix of weights (for example, 3×3 or 5×5) that slides over the image.
-Each position of the filter covers a small patch of the image and performs a dot product between its weights and the pixel values in that patch.
-
-\medskip
-
-Convolution filters detect local patterns such as edges, textures, and shapes.
-They share weights across the image, reducing parameters and improving spatial efficiency. Through successive layers, they build hierarchical features, progressing from simple to complex representations. This structure allows the network to recognize features regardless of their position, providing translation invariance.
-
-\begin{figure}[h]
-	\centering
-	\includegraphics[width=0.7\textwidth]{../imgs/conv2.png}
-\end{figure}
-
-\pagebreak
-
-\begin{figure}[h]
-	\centering
-	\includegraphics[width=0.55\textwidth]{../imgs/conv3.png}
-\end{figure}
-
-\begin{figure}[h]
-	\centering
-	\includegraphics[width=0.55\textwidth]{../imgs/conv4.png}
-\end{figure}
-
-\begin{figure}[h]
-	\centering
-	\includegraphics[width=0.55\textwidth]{../imgs/conv5.png}
-\end{figure}
-
-\begin{figure}[!ht]
-	\centering
-	\includegraphics[width=0.55\textwidth]{../imgs/conv6.png}
-\end{figure}
-
-\pagebreak
-
-\subsection*{Max Pooling Operator}
-Max pooling reduces the spatial size of feature maps while keeping key information.
-It slides a small window (e.g. 2×2) over the input and outputs the maximum value within each window.
-This keeps the strongest activations, discards weaker ones, and lowers computation.
-
-\begin{figure}[h]
-	\centering
-	\includegraphics[width=0.7\textwidth]{../imgs/pool1.jpg}
 \end{figure}
 
 \subsection*{Convolution Operator}
