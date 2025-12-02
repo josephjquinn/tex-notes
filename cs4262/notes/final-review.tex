@@ -346,11 +346,320 @@
 
 		            \end{itemize}
 	      \end{enumerate}
+	\item The silhouette  method
+	      \[
+		      s(o) = \frac{b(o) - a(o)}{\max\{a(o),\, b(o)\}}
+	      \]
 
 \end{itemize}
 
 \section{Gaussian Mixture Models}
+\begin{itemize}
+	\item Probability to observe a value given normal distribution
+	      \[
+		      p(x; \mu, \sigma) = \mathcal{N}(x; \mu, \sigma) = \frac{1}{\sqrt{2\pi\sigma^2}} \, e^{ -\frac{(x - \mu)^2}{2\sigma^2} }
+	      \]
+
+	\item Maximum Likelihood Estimation (MLE)
+	      \[
+		      \arg\max_{\mu, \sigma} \, p(x_1, \dots, x_N; \mu, \sigma) = \prod_{n=1}^{N} p(x_n; \mu, \sigma)
+	      \]
+
+	\item Multiple gaussians probability to observe a value given normal distribution
+	      \[
+		      p(x; \{(\alpha_k, \mu_k, \sigma_k)\}_{k=1}^K)
+		      = \sum_{k=1}^{K} \alpha_k \, \mathcal{N}(x; \mu_k, \sigma_k)
+		      = \sum_{k=1}^{K} \frac{\alpha_k}{\sqrt{2\pi\sigma_k^2}}
+		      \exp\left( -\frac{(x - \mu_k)^2}{2\sigma_k^2} \right)
+	      \]
+
+	\item MoG likelihood of the full dataset
+	      \[
+		      \prod_{n=1}^{N} \sum_{k=1}^{K} \alpha_k \, \mathcal{N}(x_n; \mu_k, \sigma_k)
+	      \]
+	\item EM algorithm
+	      \begin{enumerate}
+		      \item E-step (Soft assignments)
+		            \[
+			            r_n^k = p(z_k = 1 \mid x_n)
+			            = \frac{ \alpha_k \, \mathcal{N}(x_n; \mu_k, \sigma_k^2) }
+			            { \sum\limits_{i=1}^{K} \alpha_i \, \mathcal{N}(x_n; \mu_i, \sigma_i^2) }
+		            \]
+		      \item M-step (Update parameters)
+
+		            \medskip
+		            1. Update Mixture Coefficients
+
+		            \[
+			            \alpha_k = \frac{N_k}{N}
+			            \; \; \text{for} \; \;
+			            N_k = \sum_{n=1}^{N} r_n^k
+		            \]
+
+		            2. Update Means
+
+		            \[
+			            \mu_k = \frac{1}{N_k} \sum_{n=1}^{N} r_n^k x_n
+		            \]
+
+		            3. Update Covariances
+
+		            \[
+			            \Sigma_k = \frac{1}{N_k} \sum_{n=1}^{N} r_n^k (x_n - \mu_k)(x_n - \mu_k)^T
+		            \]
+	      \end{enumerate}
+
+\end{itemize}
+
+\subsection{Spectral clustering}
+\begin{itemize}
+	\item Degree of nodes
+	      \[
+		      d_i = \sum_j w_{i,j}
+	      \]
+	      The degree of node \(i\) is the sum of weights to connected nodes.
+
+	\item Volume of a set
+	      \[
+		      \text{vol}(A) = \sum_{i \in A} d_i, \quad A \subseteq V
+	      \]
+	      The volume of a set \(A\) is the sum of node degrees over all nodes in set \(A\).
+	\item Graph cut
+	      \[
+		      \text{cut}(A, B) = \sum_{i \in A,\, j \in B} w_{ij}
+	      \]
+	\item Normalized Cut
+	      \[
+		      \text{Ncut}(A, B) = \text{cut}(A, B) \cdot \frac{\text{Vol}(A) + \text{Vol}(B)}{\text{Vol}(A)\text{Vol}(B)}
+	      \]
+	\item Laplacian
+	      \[
+		      L = D - W
+	      \]
+	\item Relaxed optimization problem
+
+	      \[
+		      \min_{\mathbf{f}} \quad \mathbf{f}^T L \mathbf{f} \quad \text{subject to} \quad \mathbf{f}^T D \mathbf{f} = 1
+	      \]
+
+	\item Closed form solution
+
+	      \[
+		      D^{-1} L \mathbf{f} = \lambda \mathbf{f}
+	      \]
+
+	\item Algorithm
+
+	      \begin{enumerate}
+		      \item Compute the Laplacian:
+		            \[
+			            L = D - W
+		            \]
+
+		      \item Solve the generalized eigenvalue problem:
+		            \[
+			            D^{-1}L \, \mathbf{f}_k = \lambda_k \mathbf{f}_k
+		            \]
+		            and compute the first \( k \) eigenvectors \( \mathbf{f}_1, \dots, \mathbf{f}_k \)
+
+		      \item Let \( U \in \mathbb{R}^{N \times k} \) be the matrix containing \( \mathbf{f}_1, \dots, \mathbf{f}_k \) as columns
+
+		      \item For \( i = 1, \dots, N \), let \( \mathbf{y}_i \in \mathbb{R}^k \) be the vector corresponding to the \( i \)-th row of \( U \)
+
+		      \item Cluster the points \( \{ \mathbf{y}_i \}_{i=1}^N \subset \mathbb{R}^k \) using the \( k \)-means algorithm into clusters \( C_1, \dots, C_k \)
+	      \end{enumerate}
+\end{itemize}
+
+\section{Generative Adversarial Networks}
+\begin{itemize}
+	\item Objective problem
+	      \[
+		      \min_{\theta_\psi} \max_{\theta_\eta}
+		      \left[
+			      \frac{1}{N} \sum_i \log \big( \eta(x_i; \theta_\eta) \big)
+			      +
+			      \frac{1}{M} \sum_j \log \big( 1 - \eta(\hat{x}_j; \theta_\eta) \big)
+			      \right],
+	      \]
+	\item Algorithm
+
+	      \begin{enumerate}
+		      \item \textbf{For each training iteration:}
+		            \begin{enumerate}
+			            \item \textbf{Discriminator updates (repeated $k$ times):}
+			                  \begin{itemize}
+				                  \item Sample a minibatch of $m$ noise samples $\{ z^{(1)}, \ldots, z^{(m)} \}$ from noise prior $p_g(z)$.
+				                  \item Sample a minibatch of $m$ real examples $\{ x^{(1)}, \ldots, x^{(m)} \}$ from data distribution $p_{\text{data}}(x)$.
+				                  \item Update the discriminator by ascending its stochastic gradient:
+				                        \[
+					                        \nabla_{\theta_d} \frac{1}{m} \sum_{i=1}^{m}
+					                        \Big[
+						                        \log D(x^{(i)}) + \log \big(1 - D(G(z^{(i)}))\big)
+						                        \Big].
+				                        \]
+			                  \end{itemize}
+
+			            \item \textbf{Generator update:}
+			                  \begin{itemize}
+				                  \item Sample a minibatch of $m$ noise samples $\{ z^{(1)}, \ldots, z^{(m)} \}$ from noise prior $p_g(z)$.
+				                  \item Update the generator by descending its stochastic gradient:
+				                        \[
+					                        \nabla_{\theta_g} \frac{1}{m} \sum_{i=1}^{m}
+					                        \log \big(1 - D(G(z^{(i)}))\big).
+				                        \]
+			                  \end{itemize}
+		            \end{enumerate}
+	      \end{enumerate}
+\end{itemize}
+
+\section{Neural Networks}
+\begin{itemize}
+	\item Perceptron function
+	      \[
+		      \sigma\!\left(w_0 + \sum_j w_j x_j\right) = \sigma(\mathbf{w}^\top \mathbf{x})
+	      \]
+
+\end{itemize}
+\section{Recurrent Neural Networks}
+\begin{itemize}
+	\item Elman'snetwork
+	      \[
+		      \hat{y}_t = \sigma_y(w_0 \cdot h_t + b_0)
+	      \]
+	      \[
+		      h_t = \sigma_h(w_x \cdot x_t + w_h \cdot h_{t-1} + b_x)
+	      \]
+\end{itemize}
+\section{Deep sets}
+\begin{itemize}
+	\item Algorithm
+	      \begin{enumerate}
+		      \item \textbf{Generate all permutations:} \\
+		            Since the order of elements shouldn’t matter, you can imagine training the neural network to produce the same output for all possible input orders.
+		            \begin{itemize}
+			            \item For \( N = 5 \), that’s \( 5! = 120 \) permutations — quickly intractable as \( N \) grows.
+		            \end{itemize}
+
+		      \item \textbf{Neural network \(\psi\):} \\
+		            Each permutation of the set is fed into a neural network \(\psi\), producing embeddings \( h_1, h_2, h_3, \ldots \)
+
+		      \item \textbf{Aggregate function \(f\):} \\
+		            These embeddings are combined using a \textbf{permutation-invariant} aggregation (e.g., sum, mean, max).
+
+		      \item \textbf{Final mapping \(\phi\):} \\
+		            The aggregated representation is passed through another neural network \(\phi\) to produce the final output \( y \).
+	      \end{enumerate}
+\end{itemize}
+
+\section{Reinforcement Learning}
+\begin{itemize}
+	\item Markov Property
+	      \[
+		      P(S_{t+1} = s_{t+1} \mid
+		      S_t = s_t, A_t = a_t,
+		      S_{t-1} = s_{t-1}, A_{t-1} = a_{t-1},
+		      \ldots,
+		      S_0 = s_0)
+		      =
+		      P(S_{t+1} = s_{t+1} \mid S_t = s_t, A_t = a_t).
+	      \]
+	\item Markov objective
+	      \[
+		      \sum_{t=0}^{\infty} \gamma^t r_t.
+	      \]
+	\item Optimal policy
+	      \[
+		      \pi^{*} = \arg\max_{\pi} \mathbb{E}\!\left[ \sum_{t \ge 0} \gamma^{t} r_{t} \,\middle|\, \pi \right]
+		      \quad \text{with} \quad
+		      s_{0} \sim p(s_{0}),\;
+		      a_{t} \sim \pi(\cdot \mid s_{t}),\;
+		      s_{t+1} \sim p(\cdot \mid s_{t}, a_{t}).
+	      \]
+	\item Value function
+	      \[
+		      V^{\pi}(s) =
+		      \mathbb{E} \!\left[ \sum_{t \ge 0} \gamma^{t} r_t \,\middle|\, s_0 = s,\, \pi \right].
+	      \]
+
+	\item Q-value function
+	      \[
+		      Q^{\pi}(s, a) =
+		      \mathbb{E} \!\left[ \sum_{t \ge 0} \gamma^{t} r_t \,\middle|\, s_0 = s,\; a_0 = a,\; \pi \right].
+	      \]
+
+	\item Bellman Equation
+	      \[
+		      Q^{*}(s, a)
+		      = \max_{\pi}
+		      \mathbb{E} \!\left[
+			      \sum_{t \ge 0} \gamma^{t} r_t \,\middle|\,
+			      s_0 = s,\; a_0 = a,\; \pi
+			      \right].
+	      \]
+
+	      \(Q^{*}\) satisfies the following:
+
+	      \[
+		      Q^{*}(s, a)
+		      = \mathbb{E}_{s' \sim \mathcal{E}}
+		      \left[
+			      r + \gamma \max_{a'} Q^{*}(s', a')
+			      \,\middle|\, s, a
+			      \right].
+	      \]
+
+	\item Recovering optimal policy
+
+	      \[
+		      \pi^{*}(s) = \arg\max_{a} Q^{*}(s,a).
+	      \]
+	      aka for each state pick the action with the highest Q-value
+
+	\item Q-learning algorithm
+
+	      Initialize $Q(s,a)$, $\forall s \in \mathcal{S}, a \in \mathcal{A}(s)$, arbitrarily, and
+	      $Q(\text{terminal-state}, \cdot) = 0$.
+
+	      Repeat (for each episode):
+
+	      \quad Initialize $S$
+
+	      \quad Repeat (for each step of episode):
+
+	      \qquad Choose $A$ from $S$ using policy derived from $Q$ (e.g., $\varepsilon$-greedy)
+
+	      \qquad Take action $A$, observe $R$, $S'$
+
+	      \qquad $Q(S,A) \leftarrow Q(S,A) + \alpha\left[ R + \gamma \max_a Q(S',a) - Q(S,A) \right]$
+
+	      \qquad $S \leftarrow S'$
+
+	      \quad until $S$ is terminal.
 
 
+	      \[
+		      Q_{i+1}(s,a)
+		      = \mathbb{E}\left[\, r + \gamma \max_{a'} Q_i(s', a') \mid s, a \,\right]
+	      \]
+
+	      \[
+		      Q_i \;\text{will converge to}\; Q^{*} \;\text{as}\; i \to \infty
+	      \]
+
+	\item Deep Q-learning approximation
+	      \[
+		      Q(s,a;\theta) \approx Q^{*}(s,a),
+	      \]
+	\item Deep Q-learning target
+	      The Bellman target for iteration $i$:
+	      \[
+		      y_i = r + \gamma \max_{a'} Q(s',a';\theta_{i-1}).
+	      \]
+	\item Deep Q-learning loss function
+	      \[
+		      L_i(\theta_i) = \mathbb{E}\Big[(\, y_i - Q(s,a;\theta_i) \,)^2\Big].
+	      \]
+
+\end{itemize}
 \end{document}
 
