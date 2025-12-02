@@ -156,15 +156,6 @@ This keeps the strongest activations, discards weaker ones, and lowers computati
 	\includegraphics[width=0.7\textwidth]{../imgs/pool1.jpg}
 \end{figure}
 
-\textbf{Full CNN in practice}
-
-\begin{figure}[!ht]
-	\centering
-\includegraphics[width=0.7\textwidth]{../imgs/fullcnn.png}
-\end{figure}
-
-
-
 \subsection*{Convolution Operator}
 
 A convolution filter is a small matrix of weights (for example, 3×3 or 5×5) that slides over the image.
@@ -221,7 +212,7 @@ This keeps the strongest activations, discards weaker ones, and lowers computati
 \includegraphics[width=0.7\textwidth]{../imgs/fullcnn.png}
 \end{figure}
 
-
+\pagebreak
 
 \section*{Recurrent Neural Networks}
  
@@ -239,21 +230,22 @@ a recurrence as part of its input The ac1va1on value ht depends on $x_t$ but als
 	\includegraphics[width=0.9\textwidth]{../imgs/elman-net.png}  
 \end{figure}
 
-\pagebreak
-
 If we look at the full network structure below we see this is a many-to-many relationship with many input nodes and many output nodes.
 
 \begin{figure}[h]
 	\centering
-	\includegraphics[width=0.9\textwidth]{../imgs/rnn-net.png}  
+	\includegraphics[width=0.6\textwidth]{../imgs/rnn-net.png}  
 \end{figure}
+
 
 In order to predict a future value we simply add another node to our output
 
-\begin{figure}[h]
+\begin{figure}[!ht]
 	\centering
-	\includegraphics[width=0.9\textwidth]{../imgs/rnn-plus1.png}  
+	\includegraphics[width=0.67\textwidth]{../imgs/rnn-plus1.png}  
 \end{figure}
+
+\pagebreak
 
 \paragraph{Shared Parameters}
 No matter how many times you unroll an RNN the number of weights and biasses will remain the same.
@@ -274,16 +266,16 @@ Now we have a number very very close to 0 resulting in our gradient decent takin
 
 \subsection*{Other Use Cases}
 \textbf{Image Captioning}
-\begin{figure}[h]
+\begin{figure}[!ht]
 	\centering
-	\includegraphics[width=0.9\textwidth]{../imgs/rnn-image-cap.png}  
+	\includegraphics[width=0.7\textwidth]{../imgs/rnn-image-cap.png}  
 \end{figure}
 
 \textbf{Sentiment Classification}
 
-\begin{figure}[h]
+\begin{figure}[!ht]
 	\centering
-	\includegraphics[width=0.9\textwidth]{../imgs/rnn-sen-clas.png}  
+	\includegraphics[width=0.7\textwidth]{../imgs/rnn-sen-clas.png}  
 \end{figure}
 
 \pagebreak
@@ -404,6 +396,8 @@ whereas a smaller k is cheaper but models only limited interactions.
 	\includegraphics[width=0.55\textwidth]{../imgs/deep-set.png}  
 \end{figure}
 
+\pagebreak
+
 \section*{Self Supervised Learning}
 The idea here is that this is an technique where a model learns from unlabeled data by generating its own training signals.
 
@@ -416,7 +410,6 @@ it learns useful internal representations that can later be fine-tuned for real 
 
 The reason for this existing is the cost of good quality labelled data is very high in terms of time and money
 
-\pagebreak
 \paragraph*{Process}
 \begin{enumerate}
     \item \textbf{Pretext task} --- The model predicts some part of the data from other parts. \\
@@ -452,6 +445,8 @@ pretext task for classification of cats vs dogs with very few labeled examples
 	\includegraphics[width=0.55\textwidth]{../imgs/ssl-cat1.png}  
 \end{figure}
 \end{itemize}
+
+\pagebreak
 
 Another example of a pretext task:
 Predict missing pieces (context encoders or inpainting)

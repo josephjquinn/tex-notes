@@ -15,22 +15,22 @@
 \textbf{Method:} Pose the problem as linear regression
 
 \[
-f(x) =
-\begin{cases}
-1 & w^T \hat{x} > 0.5 \\
-0 & w^T \hat{x} \leq 0.5
-\end{cases}
+	f(x) =
+	\begin{cases}
+		1 & w^T \hat{x} > 0.5    \\
+		0 & w^T \hat{x} \leq 0.5
+	\end{cases}
 \]
 
-We have a problem though that this function is not differentiable! 
+We have a problem though that this function is not differentiable!
 So the solution is to use a sigmoid function:
 
 \[
-\sigma(t) = \frac{1}{1 + e^{-t}}
+	\sigma(t) = \frac{1}{1 + e^{-t}}
 \]
 
 \[
-f(x) = \sigma(w^T \hat{x}) = \frac{1}{1 + e^{-w^T \hat{x}}}
+	f(x) = \sigma(w^T \hat{x}) = \frac{1}{1 + e^{-w^T \hat{x}}}
 \]
 
 
@@ -39,19 +39,19 @@ f(x) = \sigma(w^T \hat{x}) = \frac{1}{1 + e^{-w^T \hat{x}}}
 \begin{itemize}
 
 
-\item Using MSE leads to a non convex function
-    \item The labels that we are predicting are binary: $y \in \{0,1\}$.
-    \item Meaning the prediction $f(x)$ can be thought of as the probability output
-    \item Given the probability $f(x)$ what is the likelihood of passing $(y=1)$? What is the likelihood of failing $(y=0)$?
+	\item Using MSE leads to a non convex function
+	\item The labels that we are predicting are binary: $y \in \{0,1\}$.
+	\item Meaning the prediction $f(x)$ can be thought of as the probability output
+	\item Given the probability $f(x)$ what is the likelihood of passing $(y=1)$? What is the likelihood of failing $(y=0)$?
 \end{itemize}
 
 \[
-p(y|x,w) = f(x)^y (1 - f(x))^{(1-y)}
+	p(y|x,w) = f(x)^y (1 - f(x))^{(1-y)}
 \]
 
 
 \[
-p(y=1|f(x)) = f(x), \quad p(y=0|f(x)) = 1 - f(x)
+	p(y=1|f(x)) = f(x), \quad p(y=0|f(x)) = 1 - f(x)
 \]
 
 
@@ -64,34 +64,59 @@ If $y=0$ the second term survives.
 For observations $\{(x^{(i)}, y^{(i)})\}$ assuming i.i.d. we have:
 
 \[
-likelihood = \prod_{i=1}^N f(x^{(i)})^{y^{(i)}} \big(1 - f(x^{(i)})\big)^{(1 - y^{(i)})}
+	likelihood = \prod_{i=1}^N f(x^{(i)})^{y^{(i)}} \big(1 - f(x^{(i)})\big)^{(1 - y^{(i)})}
 \]
 
 \[
-log\text{--}likelihood = - \sum_{i=1}^N \Big[ y^{(i)} \log \big(f(x^{(i)})\big) 
-+ \big(1 - y^{(i)}\big) \log \big(1 - f(x^{(i)})\big) \Big]
+	log\text{--}likelihood = - \sum_{i=1}^N \Big[ y^{(i)} \log \big(f(x^{(i)})\big)
+		+ \big(1 - y^{(i)}\big) \log \big(1 - f(x^{(i)})\big) \Big]
 \]
 
 Therefore,
 
 \[
-\nabla_w \mathcal{L}(w) = \sum_{i=1}^N x^{(i)} \Big(f(x^{(i)}) - y^{(i)}\Big)
+	\mathcal{L}(w) = - \sum_{i=1}^{N} \left[ y^{(i)} \log\!\big(f(x^{(i)})\big) + \big(1 - y^{(i)}\big)\log\!\big(1 - f(x^{(i)})\big) \right]
 \]
 
 \[
-\nabla_w^2 \mathcal{L}(w) = \sum_{i=1}^N x^{(i)} {x^{(i)}}^T f(x^{(i)}) \Big(1 - f(x^{(i)})\Big)
+	\nabla_w \mathcal{L}(w) = \sum_{i=1}^N x^{(i)} \Big(f(x^{(i)}) - y^{(i)}\Big)
+\]
+
+\[
+	\nabla_w^2 \mathcal{L}(w) = \sum_{i=1}^N x^{(i)} {x^{(i)}}^T f(x^{(i)}) \Big(1 - f(x^{(i)})\Big)
 \]
 
 \subsection*{Multi-Class Classification}
-For classifications with $k > 1$, we train k classifiers for each class, and then we select the classifier that is the most confident
+
+In multi-class settings with $K > 2$, we reduce the problem to multiple binary classification tasks. Two common strategies are \textbf{One-vs-All} and \textbf{One-vs-One}.
+
+\subsubsection*{One-vs-All}
+Train $K$ binary classifiers.
+Classifier $f^{(i)}(x)$ learns to distinguish class $i$ from all other classes.
 
 \[
-\hat{y} = \arg\max_{i \in \{1, \dots, K\}} f^{(i)}(x)
+	\hat{y} = \arg\max_{i \in \{1,\dots,K\}} f^{(i)}(x)
 \]
 
 \begin{itemize}
-	\item This system is good because each classifier only sees 2 classes so it's a 		simpler decision .
-	\item However, this needs many classifiers and grows as $O(k^2)$
+	\item Simple to implement; only $K$ classifiers.
+	\item Each model solves an imbalanced problem (one class vs.\ all others).
+	\item Boundaries can be harder to learn because each classifier must model $K-1$ negative classes.
+\end{itemize}
+
+\subsubsection*{One-vs-One}
+Train a classifier for every pair of classes, giving
+\[
+	\frac{K(K-1)}{2} \text{ classifiers}.
+\]
+
+Each classifier votes for one of its two classes.
+The predicted label is the majority vote.
+
+\begin{itemize}
+	\item Each classifier only sees 2 classes, giving simpler decision boundaries and cheaper evaluation per model.
+	\item Requires many classifiers, scaling as $O(K^2)$.
+	\item Voting ties can occur and require tie-breaking.
 \end{itemize}
 
 \end{document}

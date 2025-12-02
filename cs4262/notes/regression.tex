@@ -217,7 +217,7 @@ The idea is to iteratively update the parameters to reach the optimal point.
 \noindent Gradient always points in the direction of increasing the cost, so we follow the negative gradient:
 
 \[
-	w^{(t)} = w^{(t-1)} - \epsilon \nabla_w \mathcal{L}
+	w^{(t)} = w^{(t-1)} - \epsilon \nabla_w \mathcal{L}(w^{(t-1)})
 \]
 
 $\epsilon$ is the learning rate, a positive scalar that determines the size of the update step.

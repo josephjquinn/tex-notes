@@ -1,6 +1,8 @@
 \documentclass[11pt]{article}
 \usepackage{amsmath, amssymb, amsthm}
 \usepackage{geometry}
+\usepackage{graphicx}
+\setlength\parindent{0pt}
 \geometry{margin=1in}
 \title{Foundations of Machine Learning -- Lecture 4 Notes}
 \author{}
@@ -90,24 +92,54 @@ For MNIST (a small-scale dataset!), $d = 784$, therefore:
 
 \subsection*{Learnable Feature Maps}
 
-What if we optimize the feature maps?
-This means that the features are not fixed and learn with the parameters.
-\[
-	f\!\left(x;\{w_i,\mu_i,\sigma_i\}_{i=1}^M\right)
-	= \sum_{i=1}^{M} w_i\,\phi\!\left(x;\mu_i,\sigma_i\right)
-\]
 
-\vspace{0.75em}
-\textbf{Learning problem:}
-\[
-	\arg\min_{\{w_i,\mu_i,\sigma_i\}_{i=1}^M}
-	\sum_{n=1}^{N}\!\left(
-	\sum_{i=1}^{M} w_i\,\phi\!\left(x_n;\mu_i,\sigma_i\right) - y_n
-	\right)^{\!2}
-\]
 
-\vspace{0.75em}
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.9\textwidth]{../imgs/lfm-p1.png} % 
+\end{figure}
+
+
+In this setup the RBF centers $\mu_i$ and the width $s$ are fixed in advance,
+typically by placing the centers on a uniform grid with a shared radius.
+Since these basis functions do not change, the model learns only the linear
+weights $w_i$. The images with $M = 16$, $M = 64$, and $M = 256$ illustrate
+how increasing the number of RBFs refines the feature map: small $M$ yields a
+coarse, inflexible representation, while larger $M$ creates a denser set of
+localized bumps. Despite this added flexibility, the overall structure of the
+feature map is still predetermined because the centers and widths remain fixed
+during training.
+
+\medskip
+
+\textbf{But what if we optimize the feature maps?}
 \textit{Deep learning: features are learned from data.}
+
+\pagebreak
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.25\textwidth]{../imgs/lfm-p2.png} % 
+\end{figure}
+
+
+The second image shows what happens when the feature maps themselves become \emph{learnable}. Instead of fixing the RBF centers and widths, the model is expanded to
+\[
+f(x; \{w_i,\mu_i,\sigma_i\}) 
+    = \sum_{i=1}^{M} w_i\,\phi(x;\mu_i,\sigma_i),
+\quad
+\phi(x;\mu_i,\sigma_i)
+    = \exp\!\left(-\frac{\|x-\mu_i\|^2}{2\sigma_i^2}\right),
+\]
+and the learning problem becomes
+\[
+\min_{\{w_i,\mu_i,\sigma_i\}}
+\sum_{n=1}^{N}
+\left(
+\sum_{i=1}^{M} w_i\,\phi(x_n;\mu_i,\sigma_i) - y_n
+\right)^2.
+\]
+In this formulation, the centers $\mu_i$ and widths $\sigma_i$ are no longer predetermined but are optimized along with the weights. The bottom image, using only $M=2$ RBFs, demonstrates that even a very small number of units can model the data effectively when their shapes and locations are allowed to adapt. The RBFs shift and resize themselves to capture important regions of the input space, producing a far more efficient and flexible representation than the fixed-grid approach. 
 
 \subsection*{Kernel Methods}
 The idea behind kernel methods is to map the data into a higher-dimensional space, perform regression in that space, and then transform the results back to the original space. This allows complex decision surfaces to be represented as linear operations in the transformed space.
