@@ -910,11 +910,11 @@ Theorem~7.7 can be recast as saying that the Legendre symbol is \emph{completely
 \section{Pythagorean Triples, Sums of Squares, and Fermat’s Last Theorem}
 
 \begin{definition*}
-A triple of positive integers $(a,b,c)$ satisfying
-\[
-a^{2} + b^{2} = c^{2}
-\]
-is called a \emph{Pythagorean triple}.
+	A triple of positive integers $(a,b,c)$ satisfying
+	\[
+		a^{2} + b^{2} = c^{2}
+	\]
+	is called a \emph{Pythagorean triple}.
 \end{definition*}
 
 \begin{manualtheorem}{8.1}
@@ -931,6 +931,85 @@ is called a \emph{Pythagorean triple}.
 	In any primitive Pythagorean triple, one leg is odd, one leg is even, and the hypotenuse is odd.
 \end{manualtheorem}
 
+\begin{manualtheorem}{8.5}
+	Let $s$ and $t$ be distinct natural numbers with $s > t$. Then
+	\[
+		(2st,\; s^{2} - t^{2},\; s^{2} + t^{2})
+	\]
+	is a Pythagorean triple.
+\end{manualtheorem}
+
+\begin{manualtheorem}{8.6}
+	Let $(a,b,c)$ be a primitive Pythagorean triple where $a$ is the even leg.
+	Then
+	\[
+		\frac{c+b}{2} = s^{2}
+		\qquad\text{and}\qquad
+		\frac{c-b}{2} = t^{2}
+	\]
+	for some perfect squares $s^{2}$ and $t^{2}$, and $s$ and $t$ are relatively prime.
+\end{manualtheorem}
+
+\begin{manualtheorem}{8.7}[Pythagorean Triple Theorem]
+	Let $(a,b,c)$ be a triple of natural numbers with $a$ even, $b$ odd, and $c$ odd.
+	Then $(a,b,c)$ is a primitive Pythagorean triple if and only if there exist
+	relatively prime positive integers $s$ and $t$, one even and one odd, such that
+	\[
+		a = 2st,\qquad b = s^{2} - t^{2},\qquad c = s^{2} + t^{2}.
+	\]
+\end{manualtheorem}
+
+\begin{manualtheorem}{8.10}
+	In every primitive Pythagorean triple, one leg is an odd integer greater than $1$
+	and the other leg is a positive multiple of $4$.
+\end{manualtheorem}
+
+\begin{manualtheorem}{8.11}
+	Any odd number greater than $1$ can occur as a leg in a primitive Pythagorean triple.
+\end{manualtheorem}
+
+\subsection{Sums of squares}
+
+\begin{manualtheorem}{8.14}
+	Let $p$ be a prime such that $p = a^{2} + b^{2}$ for some natural numbers $a$ and $b$. Then either $p = 2$ or $p \equiv 1 \pmod{4}$.
+\end{manualtheorem}
+
+\begin{manualtheorem}{8.15}
+	Let $p$ be a prime and let $a$ be a natural number not divisible by $p$. Then there exist integers $x$ and $y$ such that
+	\[
+		ax \equiv y \pmod{p}
+		\quad\text{with}\quad
+		0 < |x|,\,|y| < \sqrt{p}.
+	\]
+\end{manualtheorem}
+
+\begin{manualtheorem}{8.16}
+	Let $p$ be a prime such that $p \equiv 1 \pmod{4}$. Then $p$ can be written as the sum of two squares of natural numbers.
+\end{manualtheorem}
+
+\begin{manualtheorem}{8.21}
+	A natural number $n$ can be written as the sum of two squares of integers
+	if and only if every prime congruent to $3 \pmod{4}$ in the unique prime
+	factorization of $n$ occurs to an even power.
+\end{manualtheorem}
+
+\begin{manualtheorem}{8.22}
+	If $(a,b,c)$ is a primitive Pythagorean triple, then $c$ is a product of primes, each of which is congruent to $1 \pmod{4}$.
+\end{manualtheorem}
+
+\begin{manualtheorem}{8.23}
+	If the natural number $c$ is a product of primes, each of which is congruent to $1 \pmod{4}$, then there exist natural numbers $a$ and $b$ such that $(a,b,c)$ is a primitive Pythagorean triple.
+\end{manualtheorem}
+
+\subsection{Fermat's Last Theorem}
+
+\begin{manualtheorem}{Fermat's Last Theorem}
+	For natural numbers $n \ge 3$, there are no natural numbers $x, y, z$ such that $x^n + y^n = z^n$.
+\end{manualtheorem}
+
+\begin{manualtheorem}{8.24}
+	There are no natural numbers $x$, $y$, and $z$ such that $x^4 + y^4 = z^2$.
+\end{manualtheorem}
 
 \end{document}
 
