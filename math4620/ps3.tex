@@ -1,0 +1,321 @@
+
+\documentclass{article}
+
+% -----------------------------
+% Packages
+% -----------------------------
+\usepackage{fancyhdr}
+\usepackage{extramarks}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{tikz}
+\usepackage[plain]{algorithm}
+\usepackage{algpseudocode}
+\usepackage{amssymb}
+
+\usetikzlibrary{automata,positioning}
+
+% -----------------------------
+% Basic Document Settings
+% -----------------------------
+\topmargin=-0.45in
+\evensidemargin=0in
+\oddsidemargin=0in
+\textwidth=6.5in
+\textheight=9.0in
+\headsep=0.25in
+
+\linespread{1.1}
+
+\pagestyle{fancy}
+\lhead{\hmwkAuthorName}
+\chead{\hmwkClass: \hmwkTitle}
+\rhead{}
+\lfoot{\lastxmark}
+\cfoot{\thepage}
+
+\renewcommand\headrulewidth{0.4pt}
+\renewcommand\footrulewidth{0.4pt}
+
+\setlength\parindent{0pt}
+
+% -----------------------------
+% Problem Section Helpers
+% -----------------------------
+\newcommand{\enterProblemHeader}[1]{
+  \nobreak\extramarks{}{Problem #1 continued on next page\ldots}\nobreak{}
+  \nobreak\extramarks{Problem #1 (continued)}{Problem #1 continued on next page\ldots}\nobreak{}
+}
+
+\newcommand{\exitProblemHeader}[1]{
+  \nobreak\extramarks{Problem #1 (continued)}{Problem #1 continued on next page\ldots}\nobreak{}
+  \nobreak\extramarks{Problem #1}{}\nobreak{}
+}
+
+\setcounter{secnumdepth}{0}
+\newcounter{partCounter}
+\newcounter{homeworkProblemCounter}
+\setcounter{homeworkProblemCounter}{1}
+\nobreak\extramarks{Problem \arabic{homeworkProblemCounter}}{}\nobreak{}
+
+% -----------------------------
+% Theorem env (optional)
+% -----------------------------
+\newtheorem*{theorem}{Theorem}
+
+% -----------------------------
+% Homework Problem Environment
+%   Usage:
+%   \begin{homeworkProblem}            % auto-number
+%     % Your answer here
+%   \end{homeworkProblem}
+%
+%   \begin{homeworkProblem}[1.2.3]     % label problem "1.2.3" (e.g. textbook numbering)
+%     % Your answer here
+%   \end{homeworkProblem}
+% -----------------------------
+\newenvironment{homeworkProblem}[1][]{
+  \def\hwProblemLabel{#1}
+  \ifx\hwProblemLabel\empty
+    \edef\hwProblemLabel{\arabic{homeworkProblemCounter}}
+    \stepcounter{homeworkProblemCounter}
+  \fi
+  \section{Problem \hwProblemLabel}
+  \setcounter{partCounter}{1}
+  \enterProblemHeader{\hwProblemLabel}
+}{
+  \exitProblemHeader{\hwProblemLabel}
+}
+
+% -----------------------------
+% Homework Details (EDIT THESE)
+% -----------------------------
+\newcommand{\hmwkTitle}{Homework \#3}
+\newcommand{\hmwkClass}{Math 3320}
+\newcommand{\hmwkAuthorName}{\textbf{Joseph Quinn}}
+
+% -----------------------------
+% Title
+% -----------------------------
+\title{
+  \vspace{2in}
+  \textmd{\textbf{\hmwkClass:\ \hmwkTitle}}\\
+  \vspace{3in}
+}
+\author{\hmwkAuthorName}
+\date{}
+
+% -----------------------------
+% Convenience Macros (optional)
+% -----------------------------
+\renewcommand{\part}[1]{\textbf{\large Part \Alph{partCounter}}\stepcounter{partCounter}\\}
+
+% Algorithms
+\newcommand{\alg}[1]{\textsc{\bfseries \footnotesize #1}}
+
+% Calculus
+\newcommand{\deriv}[1]{\frac{\mathrm{d}}{\mathrm{d}x} (#1)}
+\newcommand{\pderiv}[2]{\frac{\partial}{\partial #1} (#2)}
+\newcommand{\dx}{\mathrm{d}x}
+
+% Statistics
+\newcommand{\E}{\mathrm{E}}
+\newcommand{\Var}{\mathrm{Var}}
+\newcommand{\Cov}{\mathrm{Cov}}
+\newcommand{\Bias}{\mathrm{Bias}}
+
+% Proof step (for aligned derivations)
+\newcommand{\step}[2]{& #1 & & \text{#2} \\}
+
+% Solution header (optional)
+\newcommand{\solution}{\textbf{\large Solution}}
+
+% -----------------------------
+% Document
+% -----------------------------
+\begin{document}
+
+\maketitle
+\pagebreak
+
+\begin{homeworkProblem}[A7]
+	\begin{enumerate}
+	\item[(I1)]
+	\begin{align*}
+		\max \quad & z = -5x_1 + x_2 + 4x_3     \\
+		\text{s.t.} \quad
+		           & -3x_1 + 2x_2 - 5x_3 \le 4  \\
+		           & x_1 - 4x_2 + x_3 \le -7    \\
+		           & -6x_1 - 3x_2 + 8x_3 \le -3 \\
+		           & x_1,x_2,x_3 \ge 0
+	\end{align*}
+	\item[(I2)]
+	\begin{align*}
+		x_{4} = & 4 +3x_{1}-2x_{2}+5x_{3}  \\
+		x_{5} = & -7-x_{1}+4x_{2}-x_{3}    \\
+		x_{6} = & -3 +6x_{1}+3x_{2}-8x_{3} \\
+		z =     & -5x_{1}+x_{2}+4x_{3}
+	\end{align*}
+
+	\item[(I3)]
+	Now setting our non basic variables to 0 we get $x_{1}=0,x_{2}=0,x_{3}=0,x_{4}=4,x_{5}=-7,x_{6}=-6$, since we
+	have multiple variables that do not satisfy our non negativity contraints this dictionary does not have a basic feasible solution.
+
+	So now lets attempt creating an auxiliary problem to see if we can find starting feasible dictionary.
+
+	\item[(I1)]
+	The auxiliary problem will take the following form,
+	\begin{align*}
+		\max \quad & w = -x_{0}                       \\
+		\text{s.t.} \quad
+		           & -3x_1 + 2x_2 - 5x_3 -x_{0}\le 4  \\
+		           & x_1 - 4x_2 + x_3 -x_{0}\le -7    \\
+		           & -6x_1 - 3x_2 + 8x_3 -x_{0}\le -3 \\
+		           & x_{0},x_1,x_2,x_3 \ge 0
+	\end{align*}
+	\item[(I2)]
+	This becomes the dictionary,
+
+	\begin{align*}
+		x_{4} = & 4 +x_{0}+3x_{1}-2x_{2}+5x_{3}  \\
+		x_{5} = & -7+x_{0}-x_{1}+4x_{2}-x_{3}    \\
+		x_{6} = & -3+x_{0} +6x_{1}+3x_{2}-8x_{3} \\
+		w =    -x_{0}
+	\end{align*}
+
+	\item[(I3)]
+	There is no basic feasible solution here (yet) so we must move on to the first aux pivot
+
+	\item[(P1)]
+	For the aux pivot the first entering variable is always $x_{0}$
+	\item[(P2)]
+	With $x_{0}$ as our entering variable, the ratio test looks a little different as we need to know what valeus $x_{0}$ can
+	take to ensure the constants, and thus basic vairable are non negative.
+	\begin{align*}
+		x_{0} & \; \text{has no restriction for} \; x_{4} \\
+		x_{0} & \ge 7 \; \text{ for } \; x_{5}            \\
+		x_{0} & \ge 3 \; \text{ for } \; x_{6}
+	\end{align*}
+
+	Meaning $x_{5}$ has the stronger restriction and is our leaving variable.
+	\item[(P3)]
+	After performing the pivot we get the resulting dictionary,
+	\begin{align*}
+		x_{4} = & 11 + 4x_{1}-6x_{2}+6x_{3}+x_{5} \\
+		x_{0} = & 7 + x_{1} -4x_{2} + x_{3}+x_{5} \\
+		x_{6} = & 4 +7x_{1}-x_{2}-7x_{3}+x_{5}    \\
+		w =     & -7 -x_{1} +4x_{2}-x_{3}-x_{5}
+	\end{align*}
+
+	\item[(P4)]
+	Now to get a basic feasible solution we set our non basic variables to 0 resulting in
+	$x_{0}=7,x_{1}=0, x_{2}=0, x_{4}=0, x_{4}=11,x_{5}=0,x_{6}=4$ resulting in $z=-7$
+
+	\item[(P1)]
+	For the next pivot the only positive coefficient in $w$ is $x_{2}$ so it is our entering variable.
+	\item[(P2)]
+	Our basic variable restricting are
+
+	\begin{align*}
+		x_{2} \le \; \frac{11}{6} \text{ for } x_{4} \\
+		x_{2} \le \; \frac{7}{4}\text{ for }  x_{0}  \\
+		x_{2} \le \; 4 \text{ for} \; x_{6}          \\
+	\end{align*}
+
+	$x_{0}$ has the tightest restriction so it is our leaving variable
+
+	\item[(P3)]
+	After performing the pivot we get the resulting dictionary,
+	\begin{align*}
+		x_{4} = & \frac{1}{2} + \frac{3}{2}x_{0}+\frac{5}{2}x_{1}+\frac{9}{2}x_{3}-\frac{1}{2}x_{5}  \\
+		x_{2} = & \frac{7}{4} - \frac{1}{4}x_{0} +\frac{1}{4}x_{1}+\frac{1}{4}x_{3}+\frac{1}{4}x_{5} \\
+		x_{6} = & \frac{9}{4}+\frac{1}{4}x_{0}+\frac{27}{4}x_{1}-\frac{29}{4}x_{3}+\frac{3}{4}x_{5}  \\
+		w =     & -x_{0}
+	\end{align*}
+
+	\item[(P4)]
+	Setting our non basic variables to 0 we get $x_{0}=0,x_{1}=0, x_{2}=\frac{7}{4}, x_{3}=0, z_{4}=\frac{1}{2},x_{5}=0, x_{6}=\frac{9}{4}$
+
+	\item[(Aux transition)]
+	Now looking at our dictionary we cannot choose an entering variable meaning this is our optimal solution, and since this is an auxiliary problem
+	our optimal $w$ value is 0, with $x_{0}=0$ meaning we found a feasible starting dictionary for our original LP problem
+
+	Removing $x_{0}$ and restoring our orignal $z$ equations results in the equivalent dictionary,
+
+	\begin{align*}
+		x_{4} = & \frac{1}{2} + \frac{5}{2}x_{1}+\frac{9}{2}x_{3}-\frac{1}{2}x_{5} \\
+		x_{2} = & \frac{7}{4} + \frac{1}{4}x_{1}+\frac{1}{4}x_{3}+\frac{1}{4}x_{5} \\
+		x_{6} = & \frac{9}{4}+\frac{27}{4}x_{1}-\frac{29}{4}x_{3}+\frac{3}{4}x_{5} \\
+		z =     & \frac{7}{4}-\frac{19}{4}x_{1}+\frac{17}{4}x_{3}+\frac{1}{4}x_{5}
+	\end{align*}
+
+	Meaning $x_{3}$ is our leaving variable.
+	\item[(P1)]
+	Looking at our $z$ equation and according to Bland's rule we pick $x_{3}$ to be our entering variable.
+
+	\item[(P2)]
+	Via the ratio test we see,
+
+	\begin{align*}
+		x_{3} \le \text{ has no restriction for } x_{4}  \\
+		x_{3} \le \text{ has no restriction for }  x_{0} \\
+		x_{3} \le \; \frac{9}{29}\text{ for} \; x_{6}    \\
+	\end{align*}
+	\item[(P3)]
+	Now after performing the pivot we get the dictionary,
+
+	\begin{align*}
+		x_{4} = & \frac{55}{29}+\frac{194}{29}x_{1}-\frac{1}{29}x_{5}-\frac{18}{29}x_{6} \\
+		x_{2} = & \frac{53}{29}+\frac{14}{29}x_{1}+\frac{8}{29}x_{5}-\frac{1}{29}x_{6}   \\
+		x_{3} = & \frac{9}{29}+\frac{27}{29}x_{1}+\frac{3}{29}x_{5}-\frac{4}{29}x_{6}    \\
+		z =     & \frac{89}{29}-\frac{23}{29}x_{1}+\frac{20}{29}x_{5}-\frac{17}{29}x_{6}
+	\end{align*}
+	\item[(P4)]
+	This results in the basic feasible solution $x_{1}=0, x_{2}=\frac{53}{29}, x_{3}=\frac{9}{29}, x_{4}=\frac{55}{29}, x_{5}=0,x_{6}=0$
+	with $z= \frac{89}{29}$
+	\item[(P1)]
+	Using Bland's rule our entering variable is $x_{5}$
+	\item [(P2)]
+	Via the ratio test we see,
+
+	\begin{align*}
+		x_{5} \le \; \frac{55}{194}\text{ for} \; x_{4}  \\
+		x_{5} \le \text{ has no restriction for } x_{2}  \\
+		x_{5} \le \text{ has no restriction for }  x_{3} \\
+	\end{align*}
+
+	Meaning $x_{4}$ is our leaving variable
+	\item [(P3)]
+	After performing the pivot we get the dictionary,
+	\begin{align*}
+		x_{5} = & 55 + 194x_{1}-29x_{4}-18x_{6} \\
+		x_{2} = & 17 + 54x_{1}-8x_{4}-5x_{6}    \\
+		x_{3} = & 6 + 21x_{1}-3x_{4}-2x_{6}     \\
+		z =     & 41 + 133x_{1}-20x_{4}-13x_{6}
+	\end{align*}
+	\item [(P4)]
+	this results in the BFS $x_{1}=0,x_{2}=17,x_{3}=4,x_{4}=0,x_{5}=55,x_{6}=0$
+	with  $z=41$
+	\item[(P1)]
+	Via Bland's, $x_{1}$ is our entering variable
+	\item[(P2)]
+	Via the ratio test we see,
+
+	\begin{align*}
+		x_{1} \le \text{ has no restriction for } x_{5}  \\
+		x_{1} \le \text{ has no restriction for } x_{2}  \\
+		x_{1} \le \text{ has no restriction for }  x_{3} \\
+	\end{align*}
+
+	This means there is no restrictions from any equation on our entering variable, meaning we can increase $x_{1}$ arbitrarily large and get an arbitrarily large $z$ value
+\\
+	\\
+	Meaning our  LP is unbounded
+
+\end{homeworkProblem}
+
+\begin{homeworkProblem}[A8]
+\end{homeworkProblem}
+\end{document}
+

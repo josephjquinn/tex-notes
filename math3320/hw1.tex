@@ -1,0 +1,207 @@
+\documentclass{article}
+
+% -----------------------------
+% Packages
+% -----------------------------
+\usepackage{fancyhdr}
+\usepackage{extramarks}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{tikz}
+\usepackage[plain]{algorithm}
+\usepackage{algpseudocode}
+\usepackage{amssymb}
+
+\usetikzlibrary{automata,positioning}
+
+% -----------------------------
+% Basic Document Settings
+% -----------------------------
+\topmargin=-0.45in
+\evensidemargin=0in
+\oddsidemargin=0in
+\textwidth=6.5in
+\textheight=9.0in
+\headsep=0.25in
+
+\linespread{1.1}
+
+\pagestyle{fancy}
+\lhead{\hmwkAuthorName}
+\chead{\hmwkClass: \hmwkTitle}
+\rhead{}
+\lfoot{\lastxmark}
+\cfoot{\thepage}
+
+\renewcommand\headrulewidth{0.4pt}
+\renewcommand\footrulewidth{0.4pt}
+
+\setlength\parindent{0pt}
+
+% -----------------------------
+% Problem Section Helpers
+% -----------------------------
+\newcommand{\enterProblemHeader}[1]{
+  \nobreak\extramarks{}{Problem #1 continued on next page\ldots}\nobreak{}
+  \nobreak\extramarks{Problem #1 (continued)}{Problem #1 continued on next page\ldots}\nobreak{}
+}
+
+\newcommand{\exitProblemHeader}[1]{
+  \nobreak\extramarks{Problem #1 (continued)}{Problem #1 continued on next page\ldots}\nobreak{}
+  \nobreak\extramarks{Problem #1}{}\nobreak{}
+}
+
+\setcounter{secnumdepth}{0}
+\newcounter{partCounter}
+\newcounter{homeworkProblemCounter}
+\setcounter{homeworkProblemCounter}{1}
+\nobreak\extramarks{Problem \arabic{homeworkProblemCounter}}{}\nobreak{}
+
+% -----------------------------
+% Theorem env (optional)
+% -----------------------------
+\newtheorem*{theorem}{Theorem}
+
+% -----------------------------
+% Homework Problem Environment
+%   Usage:
+%   \begin{homeworkProblem}            % auto-number
+%     % Your answer here
+%   \end{homeworkProblem}
+%
+%   \begin{homeworkProblem}[1.2.3]     % label problem "1.2.3" (e.g. textbook numbering)
+%     % Your answer here
+%   \end{homeworkProblem}
+% -----------------------------
+\newenvironment{homeworkProblem}[1][]{
+  \def\hwProblemLabel{#1}
+  \ifx\hwProblemLabel\empty
+    \edef\hwProblemLabel{\arabic{homeworkProblemCounter}}
+    \stepcounter{homeworkProblemCounter}
+  \fi
+  \section{Problem \hwProblemLabel}
+  \setcounter{partCounter}{1}
+  \enterProblemHeader{\hwProblemLabel}
+}{
+  \exitProblemHeader{\hwProblemLabel}
+}
+
+% -----------------------------
+% Homework Details (EDIT THESE)
+% -----------------------------
+\newcommand{\hmwkTitle}{Homework \#1}
+\newcommand{\hmwkClass}{Math 3320}
+\newcommand{\hmwkAuthorName}{\textbf{Joseph Quinn}}
+
+% -----------------------------
+% Title
+% -----------------------------
+\title{
+  \vspace{2in}
+  \textmd{\textbf{\hmwkClass:\ \hmwkTitle}}\\
+  \vspace{3in}
+}
+\author{\hmwkAuthorName}
+\date{}
+
+% -----------------------------
+% Convenience Macros (optional)
+% -----------------------------
+\renewcommand{\part}[1]{\textbf{\large Part \Alph{partCounter}}\stepcounter{partCounter}\\}
+
+% Algorithms
+\newcommand{\alg}[1]{\textsc{\bfseries \footnotesize #1}}
+
+% Calculus
+\newcommand{\deriv}[1]{\frac{\mathrm{d}}{\mathrm{d}x} (#1)}
+\newcommand{\pderiv}[2]{\frac{\partial}{\partial #1} (#2)}
+\newcommand{\dx}{\mathrm{d}x}
+
+% Statistics
+\newcommand{\E}{\mathrm{E}}
+\newcommand{\Var}{\mathrm{Var}}
+\newcommand{\Cov}{\mathrm{Cov}}
+\newcommand{\Bias}{\mathrm{Bias}}
+
+% Proof step (for aligned derivations)
+\newcommand{\step}[2]{& #1 & & \text{#2} \\}
+
+% Solution header (optional)
+\newcommand{\solution}{\textbf{\large Solution}}
+
+% -----------------------------
+% Document
+% -----------------------------
+\begin{document}
+
+\maketitle
+\pagebreak
+
+\begin{homeworkProblem}[1.2.2]
+  total number of words of length \( n \) =\( \; 2^n \) 
+\end{homeworkProblem}
+
+\begin{homeworkProblem}[1.2.3]
+  Make it a counting probelm, our sample is the indexes for the word digits, and what we are choosing is the 
+  positions that are 1s. So how many different ways can we select a size 2 combinations, a size 4 combination, and a size 6 combination.
+  And if we are assuming 0 is even then aso size 0 combinations.
+  Then just add them together
+
+  \[
+    \begin{pmatrix}
+      6 \\ 0
+    \end{pmatrix}
+    +
+    \begin{pmatrix}
+      6 \\ 2
+    \end{pmatrix}
+    + 
+    \begin{pmatrix}
+      6 \\ 4
+    \end{pmatrix}
+    +
+    \begin{pmatrix}
+      6 \\ 6
+    \end{pmatrix}
+    = 32
+  \] 
+
+\end{homeworkProblem}
+\begin{homeworkProblem}[1.2.5]
+Simply flip the bits of our received codeword making our reliability the complement. 
+\end{homeworkProblem}
+
+\begin{homeworkProblem}[1.2.6]
+  This is a very bad channel and means every time we send a bit it essentially is just reduced to static and means no error correction is even possible.
+\end{homeworkProblem}
+
+\begin{homeworkProblem}[1.3.5]
+  (a)
+  our code \( C  = \{0000,0011,0101,0110,1001,1010,1100,1111\}\) if we received \( 1101 \) we can detect an error because this word is not in our code.
+  \\
+  (b)
+  The codewords that are the least number of bit swaps away are {1111, 0101, 1001, 1100}
+  \\
+  (c)
+  No because every non codeword of length 4 has an odd number of 1s so by flipping any of the digits it would then have an even number of 1s so no matter
+  what you pick it will be 1 flip away from 4 codewords.
+
+\end{homeworkProblem}
+
+\begin{homeworkProblem}[1.3.6]
+our code \( C  = \{000000000, 001001001, 010010010, 011011011, 100100100, 101101101, 110110110, 111111111\}\) 
+(a): closest to 001001001 \\
+(b): closest to 011011011\\
+(c): closest to 101101101 \\
+(d): closest to 000000000
+
+\end{homeworkProblem}
+
+\begin{homeworkProblem}[1.3.7]
+  In class we talked about how parity checks can always detect a single error, so for a parity check on a word of length 3 results in a codeword of length 4,
+  this is exactly what we just did and results in a max of 8 codewords.
+
+  This also generalizes to the size of the code for length \( n-1 \), or \( 2^{n-1} \)
+\end{homeworkProblem}
+\end{document}

@@ -1,0 +1,310 @@
+
+\documentclass{article}
+
+% -----------------------------
+% Packages
+% -----------------------------
+\usepackage{fancyhdr}
+\usepackage{extramarks}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{tikz}
+\usepackage[plain]{algorithm}
+\usepackage{algpseudocode}
+\usepackage{amssymb}
+
+\usetikzlibrary{automata,positioning}
+
+% -----------------------------
+% Basic Document Settings
+% -----------------------------
+\topmargin=-0.45in
+\evensidemargin=0in
+\oddsidemargin=0in
+\textwidth=6.5in
+\textheight=9.0in
+\headsep=0.25in
+
+\linespread{1.1}
+
+\pagestyle{fancy}
+\lhead{\hmwkAuthorName}
+\chead{\hmwkClass: \hmwkTitle}
+\rhead{}
+\lfoot{\lastxmark}
+\cfoot{\thepage}
+
+\renewcommand\headrulewidth{0.4pt}
+\renewcommand\footrulewidth{0.4pt}
+
+\setlength\parindent{0pt}
+
+% -----------------------------
+% Problem Section Helpers
+% -----------------------------
+\newcommand{\enterProblemHeader}[1]{
+  \nobreak\extramarks{}{Problem #1 continued on next page\ldots}\nobreak{}
+  \nobreak\extramarks{Problem #1 (continued)}{Problem #1 continued on next page\ldots}\nobreak{}
+}
+
+\newcommand{\exitProblemHeader}[1]{
+  \nobreak\extramarks{Problem #1 (continued)}{Problem #1 continued on next page\ldots}\nobreak{}
+  \nobreak\extramarks{Problem #1}{}\nobreak{}
+}
+
+\setcounter{secnumdepth}{0}
+\newcounter{partCounter}
+\newcounter{homeworkProblemCounter}
+\setcounter{homeworkProblemCounter}{1}
+\nobreak\extramarks{Problem \arabic{homeworkProblemCounter}}{}\nobreak{}
+
+% -----------------------------
+% Theorem env (optional)
+% -----------------------------
+\newtheorem*{theorem}{Theorem}
+
+% -----------------------------
+% Homework Problem Environment
+%   Usage:
+%   \begin{homeworkProblem}            % auto-number
+%     % Your answer here
+%   \end{homeworkProblem}
+%
+%   \begin{homeworkProblem}[1.2.3]     % label problem "1.2.3" (e.g. textbook numbering)
+%     % Your answer here
+%   \end{homeworkProblem}
+% -----------------------------
+\newenvironment{homeworkProblem}[1][]{
+  \def\hwProblemLabel{#1}
+  \ifx\hwProblemLabel\empty
+    \edef\hwProblemLabel{\arabic{homeworkProblemCounter}}
+    \stepcounter{homeworkProblemCounter}
+  \fi
+  \section{Problem \hwProblemLabel}
+  \setcounter{partCounter}{1}
+  \enterProblemHeader{\hwProblemLabel}
+}{
+  \exitProblemHeader{\hwProblemLabel}
+}
+
+% -----------------------------
+% Homework Details (EDIT THESE)
+% -----------------------------
+\newcommand{\hmwkTitle}{Homework \#2}
+\newcommand{\hmwkClass}{Math 3320}
+\newcommand{\hmwkAuthorName}{\textbf{Joseph Quinn}}
+
+% -----------------------------
+% Title
+% -----------------------------
+\title{
+  \vspace{2in}
+  \textmd{\textbf{\hmwkClass:\ \hmwkTitle}}\\
+  \vspace{3in}
+}
+\author{\hmwkAuthorName}
+\date{}
+
+% -----------------------------
+% Convenience Macros (optional)
+% -----------------------------
+\renewcommand{\part}[1]{\textbf{\large Part \Alph{partCounter}}\stepcounter{partCounter}\\}
+
+% Algorithms
+\newcommand{\alg}[1]{\textsc{\bfseries \footnotesize #1}}
+
+% Calculus
+\newcommand{\deriv}[1]{\frac{\mathrm{d}}{\mathrm{d}x} (#1)}
+\newcommand{\pderiv}[2]{\frac{\partial}{\partial #1} (#2)}
+\newcommand{\dx}{\mathrm{d}x}
+
+% Statistics
+\newcommand{\E}{\mathrm{E}}
+\newcommand{\Var}{\mathrm{Var}}
+\newcommand{\Cov}{\mathrm{Cov}}
+\newcommand{\Bias}{\mathrm{Bias}}
+
+% Proof step (for aligned derivations)
+\newcommand{\step}[2]{& #1 & & \text{#2} \\}
+
+% Solution header (optional)
+\newcommand{\solution}{\textbf{\large Solution}}
+
+% -----------------------------
+% Document
+% -----------------------------
+\begin{document}
+
+\maketitle
+\pagebreak
+1.4: 1
+
+1.6: 2,7
+
+1.7: 1,2,3
+
+1.8: 1,2,4
+
+\begin{homeworkProblem}[1.4.1]
+	(1.3.4) : 1 \\
+	(1.3.5) : \( \frac{3}{4} \)\\
+	(1.3.6) : \( \frac{1}{3} \)
+\end{homeworkProblem}
+
+\begin{homeworkProblem}[1.6.2]
+	p = 0.97 \\ \\
+	(a) $v = 01101101,\ w = 10001110$
+		\begin{align*}
+			u             & = v + w = 11100011     \\
+			wt(u)         & = 5                    \\
+			\phi_{p}(v,w) & = 0.97^{3}(1-0.97)^{5}
+		\end{align*}
+
+	(b) $v = 1110101,\ w = 1110101$
+		\begin{align*}
+			u             & = v + w = 0000000      \\
+			wt(u)         & = 0                    \\
+			\phi_{p}(v,w) & = 0.97^{7}(1-0.97)^{0}
+		\end{align*}
+
+	(c) $v = 00101,\ w = 11010$
+		\begin{align*}
+			u             & = v + w = 11111        \\
+			wt(u)         & = 5                    \\
+			\phi_{p}(v,w) & = 0.97^{0}(1-0.97)^{5}
+		\end{align*}
+
+	(d) $v = 00000,\ w = 00000$
+		\begin{align*}
+			u             & = v + w = 00000        \\
+			wt(u)         & = 0                    \\
+			\phi_{p}(v,w) & = 0.97^{5}(1-0.97)^{0}
+		\end{align*}
+
+	(e) $v = 1011010,\ w = 0000010$
+		\begin{align*}
+			u             & = v + w = 1011000      \\
+			wt(u)         & = 3                    \\
+			\phi_{p}(v,w) & = 0.97^{4}(1-0.97)^{3}
+		\end{align*}
+
+	(f) $v = 10110,\ w = 01001$
+		\begin{align*}
+			u             & = v + w = 11111        \\
+			wt(u)         & = 5                    \\
+			\phi_{p}(v,w) & = 0.97^{0}(1-0.97)^{5}
+		\end{align*}
+\end{homeworkProblem}
+
+\begin{homeworkProblem}[1.6.7]
+$C = \{01000,\ 01001,\ 00011,\ 11001\}$ and $w = 10110$
+
+\begin{align*}
+u_{1} &= c_{1}+w = 01000 + 10110 = 11110, \quad wt(u_1) = 4 \\
+u_{2} &= c_{2}+w = 01001 + 10110 = 11111, \quad wt(u_2) = 5 \\
+u_{3} &= c_{3}+w = 00011 + 10110 = 10101, \quad wt(u_3) = 3 \\
+u_{4} &= c_{4}+w = 11001 + 10110 = 01111, \quad wt(u_4) = 4
+\end{align*}
+
+Since $wt(u_3) = 3$ is the smallest, it is the closest to the word sent, meaning it is the most likely code sent.
+\end{homeworkProblem}
+
+\begin{homeworkProblem}[1.7.1]
+	The equation $v+w$ represents the error of two words, the error between two of the same word is 0 so the sum of any word with iteslf results in 0.
+
+	Example:
+		\begin{align*}
+			v = 101 \\
+			v + v = 0
+		\end{align*}
+\end{homeworkProblem}
+\begin{homeworkProblem}[1.7.2]
+	\begin{proof}
+		\begin{align*}
+			v + w = 0         \\
+			(v+w) + w = 0 + w \\
+			v + (w+w) = w     \\
+			w + w = 0         \\
+			v + 0 = w         \\
+			v = w
+		\end{align*}
+	\end{proof}
+\end{homeworkProblem}
+
+\begin{homeworkProblem}[1.7.3]
+	\begin{proof}
+		\begin{align*}
+			u+v=w     \\
+			u+v+v=w+v \\
+			u+0=w+v   \\
+			u=w+v     \\
+			u+w=w+v+w \\
+			u+w=v+0   \\
+			u+w=v     \\
+			v=u+w     \\
+		\end{align*}
+	\end{proof}
+\end{homeworkProblem}
+
+\begin{homeworkProblem}[1.8.1]
+		\begin{align*}
+			v_1 & = 1001010,                                 & wt(v_1) & = 3 \\
+			v_2 & = 0110101,                                 & wt(v_2) & = 4 \\
+			v_3 & = 0011110,                                 & wt(v_3) & = 4 \\
+			v_4 & = v_2 + v_3 = 0110101 + 0011110 = 0101011, & wt(v_4) & = 4
+		\end{align*}
+
+		\begin{align*}
+			d(v_1,v_2) & = wt(1001010+0110101) = wt(1111111) = 7 \\
+			d(v_1,v_3) & = wt(1001010+0011110) = wt(1010100) = 3 \\
+			d(v_1,v_4) & = wt(1001010+0101011) = wt(1100001) = 3 \\
+			d(v_2,v_3) & = wt(0110101+0011110) = wt(0101011) = 4 \\
+			d(v_2,v_4) & = wt(0110101+0101011) = wt(0011110) = 4 \\
+			d(v_3,v_4) & = wt(0011110+0101011) = wt(0110101) = 4
+		\end{align*}
+\end{homeworkProblem}
+
+\begin{homeworkProblem}[1.8.2]
+	$u = 01011,\ v = 11010,\ w = 01100$.
+
+	(a) wt$(v+w)$ vs. wt$(v)$ + wt$(w)$:
+
+		\begin{align*}
+			v + w & = 11010 + 01100 = 10110, & wt(v+w)     & = 3 \\
+			wt(v) & = 3, \quad wt(w) = 2,    & wt(v)+wt(w) & = 5
+		\end{align*}
+
+	So $wt(v+w) = 3 \leq 5 = wt(v) + wt(w)$.
+
+	\textbf{(b) } $d(v,w)$ vs. $d(v,u) + d(u,w)$:
+
+		\begin{align*}
+			d(v,w)          & = wt(v+w) = wt(10110) = 3                   \\
+			d(v,u)          & = wt(v+u) = wt(11010+01011) = wt(10001) = 2 \\
+			d(u,w)          & = wt(u+w) = wt(01011+01100) = wt(00111) = 3 \\
+			d(v,u) + d(u,w) & = 2 + 3 = 5
+		\end{align*}
+	So $d(v,w) = 3 \leq 5 = d(v,u) + d(u,w)$.
+
+\end{homeworkProblem}
+
+\begin{homeworkProblem}[1.8.4]
+	\begin{enumerate}
+		\item The number of 1s in a given word cannot be greater than the total number of words and it also cannot be a negative number, meaning its bounded by 0 and \( n \)
+		\item $\Rightarrow$ if the weight of a word is 0 then that means there cannot contain any 1s within the word. \\
+		      $\Leftarrow$ if there are no 1s within a given word then the weight must be 0.
+		\item the distance of two words $v+w$ is equvilent to the weight of $u = v+W$, from (1) we know the weight of any word is bounded by 0 and n.
+		\item \( \Rightarrow \) If \( d(v,w)=0 \) then \( wt(v+w) = 0 \). And from (2) the weight of a word is only 0 if that word itself is 0, Meaning \( v+w = 0\), thus \( v+w+w =0 +w \), simplifying to \( v=w \) \\
+		      \( \Leftarrow \) If \( v=w \) then \( v+w = 0 \), and  \( wt(0) = 0 \), meaning \( d(v,w) = 0 \)
+		\item \( d(v,w) = wt(v+W) \), and by properties of addition in this vector space \( v+W = w+v \), meaning \( d(v,w) = d(w,v) \)
+		\item Because a can only take 0,1 values. There are only two cases.
+		      \begin{itemize}
+			      \item $a = 1$, thus $1 \cdot v = v$ and $1 \cdot wt(v) = wt(v)$, meaning $wt(1 \cdot v) = wt(v) = 1 \cdot wt(v)$.
+			      \item $a = 0$, thus $0 \cdot v = 0$ and $0 \cdot wt(v) = 0$, meaning $wt(0 \cdot v) = wt(0) = 0 = 0 \cdot wt(v)$.
+		      \end{itemize}
+		\item by definition $d(av,aw)$ equates to \( wt(av + aw) \), and scalar multiplation distrubtes over addtion in this vector space so \( wt(av+aw) = a \cdot wt(v+w) = d(av,aw) \)
+	\end{enumerate}
+\end{homeworkProblem}
+
+\end{document}

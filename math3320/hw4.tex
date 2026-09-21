@@ -1,0 +1,888 @@
+
+
+\documentclass{article}
+
+% -----------------------------
+% Packages
+% -----------------------------
+\usepackage{fancyhdr}
+\usepackage{extramarks}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{tikz}
+\usepackage[plain]{algorithm}
+\usepackage{algpseudocode}
+\usepackage{amssymb}
+\usepackage{enumitem}
+
+\usetikzlibrary{automata,positioning}
+
+% -----------------------------
+% Basic Document Settings
+% -----------------------------
+\topmargin=-0.45in
+\evensidemargin=0in
+\oddsidemargin=0in
+\textwidth=6.5in
+\textheight=9.0in
+\headsep=0.25in
+
+\linespread{1.1}
+
+\pagestyle{fancy}
+\lhead{\hmwkAuthorName}
+\chead{\hmwkClass: \hmwkTitle}
+\rhead{}
+\lfoot{\lastxmark}
+\cfoot{\thepage}
+
+\renewcommand\headrulewidth{0.4pt}
+\renewcommand\footrulewidth{0.4pt}
+
+\setlength\parindent{0pt}
+
+% -----------------------------
+% Problem Section Helpers
+% -----------------------------
+\newcommand{\enterProblemHeader}[1]{
+  \nobreak\extramarks{}{Problem #1 continued on next page\ldots}\nobreak{}
+  \nobreak\extramarks{Problem #1 (continued)}{Problem #1 continued on next page\ldots}\nobreak{}
+}
+
+\newcommand{\exitProblemHeader}[1]{
+  \nobreak\extramarks{Problem #1 (continued)}{Problem #1 continued on next page\ldots}\nobreak{}
+  \nobreak\extramarks{Problem #1}{}\nobreak{}
+}
+
+\setcounter{secnumdepth}{0}
+\newcounter{partCounter}
+\newcounter{homeworkProblemCounter}
+\setcounter{homeworkProblemCounter}{1}
+\nobreak\extramarks{Problem \arabic{homeworkProblemCounter}}{}\nobreak{}
+
+% -----------------------------
+% Theorem env (optional)
+% -----------------------------
+\newtheorem*{theorem}{Theorem}
+
+% -----------------------------
+% Homework Problem Environment
+%   Usage:
+%   \begin{homeworkProblem}            % auto-number
+%     % Your answer here
+%   \end{homeworkProblem}
+%
+%   \begin{homeworkProblem}[1.2.3]     % label problem "1.2.3" (e.g. textbook numbering)
+%     % Your answer here
+%   \end{homeworkProblem}
+% -----------------------------
+\newenvironment{homeworkProblem}[1][]{
+  \def\hwProblemLabel{#1}
+  \ifx\hwProblemLabel\empty
+    \edef\hwProblemLabel{\arabic{homeworkProblemCounter}}
+    \stepcounter{homeworkProblemCounter}
+  \fi
+  \section{Problem \hwProblemLabel}
+  \setcounter{partCounter}{1}
+  \enterProblemHeader{\hwProblemLabel}
+}{
+  \exitProblemHeader{\hwProblemLabel}
+}
+
+% -----------------------------
+% Homework Details (EDIT THESE)
+% -----------------------------
+\newcommand{\hmwkTitle}{Homework \#3}
+\newcommand{\hmwkClass}{Math 3320}
+\newcommand{\hmwkAuthorName}{\textbf{Joseph Quinn}}
+
+% -----------------------------
+% Title
+% -----------------------------
+\title{
+  \vspace{2in}
+  \textmd{\textbf{\hmwkClass:\ \hmwkTitle}}\\
+  \vspace{3in}
+}
+\author{\hmwkAuthorName}
+\date{}
+
+% -----------------------------
+% Convenience Macros (optional)
+% -----------------------------
+\renewcommand{\part}[1]{\textbf{\large Part \Alph{partCounter}}\stepcounter{partCounter}\\}
+
+% Algorithms
+\newcommand{\alg}[1]{\textsc{\bfseries \footnotesize #1}}
+
+% Calculus
+\newcommand{\deriv}[1]{\frac{\mathrm{d}}{\mathrm{d}x} (#1)}
+\newcommand{\pderiv}[2]{\frac{\partial}{\partial #1} (#2)}
+\newcommand{\dx}{\mathrm{d}x}
+
+% Statistics
+\newcommand{\E}{\mathrm{E}}
+\newcommand{\Var}{\mathrm{Var}}
+\newcommand{\Cov}{\mathrm{Cov}}
+\newcommand{\Bias}{\mathrm{Bias}}
+
+% Proof step (for aligned derivations)
+\newcommand{\step}[2]{& #1 & & \text{#2} \\}
+
+% Solution header (optional)
+\newcommand{\solution}{\textbf{\large Solution}}
+
+% -----------------------------
+% Document
+% -----------------------------
+\begin{document}
+
+\maketitle
+\pagebreak
+
+
+\begin{homeworkProblem}[2.1.1]
+	\begin{enumerate}[label=(\alph*)]
+
+		\item $C = \{101,111,011\}$ is not an LC as it does not contain the zero vector.
+
+		\item $C = \{000,001,010,011\}$
+		      \[
+			      000{+}001{=}001,\ 000{+}010{=}010,\ 000{+}011{=}011,\ 001{+}010{=}011,\ 001{+}011{=}010,\ 010{+}011{=}001 \ \in C,
+		      \]
+
+		      It contains the zero vector and is closed under addition meaning it is a LC
+
+		\item $C = \{0000,0001,1110\}$ is not an LC, since it is not closed under addition:
+		      \[
+			      0000{+}0001{=}0001\in C,\quad 0000{+}1110{=}1110\in C,\quad 0001{+}1110{=}1111\notin C.
+		      \]
+
+		      It is not closed under addition meaning it is not an LC
+
+		\item $C = \{0000,1001,0110,1111\}$
+		      \[
+			      0000{+}1001{=}1001,\ 0000{+}0110{=}0110,\ 0000{+}1111{=}1111,\ 1001{+}0110{=}1111,\ 1001{+}1111{=}0110,\ 0110{+}1111{=}1001 \ \in C,
+		      \]
+
+		      It contains the zero vector and is closed under addition meaning it is a LC
+
+		\item $C = \{00000,11111\}$
+		      \[
+			      00000{+}11111{=}11111\in C,\quad 11111{+}11111{=}00000\in C.
+		      \]
+		      It contains the zero vector and is closed under addition meaning it is a LC
+
+		\item $C = \{00000,11100,00111,11011\}$
+		      \[
+			      00000{+}11100{=}11100,\ 00000{+}00111{=}00111,\ 00000{+}11011{=}11011,\ 11100{+}00111{=}11011,\ 11100{+}11011{=}00111,\ 00111{+}11011{=}11100 \ \in C,
+		      \]
+
+		      It contains the zero vector and is closed under addition meaning it is a LC
+		\item $C = \{00000,11110,01111,10001\}$
+		      \[
+			      00000{+}11110{=}11110,\ 00000{+}01111{=}01111,\ 00000{+}10001{=}10001,\ 11110{+}01111{=}10001,\ 11110{+}10001{=}01111,\ 01111{+}10001{=}11110 \ \in C,
+		      \]
+		      It contains the zero vector and is closed under addition meaning it is a LC
+
+		\item $C = \{000000,101010,010101,111111\}$
+		      \[
+			      000000{+}101010{=}101010,\ 000000{+}010101{=}010101,\ 000000{+}111111{=}111111,\ 101010{+}010101{=}111111,\ 101010{+}111111{=}010101,\ 010101{+}111111{=}101010 \ \in C,
+		      \]
+		      It contains the zero vector and is closed under addition meaning it is a LC
+
+	\end{enumerate}
+\end{homeworkProblem}
+
+\begin{homeworkProblem}[2.1.4]
+	The distance of a code is the min bit flips between any two codewords within said code, or the $wt(v+u)$ where $u,v \in C$ and $u \neq v$
+
+	But for a linear code we always know that the sum of any two codewords is itself part of the code, so for any $c = v+u$, $c$ is apart of the code.
+
+	Also meaning every word in $C$ can be written as the sum of two other codewords (and since 0 is always included in linear codes $c=c+0$ also stands)
+
+	So we can restate this as
+	\[
+		d(C) = min(wt(v+u)) \\
+		d(C) = min(wt(c))
+	\]
+
+	Where $c$ is a non zero codeword
+\end{homeworkProblem}
+
+\begin{homeworkProblem}[2.2.3]
+	\begin{enumerate}[label=(\alph*)]
+
+		\item $S = \{010,011,111\}$
+
+		      \begin{align*}
+			      000             & = 000 \\
+			      010             & = 010 \\
+			      011             & = 011 \\
+			      111             & = 111 \\
+			      010 + 011       & = 001 \\
+			      010 + 111       & = 101 \\
+			      011 + 111       & = 100 \\
+			      010 + 011 + 111 & = 110
+		      \end{align*}
+
+		      Therefore,
+		      \[
+			      \langle S \rangle
+			      =
+			      \{000,010,011,111,001,101,100,110\}.
+		      \]
+
+		\item $S = \{0101,1010,1100\}$
+
+		      \begin{align*}
+			      0000               & = 0000 \\
+			      0101               & = 0101 \\
+			      1010               & = 1010 \\
+			      1100               & = 1100 \\
+			      0101 + 1010        & = 1111 \\
+			      0101 + 1100        & = 1001 \\
+			      1010 + 1100        & = 0110 \\
+			      0101 + 1010 + 1100 & = 0011
+		      \end{align*}
+
+		      Therefore,
+		      \[
+			      \langle S \rangle
+			      =
+			      \{0000,0101,1010,1100,1111,1001,0110,0011\}.
+		      \]
+
+		\item $S = \{11000,01111,11110,01010\}$
+
+		      \begin{align*}
+			      00000                         & = 00000 \\
+			      11000                         & = 11000 \\
+			      01111                         & = 01111 \\
+			      11110                         & = 11110 \\
+			      01010                         & = 01010 \\
+			      11000 + 01111                 & = 10111 \\
+			      11000 + 11110                 & = 00110 \\
+			      11000 + 01010                 & = 10010 \\
+			      01111 + 11110                 & = 10001 \\
+			      01111 + 01010                 & = 00101 \\
+			      11110 + 01010                 & = 10100 \\
+			      11000 + 01111 + 11110         & = 01001 \\
+			      11000 + 01111 + 01010         & = 11101 \\
+			      11000 + 11110 + 01010         & = 01100 \\
+			      01111 + 11110 + 01010         & = 11011 \\
+			      11000 + 01111 + 11110 + 01010 & = 00011
+		      \end{align*}
+
+		      Therefore,
+		      \[
+			      \langle S \rangle
+			      =
+			      \{00000,11000,01111,11110,01010,10111,00110,10010,
+			      10001,00101,10100,01001,11101,01100,11011,00011\}.
+		      \]
+
+		\item $S = \{10101,01010,11111,00011,10110\}$
+
+		      Some vectors are combinations of the others meaning we do not include them twice
+		      \begin{align*}
+			      10101 + 01010 & = 11111 \\
+			      10101 + 00011 & = 10110
+		      \end{align*}
+		      That means the rest of the span is generated by just $\{10101,01010,00011 \}$.
+
+		      \begin{align*}
+			      00000                 & = 00000 \\
+			      10101                 & = 10101 \\
+			      01010                 & = 01010 \\
+			      00011                 & = 00011 \\
+			      10101 + 01010         & = 11111 \\
+			      10101 + 00011         & = 10110 \\
+			      01010 + 00011         & = 01001 \\
+			      10101 + 01010 + 00011 & = 11100
+		      \end{align*}
+
+		      Therefore,
+		      \[
+			      \langle S \rangle
+			      =
+			      \{00000,10101,01010,00011,11111,10110,01001,11100\}.
+		      \]
+
+		\item $S = \{1010,0101,1111\}$
+
+		      Since
+		      \[
+			      1010 + 0101 = 1111,
+		      \]
+		      the third vector is already generated by the first two.
+
+		      \begin{align*}
+			      0000        & = 0000 \\
+			      1010        & = 1010 \\
+			      0101        & = 0101 \\
+			      1010 + 0101 & = 1111
+		      \end{align*}
+
+		      Therefore,
+		      \[
+			      \langle S \rangle
+			      =
+			      \{0000,1010,0101,1111\}.
+		      \]
+
+		\item $S = \{1000,0100,0010,0001\}$
+
+		      This set simply generates every vector in $K^4$.
+
+		      \begin{align*}
+			      0000                      & = 0000 \\
+			      1000                      & = 1000 \\
+			      0100                      & = 0100 \\
+			      0010                      & = 0010 \\
+			      0001                      & = 0001 \\
+			      1000 + 0100               & = 1100 \\
+			      1000 + 0010               & = 1010 \\
+			      1000 + 0001               & = 1001 \\
+			      0100 + 0010               & = 0110 \\
+			      0100 + 0001               & = 0101 \\
+			      0010 + 0001               & = 0011 \\
+			      1000 + 0100 + 0010        & = 1110 \\
+			      1000 + 0100 + 0001        & = 1101 \\
+			      1000 + 0010 + 0001        & = 1011 \\
+			      0100 + 0010 + 0001        & = 0111 \\
+			      1000 + 0100 + 0010 + 0001 & = 1111
+		      \end{align*}
+
+		      Therefore,
+		      \[
+			      \langle S \rangle = K^4
+		      \]
+
+	\end{enumerate}
+\end{homeworkProblem}
+
+\begin{homeworkProblem}[2.2.7]
+	\begin{enumerate}[label=(\alph*)]
+
+		\item $S = \{010,011,111\}$
+
+		      \begin{align*}
+			      v\cdot010 & = y = 0     \\
+			      v\cdot011 & = y+z = 0   \\
+			      v\cdot111 & = x+y+z = 0
+		      \end{align*}
+
+		      From $y=0$ and $y+z=0$, we get $z=0$. Then $x+y+z=0$ gives $x=0$.
+
+		      Therefore,
+		      \[
+			      C^\perp=\{000\}.
+		      \]
+
+		\item $S = \{0101,1010,1100\}$
+
+		      \begin{align*}
+			      v\cdot0101 & = y+w = 0 \\
+			      v\cdot1010 & = x+z = 0 \\
+			      v\cdot1100 & = x+y = 0
+		      \end{align*}
+
+		      Thus,
+		      \[
+			      x=y=z=w.
+		      \]
+
+		      So either all variables are $0$ or all variables are $1$.
+
+		      Therefore,
+		      \[
+			      C^\perp=\{0000,1111\}.
+		      \]
+
+		\item $S = \{11000,01111,11110,01010\}$
+
+		      \begin{align*}
+			      v\cdot11000 & = x+y = 0     \\
+			      v\cdot01111 & = y+z+w+t = 0 \\
+			      v\cdot11110 & = x+y+z+w = 0 \\
+			      v\cdot01010 & = y+w = 0
+		      \end{align*}
+
+		      \[
+			      x=y=w,\qquad z=x,\qquad t=x
+			      \quad\Rightarrow\quad
+			      x=y=z=w=t.
+		      \]
+
+		      Therefore,
+		      \[
+			      C^\perp=\{00000,11111\}.
+		      \]
+
+		\item $S = \{10101,01010,11111,00011,10110\}$
+
+		      \begin{align*}
+			      v\cdot10101 & = x+z+t = 0     \\
+			      v\cdot01010 & = y+w = 0       \\
+			      v\cdot11111 & = x+y+z+w+t = 0 \\
+			      v\cdot00011 & = w+t = 0       \\
+			      v\cdot10110 & = x+z+w = 0
+		      \end{align*}
+
+		      \[
+			      y=w=t,\qquad x=z+t.
+		      \]
+
+		      So $z$ and $t$ are free variables.
+
+		      Taking all possible values of $z,t\in K$ gives
+
+		      \begin{align*}
+			      z=0,\ t=0 & \Rightarrow 00000 \\
+			      z=0,\ t=1 & \Rightarrow 11011 \\
+			      z=1,\ t=0 & \Rightarrow 10100 \\
+			      z=1,\ t=1 & \Rightarrow 01111
+		      \end{align*}
+
+		      Therefore,
+		      \[
+			      C^\perp=\{00000,01111,10100,11011\}.
+		      \]
+
+		\item $S = \{1010,0101,1111\}$
+
+		      \begin{align*}
+			      v\cdot1010 & = x+z = 0     \\
+			      v\cdot0101 & = y+w = 0     \\
+			      v\cdot1111 & = x+y+z+w = 0
+		      \end{align*}
+
+		      \[
+			      x=z,\qquad y=w,
+		      \]
+
+		      and the third equation is automatically satisfied, so $x$ and $y$ are free variables.
+
+		      \begin{align*}
+			      x=0,\ y=0 & \Rightarrow 0000 \\
+			      x=0,\ y=1 & \Rightarrow 0101 \\
+			      x=1,\ y=0 & \Rightarrow 1010 \\
+			      x=1,\ y=1 & \Rightarrow 1111
+		      \end{align*}
+
+		      Therefore,
+		      \[
+			      C^\perp=\{0000,0101,1010,1111\}.
+		      \]
+
+		\item $S = \{1000,0100,0010,0001\}$
+
+		      \begin{align*}
+			      v\cdot1000 & = x = 0 \\
+			      v\cdot0100 & = y = 0 \\
+			      v\cdot0010 & = z = 0 \\
+			      v\cdot0001 & = w = 0
+		      \end{align*}
+
+		      Thus,
+		      \[
+			      x=y=z=w=0.
+		      \]
+
+		      Therefore,
+		      \[
+			      C^\perp=\{0000\}.
+		      \]
+
+	\end{enumerate}
+
+\end{homeworkProblem}
+
+\begin{homeworkProblem}[2.2.8]
+	An example of a nonzero word $v$ such that $v \cdot v = 0$ would be $101 \cdot 101 = 1(1) + 0(1) + 1(1) = 0$
+
+	I can say that for all words with an even weight we will see this result as each 1 will cancel its pair out.
+\end{homeworkProblem}
+
+\begin{homeworkProblem}[2.3.4]
+	\begin{enumerate}[label=(\alph*)]
+
+		\item $S=\{1101,1110,1011\}$
+
+		      Test all nonzero combinations:
+		      \begin{align*}
+			      1101+1110      & = 0011 \\
+			      1101+1011      & = 0110 \\
+			      1110+1011      & = 0101 \\
+			      1101+1110+1011 & = 1000
+		      \end{align*}
+
+		      None equal $0000$, so $S$ is linearly independent.
+
+		\item $S=\{1101,0111,1100,0011\}$
+
+		      No vector can be written as a linear combination of the preceding vectors, so $S$ is linearly independent.
+
+		\item $S=\{1000,1100,1110,1111\}$
+
+		      No vector can be written as a linear combination of the preceding vectors, so $S$ is linearly independent.
+
+		\item $S=\{0110,1010,1100,0011,1111\}$
+
+		      Notice
+		      \begin{align*}
+			      0110+1010 & = 1100
+		      \end{align*}
+
+		      so $1100$ is dependent on the preceding vectors.
+
+		      Also,
+		      \begin{align*}
+			      0110+1010+0011 & = 1111.
+		      \end{align*}
+
+		      Therefore, a largest linearly independent subset is
+		      \[
+			      \boxed{\{0110,1010,0011\}}.
+		      \]
+
+		\item $S=\{111000,000111,101010,010101\}$
+
+		      Notice
+		      \begin{align*}
+			      111000+000111+101010 & = 010101.
+		      \end{align*}
+
+		      Therefore $S$ is linearly dependent, and a largest linearly independent subset is
+		      \[
+			      \boxed{\{111000,000111,101010\}}.
+		      \]
+
+		\item $S=\{00000000,10101010,01010101,11111111\}$
+
+		      Since $00000000\in S$, the set is automatically linearly dependent.
+
+		      Also,
+		      \begin{align*}
+			      10101010+01010101 & = 11111111.
+		      \end{align*}
+
+		      Therefore, a largest linearly independent subset is
+		      \[
+			      \boxed{\{10101010,01010101\}}.
+		      \]
+
+		\item $S=\{101,011,110,010\}$
+
+		      Notice
+		      \begin{align*}
+			      101+011 & = 110.
+		      \end{align*}
+
+		      Therefore $110$ is dependent on the preceding vectors.
+
+		      The remaining vectors
+		      \[
+			      \{101,011,010\}
+		      \]
+		      are linearly independent.
+
+		      Therefore, a largest linearly independent subset is
+		      \[
+			      \boxed{\{101,011,010\}}.
+		      \]
+
+		\item $S=\{1000,0100,0010,0001\}$
+
+		      These are the standard basis vectors of $K^4$, so they are linearly independent.
+
+		      Therefore,
+		      \[
+			      \boxed{S\text{ is linearly independent}.}
+		      \]
+
+		\item $S=\{1100,1010,1001,0101\}$
+
+		      Notice
+		      \begin{align*}
+			      1100+1001 & = 0101.
+		      \end{align*}
+
+		      Therefore $0101$ is dependent on the preceding vectors.
+
+		      A largest linearly independent subset is
+		      \[
+			      \boxed{\{1100,1010,1001\}}.
+		      \]
+
+	\end{enumerate}
+\end{homeworkProblem}
+
+\begin{homeworkProblem}[2.3.7]
+	\begin{enumerate}[label=(\alph*)]
+
+		\item $S=\{010,011,111\}$
+
+		      The vectors are linearly independent, so
+
+		      \[
+			      B=\{010,011,111\}.
+		      \]
+
+		      Since $C=K^3$, we have
+
+		      \[
+			      C^\perp=\{000\}.
+		      \]
+
+		      Therefore,
+
+		      \[
+			      B^\perp=\varnothing.
+		      \]
+
+		\item $S=\{0101,1010,1100\}$
+
+		      The vectors are linearly independent, so
+
+		      \[
+			      B=\{0101,1010,1100\}.
+		      \]
+
+		      From Exercise 2.2.7,
+
+		      \[
+			      C^\perp=\{0000,1111\}.
+		      \]
+
+		      Therefore,
+
+		      \[
+			      B^\perp=\{1111\}.
+		      \]
+
+		\item $S=\{11000,01111,11110,01010\}$
+
+		      The vectors are linearly independent, so
+
+		      \[
+			      B=\{11000,01111,11110,01010\}.
+		      \]
+
+		      From Exercise 2.2.7,
+
+		      \[
+			      C^\perp=\{00000,11111\}.
+		      \]
+
+		      Therefore,
+
+		      \[
+			      B^\perp=\{11111\}.
+		      \]
+
+		\item $S=\{10101,01010,11111,00011,10110\}$
+
+		      Notice
+
+		      \begin{align*}
+			      10101+01010 & = 11111 \\
+			      10101+00011 & = 10110
+		      \end{align*}
+
+		      so $11111$ and $10110$ are redundant.
+
+		      Therefore, a basis for $C$ is
+
+		      \[
+			      B=\{10101,01010,00011\}.
+		      \]
+
+		      From Exercise 2.2.7,
+
+		      \[
+			      C^\perp
+			      =
+			      \{00000,10100,11011,01111\}.
+		      \]
+
+		      Since
+
+		      \[
+			      10100+11011=01111,
+		      \]
+
+		      a basis is
+
+		      \[
+			      B^\perp=\{10100,11011\}.
+		      \]
+
+		\item $S=\{1010,0101,1111\}$
+
+		      Since
+
+		      \[
+			      1010+0101=1111,
+		      \]
+
+		      the vector $1111$ is redundant.
+
+		      Therefore,
+
+		      \[
+			      B=\{1010,0101\}.
+		      \]
+
+		      Also,
+
+		      \[
+			      C^\perp
+			      =
+			      \{0000,1010,0101,1111\}.
+		      \]
+
+		      Thus,
+
+		      \[
+			      B^\perp=\{1010,0101\}.
+		      \]
+
+		\item $S=\{1000,0100,0010,0001\}$
+
+		      These are the standard basis vectors of $K^4$, so
+
+		      \[
+			      B=\{1000,0100,0010,0001\}.
+		      \]
+
+		      Since $C=K^4$,
+
+		      \[
+			      C^\perp=\{0000\}.
+		      \]
+
+		      Therefore,
+
+		      \[
+			      B^\perp=\varnothing.
+		      \]
+
+	\end{enumerate}
+\end{homeworkProblem}
+\begin{homeworkProblem}[2.3.10]
+
+	\begin{enumerate}[label=(\alph*)]
+	\item $1111 + 1100 = 0011$
+	\item $1100 + 1110 + 1000 = 1010$
+	\item $1000 + 1111$
+	\item $1111+ 1110$
+	\item $0 \cdot 1111$
+	\begin{enumerate}[label=(\alph*)]
+
+		\item $0011$
+
+		      \begin{align*}
+			      0011 & = 1100 + 1111
+		      \end{align*}
+
+		      Therefore,
+		      \[
+			      \boxed{0011 = 0(1000)+1(1100)+0(1110)+1(1111)}
+		      \]
+
+		\item $1010$
+
+		      \begin{align*}
+			      1010 & = 1000 + 1100 + 1110
+		      \end{align*}
+
+		      Therefore,
+		      \[
+			      \boxed{1010 = 1(1000)+1(1100)+1(1110)+0(1111)}
+		      \]
+
+		\item $0111$
+
+		      \begin{align*}
+			      0111 & = 1000 + 1111
+		      \end{align*}
+
+		      Therefore,
+		      \[
+			      \boxed{0111 = 1(1000)+0(1100)+0(1110)+1(1111)}
+		      \]
+
+		\item $0001$
+
+		      \begin{align*}
+			      0001 & = 1110 + 1111
+		      \end{align*}
+
+		      Therefore,
+		      \[
+			      \boxed{0001 = 0(1000)+0(1100)+1(1110)+1(1111)}
+		      \]
+
+		\item $0000$
+
+		      \begin{align*}
+			      0000 & = 0(1000)+0(1100)+0(1110)+0(1111)
+		      \end{align*}
+
+		      Therefore,
+		      \[
+			      \boxed{0000 = 0(1000)+0(1100)+0(1110)+0(1111)}
+		      \]
+
+	\end{enumerate}
+\end{homeworkProblem}
+
+\begin{homeworkProblem}[2.3.17]
+	$S$ is a subset of $k^8$, and $\{111100000, 00001111, 10000001\}$ is a basis for $C^\perp$
+
+	And we know that dim($C$) + dim($C^\perp$) = $n$, so $3 + x = 8$ meaning the dimension of our $C=5$
+
+	We also know that a linear code of dimension $k$ contains $2^k$ codewords, meaning $C$ has $2^5$ codewords.
+
+
+\end{homeworkProblem}
+
+\begin{homeworkProblem}[2.3.18]
+	Let
+	$
+		S=\{000,101\}
+	$
+	and
+	$
+		\langle S\rangle=\{000,101\}
+	$
+	Then to find the orthogonal subspace of $S$,
+	\begin{align*}
+		v\cdot101 & = x+z=0
+	\end{align*}
+
+	meaning $x=z$ and $y$ can be any value. Therefore,
+	\[
+		S^\perp=\{000,010,101,111\}.
+	\]
+
+	\begin{align*}
+		000 & = 000+000 \\
+		000 & = 101+101
+	\end{align*}
+
+	This tells us that the representation as a sum of a vector in $\langle S\rangle$
+	and a vector in $S^\perp$ is not unique.
+
+	Thus not every vector in $K^3$ can be written as such a sum.
+\end{homeworkProblem}
+
+\begin{homeworkProblem}[2.4.2]
+\end{homeworkProblem}
+
+\begin{homeworkProblem}[2.4.3]
+\end{homeworkProblem}
+\end{document}

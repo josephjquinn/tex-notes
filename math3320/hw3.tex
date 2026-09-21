@@ -1,0 +1,517 @@
+
+\documentclass{article}
+
+% -----------------------------
+% Packages
+% -----------------------------
+\usepackage{fancyhdr}
+\usepackage{extramarks}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{tikz}
+\usepackage[plain]{algorithm}
+\usepackage{algpseudocode}
+\usepackage{amssymb}
+\usepackage{enumitem}
+
+\usetikzlibrary{automata,positioning}
+
+% -----------------------------
+% Basic Document Settings
+% -----------------------------
+\topmargin=-0.45in
+\evensidemargin=0in
+\oddsidemargin=0in
+\textwidth=6.5in
+\textheight=9.0in
+\headsep=0.25in
+
+\linespread{1.1}
+
+\pagestyle{fancy}
+\lhead{\hmwkAuthorName}
+\chead{\hmwkClass: \hmwkTitle}
+\rhead{}
+\lfoot{\lastxmark}
+\cfoot{\thepage}
+
+\renewcommand\headrulewidth{0.4pt}
+\renewcommand\footrulewidth{0.4pt}
+
+\setlength\parindent{0pt}
+
+% -----------------------------
+% Problem Section Helpers
+% -----------------------------
+\newcommand{\enterProblemHeader}[1]{
+  \nobreak\extramarks{}{Problem #1 continued on next page\ldots}\nobreak{}
+  \nobreak\extramarks{Problem #1 (continued)}{Problem #1 continued on next page\ldots}\nobreak{}
+}
+
+\newcommand{\exitProblemHeader}[1]{
+  \nobreak\extramarks{Problem #1 (continued)}{Problem #1 continued on next page\ldots}\nobreak{}
+  \nobreak\extramarks{Problem #1}{}\nobreak{}
+}
+
+\setcounter{secnumdepth}{0}
+\newcounter{partCounter}
+\newcounter{homeworkProblemCounter}
+\setcounter{homeworkProblemCounter}{1}
+\nobreak\extramarks{Problem \arabic{homeworkProblemCounter}}{}\nobreak{}
+
+% -----------------------------
+% Theorem env (optional)
+% -----------------------------
+\newtheorem*{theorem}{Theorem}
+
+% -----------------------------
+% Homework Problem Environment
+%   Usage:
+%   \begin{homeworkProblem}            % auto-number
+%     % Your answer here
+%   \end{homeworkProblem}
+%
+%   \begin{homeworkProblem}[1.2.3]     % label problem "1.2.3" (e.g. textbook numbering)
+%     % Your answer here
+%   \end{homeworkProblem}
+% -----------------------------
+\newenvironment{homeworkProblem}[1][]{
+  \def\hwProblemLabel{#1}
+  \ifx\hwProblemLabel\empty
+    \edef\hwProblemLabel{\arabic{homeworkProblemCounter}}
+    \stepcounter{homeworkProblemCounter}
+  \fi
+  \section{Problem \hwProblemLabel}
+  \setcounter{partCounter}{1}
+  \enterProblemHeader{\hwProblemLabel}
+}{
+  \exitProblemHeader{\hwProblemLabel}
+}
+
+% -----------------------------
+% Homework Details (EDIT THESE)
+% -----------------------------
+\newcommand{\hmwkTitle}{Homework \#3}
+\newcommand{\hmwkClass}{Math 3320}
+\newcommand{\hmwkAuthorName}{\textbf{Joseph Quinn}}
+
+% -----------------------------
+% Title
+% -----------------------------
+\title{
+  \vspace{2in}
+  \textmd{\textbf{\hmwkClass:\ \hmwkTitle}}\\
+  \vspace{3in}
+}
+\author{\hmwkAuthorName}
+\date{}
+
+% -----------------------------
+% Convenience Macros (optional)
+% -----------------------------
+\renewcommand{\part}[1]{\textbf{\large Part \Alph{partCounter}}\stepcounter{partCounter}\\}
+
+% Algorithms
+\newcommand{\alg}[1]{\textsc{\bfseries \footnotesize #1}}
+
+% Calculus
+\newcommand{\deriv}[1]{\frac{\mathrm{d}}{\mathrm{d}x} (#1)}
+\newcommand{\pderiv}[2]{\frac{\partial}{\partial #1} (#2)}
+\newcommand{\dx}{\mathrm{d}x}
+
+% Statistics
+\newcommand{\E}{\mathrm{E}}
+\newcommand{\Var}{\mathrm{Var}}
+\newcommand{\Cov}{\mathrm{Cov}}
+\newcommand{\Bias}{\mathrm{Bias}}
+
+% Proof step (for aligned derivations)
+\newcommand{\step}[2]{& #1 & & \text{#2} \\}
+
+% Solution header (optional)
+\newcommand{\solution}{\textbf{\large Solution}}
+
+% -----------------------------
+% Document
+% -----------------------------
+\begin{document}
+
+\maketitle
+\pagebreak
+
+1.9: 5
+1.11: 2,5,10 (parts a,f,h only, no need to compare to 1.11.7), 12, 13, 20.
+1.12: 5,6,7,15
+
+\begin{homeworkProblem}[1.9.5]
+	$$
+		\begin{array}{c|c|c|c}
+			\text{Received } w & d(001,w) & d(101,w) & \text{IMLD} \\
+			\hline
+			000                & 1        & 2        & 001         \\
+			001                & 0        & 1        & 001         \\
+			010                & 2        & 3        & 001         \\
+			011                & 1        & 2        & 001         \\
+			100                & 2        & 1        & 101         \\
+			101                & 1        & 0        & 101         \\
+			110                & 3        & 2        & 101         \\
+			111                & 2        & 1        & 101
+		\end{array}
+	$$
+	Therefore IMLD correctly concludes that \(001\) was sent when $w\in\{000,001,010,011\}$.
+	and  IMLD incorrectly concludes that \(101\) was sent when $w\in\{100,101,110,111\}$.
+\end{homeworkProblem}
+
+\begin{homeworkProblem}[1.11.2]
+	Let
+
+	$$
+		C=\{001,101,110\}.
+	$$
+
+	\begin{enumerate}[label=\alph*.]
+		\item For $u=011$,
+
+		      $$
+			      101+011=110\in C,
+		      $$
+
+		      so
+
+		      $$
+			      \boxed{C\text{ does not detect }011.}
+		      $$
+
+		\item For $u=001$,
+
+		      $$
+			      001+001=000,\qquad
+			      101+001=100,\qquad
+			      110+001=111.
+		      $$
+
+		      None are in $C$, so
+
+		      $$
+			      \boxed{C\text{ detects }001.}
+		      $$
+
+		\item For $u=000$,
+
+		      $$
+			      v+000=v\in C
+		      $$
+
+		      for every $v\in C$, so
+
+		      $$
+			      \boxed{C\text{ does not detect }000.}
+		      $$
+	\end{enumerate}
+\end{homeworkProblem}
+
+\begin{homeworkProblem}[1.11.5]
+
+	\begin{enumerate}[label=\alph*.]
+		\item If $0\in C$ and $u\in C$, choose $v=0$. Then
+		      $$v+u=u\in C,$$
+		      so $\boxed{C\text{ does not detect }u}$.
+
+		\item For $u=0$,
+		      $$v+0=v\in C$$
+		      for every $v\in C$, so $\boxed{\text{no code detects }0}$.
+	\end{enumerate}
+\end{homeworkProblem}
+
+\begin{homeworkProblem}[1.11.10]
+	\begin{enumerate}[label=(\alph*)]
+		\item $C=\{101,111,011\}$
+		      \begin{align*}
+			      101+101 & = 000 \\
+			      101+111 & = 010 \\
+			      101+011 & = 110 \\
+			      111+011 & = 100
+		      \end{align*}
+		      Thus the errors that cannot be detected by $C$ are
+		      \[
+			      \{000,010,110,100\}.
+		      \]
+		      Therefore the errors that can be detected are
+		      \[
+			      K^3\setminus\{000,010,110,100\}.
+		      \]
+
+		\item[(f)] $C=\{00000,11100,00111,11011\}$
+		      \begin{align*}
+			      00000+00000 & = 00000 \\
+			      00000+11100 & = 11100 \\
+			      00000+00111 & = 00111 \\
+			      00000+11011 & = 11011 \\
+			      11100+00111 & = 11011 \\
+			      11100+11011 & = 00111 \\
+			      00111+11011 & = 11100
+		      \end{align*}
+		      Thus the errors that cannot be detected by $C$ are
+		      \[
+			      \{00000,11100,00111,11011\}.
+		      \]
+		      Therefore the errors that can be detected are
+		      \[
+			      K^5\setminus\{00000,11100,00111,11011\}.
+		      \]
+		\item[(h)]
+		      $C=\{000000,101010,010101,111111\}$
+		      \begin{align*}
+			      000000+000000 & = 000000 \\
+			      000000+101010 & = 101010 \\
+			      000000+010101 & = 010101 \\
+			      000000+111111 & = 111111 \\
+			      101010+101010 & = 000000 \\
+			      101010+010101 & = 111111 \\
+			      101010+111111 & = 010101 \\
+			      010101+010101 & = 000000 \\
+			      010101+111111 & = 101010 \\
+			      111111+111111 & = 000000
+		      \end{align*}
+		      Thus the errors that cannot be detected by $C$ are
+		      \[
+			      \{000000,101010,010101,111111\}.
+		      \]
+		      Therefore the errors that can be detected are
+		      \[
+			      K^6\setminus\{000000,101010,010101,111111\}.
+		      \]
+	\end{enumerate}
+\end{homeworkProblem}
+
+\begin{homeworkProblem}[1.11.12]
+	\begin{enumerate}[label=(\alph*)]
+		\item $C=\{101,111,011\}$
+
+		      \[
+			      d(101,111)=1,\quad d(101,011)=2,\quad d(111,011)=1,
+		      \]
+		      so $d(C)=1$.
+
+		\item $C=\{000,001,010,011\}$
+
+		      \[
+			      d(000,001)=1,
+		      \]
+		      so $d(C)=1$.
+
+		\item $C=\{0000,0001,1110\}$
+
+		      \[
+			      d(0000,0001)=1,
+		      \]
+		      so $d(C)=1$.
+
+		\item $C=\{0000,1001,0110,1111\}$
+
+		      \[
+			      d(0000,1001)=2,
+		      \]
+		      so $d(C)=2$.
+
+		\item $C=\{00000,11111\}$
+
+		      \[
+			      d(00000,11111)=5,
+		      \]
+		      so $d(C)=5$.
+
+		\item $C=\{00000,11100,00111,11011\}$
+
+		      \[
+			      d(00000,11100)=3,
+		      \]
+		      so $d(C)=3$.
+
+		\item $C=\{00000,11110,01111,10001\}$
+
+		      \[
+			      d(00000,10001)=2,
+		      \]
+		      so $d(C)=2$.
+
+		\item $C=\{000000,101010,010101,111111\}$
+
+		      \[
+			      d(000000,101010)=3,
+		      \]
+		      so $d(C)=3$.
+	\end{enumerate}
+\end{homeworkProblem}
+\begin{homeworkProblem}[1.11.13]
+	Adding a parity check digit to $K^n$ gives a code in which every codeword has even weight.
+
+	If two words in $K^n$ differ in exactly one position, then their parity check digits must also differ. Thus the corresponding codewords differ in two positions.
+
+	Therefore the minimum distance is
+
+	\[
+		d(C)=2.
+	\]
+	\\
+	example with $K^2 = \{00,01,10,11\}$
+	after adding parity check, $C = \{000,011,101,110\} $ and $d(C) = 2$
+\end{homeworkProblem}
+\begin{homeworkProblem}[1.11.20]
+	If we think of even and odd numbers we know an even number plus an odd number will never equal an even number. \\
+	Taking that same logic if we et $C$ be the code consisting of all words of length $4$ with even weight.
+	If $u$ has odd weight, then for every $v\in C$, the word
+	\[
+		v+u
+	\]
+	has odd weight, so $v+u\notin C$. Thus $C$ detects every odd weight error pattern.
+
+	If $u$ has even weight, then for every $v\in C$, the word $v+u$ also has even weight, so $v+u\in C$. Thus $C$ does not detect any even weight error pattern.
+
+	Therefore $C$ detects exactly the odd weight error patterns in $k^4$:
+	\[
+		\{0001,0010,0100,1000,1110,1101,1011,0111\}.
+	\]
+\end{homeworkProblem}
+
+\begin{homeworkProblem}[1.12.5]
+	Let
+	\[
+		C=\{001,101,110\}.
+	\]
+
+	\begin{enumerate}[label=\alph*)]
+		\item $u=100$
+
+		      Take $v=001$. Then
+		      \[
+			      w=v+u=001+100=101.
+		      \]
+
+		      Compare $w$ to each codeword:
+		      \begin{align*}
+			      d(001,w) & = d(001,101)=1 \\
+			      d(101,w) & = d(101,101)=0 \\
+			      d(110,w) & = d(110,101)=2
+		      \end{align*}
+
+		      Thus IMLD chooses $101$ instead of the transmitted word $001$.
+		      Therefore,
+		      \[
+			      \boxed{C \text{ does not correct }100.}
+		      \]
+
+		\item $u=000$
+
+		      \begin{itemize}
+			      \item $v=001$, so $w=001+000=001$
+			            \begin{align*}
+				            d(001,w) & = d(001,001)=0 \\
+				            d(101,w) & = d(101,001)=1 \\
+				            d(110,w) & = d(110,001)=3
+			            \end{align*}
+			            Thus IMLD chooses $001$.
+
+			      \item $v=101$, so $w=101+000=101$
+			            \begin{align*}
+				            d(001,w) & = d(001,101)=1 \\
+				            d(101,w) & = d(101,101)=0 \\
+				            d(110,w) & = d(110,101)=2
+			            \end{align*}
+			            Thus IMLD chooses $101$.
+
+			      \item $v=110$, so $w=110+000=110$
+			            \begin{align*}
+				            d(001,w) & = d(001,110)=3 \\
+				            d(101,w) & = d(101,110)=2 \\
+				            d(110,w) & = d(110,110)=0
+			            \end{align*}
+			            Thus IMLD chooses $110$.
+		      \end{itemize}
+
+		      Therefore,
+		      \[
+			      \boxed{C \text{ corrects }000.}
+		      \]
+	\end{enumerate}
+\end{homeworkProblem}
+
+\begin{homeworkProblem}[1.12.6]
+	\begin{proof}
+		suppose the same error pattern appeared in a single row twice, meaning we had
+		two valid codewords $v_{1}$ and $v_{2}$ where $v_{1}+u=w$ and $v_{2}+u=w$ \\
+		\begin{align*}
+			v_{1}+u=v_{2}+u     \\
+			v_{1}+u+u=v_{2}+u+u \\
+			v_{1}+0 = v_{2}+0   \\
+			\text{so} \; v_{1} = v_{2}
+		\end{align*}
+		Therefore the same error pattern cannot occur more than once in a given row.
+	\end{proof}
+
+\end{homeworkProblem}
+
+\begin{homeworkProblem}[1.12.7]
+	\begin{proof}
+		Let's take any $v \in C$.
+
+		\[
+			d(v,v+0)=0
+		\]
+
+		For any other codeword $w\in C$ where $w\neq v$,
+
+		\[
+			d(w,v+0)=d(w,v)>0.
+		\]
+
+		Thus,
+
+		\[
+			d(v,v+0)<d(w,v+0)
+			\qquad \forall w\in C,\; w\neq v.
+		\]
+
+		Therefore $C$ corrects the error pattern $0$.
+	\end{proof}
+\end{homeworkProblem}
+
+\begin{homeworkProblem}[1.12.15]
+	Let
+	\[
+		C=\{0000,0011,0101,0110,1001,1010,1100,1111\}.
+	\]
+
+	The minimum distance of $C$ is
+	\[
+		d(C)=2.
+	\]
+
+	From the theorem we know $C$ corrects all error patterns of weight at most
+	\[
+		\left\lfloor \frac{d-1}{2} \right\rfloor
+		=
+		\left\lfloor \frac{1}{2} \right\rfloor
+		=0.
+	\]
+
+	Meaning $C$ will only correct $0000$
+
+	But lets say we let $u\neq 0000$ two things could happen,
+	\begin{enumerate}
+		\item
+		      If $u$ has even weight, then for any $v\in C$, $v+u$ also has even weight, so
+		      \[
+			      v+u\in C.
+		      \]
+		      Since $u\neq 0$, we have $v+u\neq v$, so $u$ is not corrected.
+
+		\item
+
+		      If $u$ has odd weight, then $v+u$ has odd weight. Any odd-weight word of length $4$ is distance $1$ from more than one even-weight codeword, so IMLD cannot uniquely decode it back to $v$.
+
+		      Therefore the only error pattern corrected by $C$ is $0000$
+	\end{enumerate}
+\end{homeworkProblem}
+\end{document}
