@@ -1,0 +1,252 @@
+
+
+\documentclass{article}
+
+% -----------------------------
+% Packages
+% -----------------------------
+\usepackage{fancyhdr}
+\usepackage{extramarks}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{tikz}
+\usepackage[plain]{algorithm}
+\usepackage{algpseudocode}
+\usepackage{amssymb}
+
+\usetikzlibrary{automata,positioning}
+
+% -----------------------------
+% Basic Document Settings
+% -----------------------------
+\topmargin=-0.45in
+\evensidemargin=0in
+\oddsidemargin=0in
+\textwidth=6.5in
+\textheight=9.0in
+\headsep=0.25in
+
+\linespread{1.1}
+
+\pagestyle{fancy}
+\lhead{\hmwkAuthorName}
+\chead{\hmwkClass: \hmwkTitle}
+\rhead{}
+\lfoot{\lastxmark}
+\cfoot{\thepage}
+
+\renewcommand\headrulewidth{0.4pt}
+\renewcommand\footrulewidth{0.4pt}
+
+\setlength\parindent{0pt}
+
+% -----------------------------
+% Problem Section Helpers
+% -----------------------------
+\newcommand{\enterProblemHeader}[1]{
+  \nobreak\extramarks{}{Problem #1 continued on next page\ldots}\nobreak{}
+  \nobreak\extramarks{Problem #1 (continued)}{Problem #1 continued on next page\ldots}\nobreak{}
+}
+
+\newcommand{\exitProblemHeader}[1]{
+  \nobreak\extramarks{Problem #1 (continued)}{Problem #1 continued on next page\ldots}\nobreak{}
+  \nobreak\extramarks{Problem #1}{}\nobreak{}
+}
+
+\setcounter{secnumdepth}{0}
+\newcounter{partCounter}
+\newcounter{homeworkProblemCounter}
+\setcounter{homeworkProblemCounter}{1}
+\nobreak\extramarks{Problem \arabic{homeworkProblemCounter}}{}\nobreak{}
+
+% -----------------------------
+% Theorem env (optional)
+% -----------------------------
+\newtheorem*{theorem}{Theorem}
+
+% -----------------------------
+% Homework Problem Environment
+%   Usage:
+%   \begin{homeworkProblem}            % auto-number
+%     % Your answer here
+%   \end{homeworkProblem}
+%
+%   \begin{homeworkProblem}[1.2.3]     % label problem "1.2.3" (e.g. textbook numbering)
+%     % Your answer here
+%   \end{homeworkProblem}
+% -----------------------------
+\newenvironment{homeworkProblem}[1][]{
+  \def\hwProblemLabel{#1}
+  \ifx\hwProblemLabel\empty
+    \edef\hwProblemLabel{\arabic{homeworkProblemCounter}}
+    \stepcounter{homeworkProblemCounter}
+  \fi
+  \section{Problem \hwProblemLabel}
+  \setcounter{partCounter}{1}
+  \enterProblemHeader{\hwProblemLabel}
+}{
+  \exitProblemHeader{\hwProblemLabel}
+}
+
+% -----------------------------
+% Homework Details (EDIT THESE)
+% -----------------------------
+\newcommand{\hmwkTitle}{Homework \#4}
+\newcommand{\hmwkClass}{Math 3320}
+\newcommand{\hmwkAuthorName}{\textbf{Joseph Quinn}}
+
+% -----------------------------
+% Title
+% -----------------------------
+\title{
+  \vspace{2in}
+  \textmd{\textbf{\hmwkClass:\ \hmwkTitle}}\\
+  \vspace{3in}
+}
+\author{\hmwkAuthorName}
+\date{}
+
+% -----------------------------
+% Convenience Macros (optional)
+% -----------------------------
+\renewcommand{\part}[1]{\textbf{\large Part \Alph{partCounter}}\stepcounter{partCounter}\\}
+
+% Algorithms
+\newcommand{\alg}[1]{\textsc{\bfseries \footnotesize #1}}
+
+% Calculus
+\newcommand{\deriv}[1]{\frac{\mathrm{d}}{\mathrm{d}x} (#1)}
+\newcommand{\pderiv}[2]{\frac{\partial}{\partial #1} (#2)}
+\newcommand{\dx}{\mathrm{d}x}
+
+% Statistics
+\newcommand{\E}{\mathrm{E}}
+\newcommand{\Var}{\mathrm{Var}}
+\newcommand{\Cov}{\mathrm{Cov}}
+\newcommand{\Bias}{\mathrm{Bias}}
+
+% Proof step (for aligned derivations)
+\newcommand{\step}[2]{& #1 & & \text{#2} \\}
+
+% Solution header (optional)
+\newcommand{\solution}{\textbf{\large Solution}}
+
+% -----------------------------
+% Document
+% -----------------------------
+\begin{document}
+
+\maketitle
+\pagebreak
+
+\begin{homeworkProblem}[A5]
+	\begin{align*}
+		\text{max} \quad  & = 13x_{1} + 3x_{2} + 12x_{3} + 108x_{4} \\
+		\text{s.t.} \quad & = x_{1}+2x_{2}+3x_{3}+27x_{4} \le 24    \\
+		                  & = 6x_{1}+x_{2}+4x_{3}+36x_{4} \le 28    \\
+		                  & = x_{1},x_{2},x_{3},x_{4} \ge 0
+	\end{align*}
+
+	\begin{enumerate}
+		\item[(I1)]
+		      This is already in standard form so we can proceed
+		\item[(I2)]
+		      Setup the initial dictionary like so,
+		      \begin{align*}
+			      x_{5} = & 24 - x_{1}-2x_{2}-3x_{3}-27x_{4} \\
+			      x_{6} = & 28-6x_{1}-x_{2}-4x_{3}-36x_{4}   \\
+			      z =     & 13x_{1}+3x_{2}+12x_{3}+108x_{4}
+		      \end{align*}
+		\item[(I3)]
+		      For this dictionary the basic feasible solution where $(x_{1} = 0, x_{2}=0, x_{3}=0, x_{4}=0, x_{5}=24, x_{6}=28)$
+		      with $z=0$
+
+		\item[(P1)]
+		      According to Bland's rule the entering variable from the positive coefficients, is $x_{1}$
+		\item[(P2)]
+		      Via the ratio test we see,
+		      \begin{align*}
+			      x_{1} \le 24  \text{ for } x_{5}          \\
+			      x_{1} \le \frac{28}{6} \text{ for } x_{6} \\
+		      \end{align*}
+		      So $x_{6}$ has the tightest bounds and is our leaving variable.
+
+		\item[(P3)]
+		      After performing the pivot, we get the dictionary,
+
+		      \begin{align*}
+			      x_{5} = & \frac{58}{3} - \frac{11}{6}x_{2} - \frac{7}{3}x_{3} - 21x_{4} + \frac{1}{6}x_{6}   \\
+			      x_{1} = & \frac{14}{3} - \frac{1}{6}x_{2} - \frac{2}{3}x_{3} - 6x_{4} - \frac{1}{6}x_{6}     \\
+			      z =     & \frac{182}{3} + \frac{5}{6}x_{2} + \frac{10}{3}x_{3} + 30x_{4} - \frac{13}{6}x_{6}
+		      \end{align*}
+
+		\item[(P4)]
+		      For this dictionary the basic feasible solution where $(x_{1} = \frac{14}{3}, x_{2}=0, x_{3}=0, x_{4}=0, x_{5}=\frac{58}{3}, x_{6}=0)$
+		      with $z=\frac{182}{3}$
+		\item[(P1)]
+		      According to Bland's rule the entering variable from the positive coefficients, is $x_{2}$
+		\item[(P2)]
+		      \begin{align*}
+			      x_{2} \le \frac{116}{11} \text{ for } x_{5} \\
+			      x_{2} \le 28 \text{ for } x_{1}             \\
+		      \end{align*}
+
+		      This makes the tightest constraints $x_{5}$ and it becomes our leaving variable
+		\item[(P3)]
+		      Performing the pivot results in the dictionary,
+		      \begin{align*}
+			      x_{2} = & \frac{116}{11} - \frac{14}{11}x_{3} - \frac{126}{11}x_{4} - \frac{6}{11}x_{5} + \frac{1}{11}x_{6}  \\
+			      x_{1} = & \frac{32}{11} - \frac{5}{11}x_{3} - \frac{45}{11}x_{4} + \frac{1}{11}x_{5} - \frac{2}{11}x_{6}     \\
+			      z =     & \frac{764}{11} + \frac{25}{11}x_{3} + \frac{225}{11}x_{4} - \frac{5}{11}x_{5} - \frac{23}{11}x_{6}
+		      \end{align*}
+
+		\item[(P4)]
+		      This results in the basic feasible solution with $(x_{1}=\frac{14}{3},x_{2}=0, x_{4}=0,x_{4}=0,x_{5}=\frac{58}{3},x_{6}=0)$
+		      resulting in $z=\frac{182}{3}$
+
+		\item[(P1)]
+		      Based on blands rule, our entering vairable is $x_{3}$
+		\item[(P2)]
+		      Via the ratio test
+		      \begin{align*}
+			      x_{3} \le \frac{116}{14} \text{ for } x_{2} \\
+			      x_{3} \le \frac{32}{5} \text{ for } x_{1}   \\
+		      \end{align*}
+
+		\item[(P3)]
+		      After pivoting this results in the dictionary,
+		      \begin{align*}
+			      x_{2} = & \frac{12}{5} + \frac{14}{5}x_{1} - \frac{4}{5}x_{5} + \frac{3}{5}x_{6}          \\
+			      x_{3} = & \frac{32}{5} - \frac{11}{5}x_{1} - 9x_{4} + \frac{1}{5}x_{5} - \frac{2}{5}x_{6} \\
+			      z =     & 84 - 5x_{1} - 3x_{6}
+		      \end{align*}
+
+		      Now we notice that we have no more coefficents with positive values in the $z$ equation meaning we cannot increase $z$ any further
+		      aka we have found our optimal solution.
+
+		      However we see that we have some nonbasic vairables that have 0 coefficents, meaning there values can vary resulting in the same $z$ value.
+
+		      and since none of our contraints have a 0 value contant we can vary these values and remain a feasible solution.
+
+		      This means our optimal solution is the set of solutions,
+		      \[
+			      x_1 = 0,\qquad
+			      x_2 = \frac{12}{5} - \frac{4}{5}x_5,\qquad
+			      x_3 = \frac{32}{5} - 9x_4 + \frac{1}{5}x_5,
+		      \]
+
+		      where \(x_4\) and \(x_5\) vary, subject to
+
+		      \[
+			      x_4 \ge 0,\qquad
+			      x_5 \ge 0,\qquad
+			      x_5 \le 3,\qquad
+			      45x_4 - x_5 \le 32.
+		      \]
+
+	\end{enumerate}
+\end{homeworkProblem}
+
+\end{document}
+
