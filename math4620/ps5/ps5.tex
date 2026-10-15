@@ -138,87 +138,87 @@
 
 \begin{homeworkProblem}[A10]
 
+	\[
+		\begin{aligned}
+			\max \quad & c_1 + 3c_3 + 5c_5                                                   \\
+			\text{s.t.}\quad
+			           & 4c_1 + 11c_2 - 16c_3 + 30c_4 + 14c_5 = 25  \quad             & (P1) \\
+			           & c_1 + 3c_3 - 6c_4 + 7c_5 \leq 32                             & (P2) \\
+			           & 5c_2 + 14c_3 - 9c_4 - c_5 \geq -8                            & (P3) \\
+			           & c_1,c_2 \leq 0,\qquad c_3,c_4 \geq 0,\qquad c_5 \gtreqless 0
+		\end{aligned}
+	\]
+
+	The goal is to find a linear combination of the primal constraints to create an upper bound on our $z$ objective function.
+
+
+	The first thing I will do is set up our inequality rectangle,
+
+	\begin{align*}
+		4y_1c_1 + 11y_1c_2 - 16y_1c_3 + 30y_1c_4 + 14y_1c_5 & \le 25y_1 \\
+		y_2c_1 + 3y_2c_3 - 6y_2c_4 + 7y_2c_5                & \le 32y_2 \\
+		5y_3c_2 + 14y_3c_3 - 9y_3c_4 - y_3c_5               & \le -8y_3
+	\end{align*}
+
+	With,
+	\begin{align*}
+		(4y_1 + y_2)c_1            & \ge 1c_1 \\
+		(11y_1 + 5y_3)c_2          & \ge 0c_2 \\
+		(-16y_1 + 3y_2 + 14y_3)c_3 & \ge 3c_3 \\
+		(30y_1 - 6y_2 - 9y_3)c_4   & \ge 0c_4 \\
+		(14y_1 + 7y_2 - y_3)c_5    & \ge 5c_5
+	\end{align*}
+
+	Our linear combination is our objective function and is written as,
+	\[
+		w = 25y_{1}+32y_{2}-8y_{3}
+	\]
+
+	We want to minimize $w$ as we want our bound to be as tight as possible.
+
+	The coefficients $25$, $32$, and $-8$ come from the RHS constants in our original constraints.
+
+	Now to handle the inequalities and the variable constraints, we want to know what conditions on $y$ will make this work.
+	\\
+	For row 1, since (P1) has an equality relation, we know that row 1 works no matter what the sign of $y_{1}$ is, meaning $y_{1} \gtreqless 0$
+	\\
+	For row 2, since (P2) is $\le$ we know that only non negative values (or zero) for $y_{2}$ will make the row work as negative values would switch the sign. Meaning $y_{2} \ge 0$
+	\\
+	For row 3, since (P3) has a $\ge$ relation we know that in order for row 3 to work we need $y_{3}$ to be negative (or zero) in order for the sign to flip. Meaning $y_{3} \le 0$
+	\\
+	For col 1, since $c_{1} \le 0$ the inequality 	$(4y_1 + y_2)c_1 \ge 1c_1 $ can only be valid if we flip the sign to $\le$ as the $c_{1}$ value will flip it on division
+	\\
+	For col 2, since $c_{2} \le 0$ the inequality 	$	(11y_1 + 5y_3)c_2 \ge 0c_2 $ can only be valid if we flip the sign to $\le$ as the $c_{2}$ value will flip it on division
+	\\
+	For col 3, since $c_{3} \ge 0$ the inequality 	$		(-16y_1 + 3y_2 + 14y_3)c_3 \ge 3c_3 $ can only be valid if we keep the sign $\ge$ as the $c_{3}$ value will not flip it on division.
+	\\
+	For col 4, since $c_{4} \ge 0$ the inequality 	$		(30y_1 - 6y_2 - 9y_3)c_4 \ge 0c_4 $ can only be valid if we keep the sign $\ge$ as the $c_{4}$ value will not flip it on division.
+	\\
+	For col 5, since $c_{5}$ is free, the inequality 	$		(14y_1 + 7y_2 - y_3)c_5     \ge 5c_5$ can only be valid if we make it an equality with the $=$ sign, because $c_{5}$ is a free variable and can be positive, negative,
+	or zero. The only way the equation works is if we force an exact match.
+
+  Now we want to take the $n$ equations from the bottom of our rectangle to become our Dual problem constraints, (simply remove the c constants),
+  this combined with the constraints and variable values we just evaluated results in the formulation of the final Dual problem as,
+	\[
+		\begin{aligned}
+			\min \quad &
+			w                      = 25y_1 + 32y_2 - 8y_3                   \\
+			\text{s.t.}\quad
+			           & 4y_1 + y_2             \leq 1                      \\
+			           & 11y_1 + 5y_3           \leq 0                      \\
+			           & -16y_1 + 3y_2 + 14y_3  \geq 3                      \\
+			           & 30y_1 - 6y_2 - 9y_3    \geq 0                      \\
+			           & 14y_1 + 7y_2 - y_3     = 5                         \\
+			           & y_1 \gtreqless 0,\quad y_2 \geq 0,\quad y_3 \leq 0
+		\end{aligned}
+	\]
+
 \end{homeworkProblem}
-\[
-	\begin{aligned}
-		\max \quad & c_1 + 3c_3 + 5c_5                                                   \\
-		\text{s.t.}\quad
-		           & 4c_1 + 11c_2 - 16c_3 + 30c_4 + 14c_5 = 25  \quad             & (P1) \\
-		           & c_1 + 3c_3 - 6c_4 + 7c_5 \leq 32                             & (P2) \\
-		           & 5c_2 + 14c_3 - 9c_4 - c_5 \geq -8                            & (P3) \\
-		           & c_1,c_2 \leq 0,\qquad c_3,c_4 \geq 0,\qquad c_5 \gtreqless 0
-	\end{aligned}
-\]
-
-The goal is to find a linear combination of the primal constraints to create an upper bound on our $z$ objective function.
-
-
-The first thing i will do is setup our inequality rectangle,
-
-\begin{align*}
-	4y_1c_1 + 11y_1c_2 - 16y_1c_3 + 30y_1c_4 + 14y_1c_5 & \le 25y_1 \\
-	y_2c_1 + 3y_2c_3 - 6y_2c_4 + 7y_2c_5                & \le 32y_2 \\
-	5y_3c_2 + 14y_3c_3 - 9y_3c_4 - y_3c_5               & \le -8y_3
-\end{align*}
-
-With,
-\begin{align*}
-	(4y_1 + y_2)c_1            & \ge 1c_1 \\
-	(11y_1 + 5y_3)c_2          & \ge 0c_2 \\
-	(-16y_1 + 3y_2 + 14y_3)c_3 & \ge 3c_3 \\
-	(30y_1 - 6y_2 - 9y_3)c_4   & \ge 0c_4 \\
-	(14y_1 + 7y_2 - y_3)c_5    & \ge 5c_5
-\end{align*}
-
-Our linear combination is our objective function and is written as,
-\[
-	w = y_{1}+y_{2}+y_{2} \ge 49
-\]
-
-We want to minimize $w$ as we want our bound to be as tight as possible.
-
-The 49 comes from the sum of our RHS constants in our original constraints
-
-Now to handle the inequalities and the variable constraints, we want to know what conditions on $y$ will make this work.
-\\
-For row 1, since (P1) has an equality relation, we know that row 1 works no matter what the negativty of $y_{1}$ is, meaning $y_{1} \gtrless$
-\\
-For row 2, since (P2) is $\le$ we know that only non negative values (or zero) for $y_{2}$ will make the row work as negative values would switch the sign. Meaning $y_{2} \ge 0$
-\\
-For row 3, since (P3) has a $\ge$ relation we know that in order for row 3 to work we need $y_{3}$ to be negative (or zero) in order for the sign to flip. Meaning $y_{3} \le 0$
-\\
-For col 1, since $c_{1} \le 0$ the inequality 	$(4y_1 + y_2)c_1 \ge 1c_1 $ can only be valid if we flip the sign to $\le$ as the $c_{1}$ value will flip it on division
-\\
-For col 2, since $c_{2} \le 0$ the inequality 	$	(11y_1 + 5y_3)c_2 \ge 0c_2 $ can only be valid if we flip the sign to $\le$ as the $c_{2}$ value will flip it on division
-\\
-For col 3, since $c_{3} \ge 0$ the inequality 	$		(-16y_1 + 3y_2 + 14y_3)c_3 \ge 3c_3 $ can only be valid if make the sign $\ge$ as the $c_{3}$ value will not flip it on division.
-\\
-For col 4, since $c_{4} \ge 0$ the inequality 	$		(30y_1 - 6y_2 - 9y_3)c_4 \ge 0c_4 $ can only be valid if make the sign $\ge$ as the $c_{4}$ value will not flip it on division.
-\\
-For col 5, since $c_{5} \ge 0$ the inequality 	$		(14y_1 + 7y_2 - y_3)c_5     \ge 5c_5$ can only be valid if make inequality an equality with the = sign, because $c_{5}$ is a free varaible and can be both positive, negative,
-or zero. The only way the equation works is if we force an exact match.
-
-Now we can then write the Dual LP problem as
-\[
-	\begin{aligned}
-		\min \quad &
-		w                      = 25y_1 + 32y_2 - 8y_3 \\
-		\text{s.t.}\quad
-		           & 4y_1 + y_2             \leq 1    \\
-		           & 11y_1 + 5y_3           \leq 0    \\
-		           & -16y_1 + 3y_2 + 14y_3  \geq 3    \\
-		           & 30y_1 - 6y_2 - 9y_3    \geq 0    \\
-		           & 14y_1 + 7y_2 - y_3     = 5       \\
-		           & y_1 \gtreqless 0
-		,y_2                    \geq 0
-		y_3,                  \leq 0
-	\end{aligned}
-\]
 
 \begin{homeworkProblem}[A11]
 
 	\[
-		\begin{align}
+		\begin{aligned}
 			\text{min}\quad
 			w & = 5y_1 - 22y_3 + 8y_4                                      \\
 			\text{s.t.}\quad
@@ -228,7 +228,7 @@ Now we can then write the Dual LP problem as
 			  & -6y_1+11y_4            \le -23 &             & \text{(P4)} \\
 			  & 11y_1+11y_2+3y_3+8y_4          & \ge 15
 			  &                                & \text{(P5)}
-		\end{align}
+		\end{aligned}
 	\]
 	\[
 		\begin{aligned}
@@ -239,7 +239,7 @@ Now we can then write the Dual LP problem as
 		\end{aligned}
 	\]
 
-	Now having all the primal constraints and vairables named accoridng to the nmnenomic, we can determine the sign of each $x_m$ dual variable based on the primal constraint.
+	Now having all the primal constraints and variables named according to the mnemonic, we can determine the sign of each $x_m$ dual variable based on the primal constraint.
 
 	Since the primal is a minimization problem,
 	\[
@@ -266,14 +266,9 @@ Now we can then write the Dual LP problem as
 			 & \Longrightarrow (D4):\ \le.
 		\end{aligned}
 	\]
-	The dual optimization function is created from the right hand constants of the primal making it,
-
-
-	The dual objective is
+	The dual optimization function is created from the right hand constants of the primal, and since our primal is min our dual becomes max, making it,
 	\[
-		\boxed{
 			\max z=12x_1+18x_2-23x_4+15x_5
-		}
 	\]
 	Then the coefficient matrix is simply transposed making it,
 	\[
@@ -291,19 +286,19 @@ Now we can then write the Dual LP problem as
 	Now finally putting everything together we have the Dual LP,
 
 	\[
-		\begin{align}
-			\max \quad z & = 12x_1 + 18x_2 - 23x_4 + 15x_5         \\
+		\begin{aligned}
+			\max \quad z & = 12x_1 + 18x_2 - 23x_4 + 15x_5           \\
 			\text{s.t.} \quad
-			             & x_1 + 2x_3 - 6x_4 + 11x_5    \le 5      \\
-			             & 9x_1 + 5x_2 - 8x_3 + 11x_5   \ge 0      \\
-			             & 5x_1 + 4x_2 - 5x_3 + 3x_5    \ge -22    \\
-			             & 2x_2 + 13x_3 + 11x_4 + 8x_5  \le 8      \\[4pt]
-			             & x_1                          \gtreqless \\
-			             & x_2                          \le 0      \\
-			             & x_3                          \ge 0      \\
-			             & x_4                          \le 0      \\
+			             & x_1 + 2x_3 - 6x_4 + 11x_5    \le 5        \\
+			             & 9x_1 + 5x_2 - 8x_3 + 11x_5   \ge 0        \\
+			             & 5x_1 + 4x_2 - 5x_3 + 3x_5    \ge -22      \\
+			             & 2x_2 + 13x_3 + 11x_4 + 8x_5  \le 8        \\[4pt]
+			             & x_1                          \gtreqless 0 \\
+			             & x_2                          \le 0        \\
+			             & x_3                          \ge 0        \\
+			             & x_4                          \le 0        \\
 			             & x_5                          \ge 0
-		\end{align}
+		\end{aligned}
 	\]
 
 
