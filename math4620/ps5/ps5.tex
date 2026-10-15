@@ -1,0 +1,315 @@
+
+\documentclass{article}
+
+% -----------------------------
+% Packages
+% -----------------------------
+\usepackage{fancyhdr}
+\usepackage{extramarks}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{tikz}
+\usepackage[plain]{algorithm}
+\usepackage{algpseudocode}
+\usepackage{amssymb}
+
+\usetikzlibrary{automata,positioning}
+
+% -----------------------------
+% Basic Document Settings
+% -----------------------------
+\topmargin=-0.45in
+\evensidemargin=0in
+\oddsidemargin=0in
+\textwidth=6.5in
+\textheight=9.0in
+\headsep=0.25in
+
+\linespread{1.1}
+
+\pagestyle{fancy}
+\lhead{\hmwkAuthorName}
+\chead{\hmwkClass: \hmwkTitle}
+\rhead{}
+\lfoot{\lastxmark}
+\cfoot{\thepage}
+
+\renewcommand\headrulewidth{0.4pt}
+\renewcommand\footrulewidth{0.4pt}
+
+\setlength\parindent{0pt}
+
+% -----------------------------
+% Problem Section Helpers
+% -----------------------------
+\newcommand{\enterProblemHeader}[1]{
+  \nobreak\extramarks{}{Problem #1 continued on next page\ldots}\nobreak{}
+  \nobreak\extramarks{Problem #1 (continued)}{Problem #1 continued on next page\ldots}\nobreak{}
+}
+
+\newcommand{\exitProblemHeader}[1]{
+  \nobreak\extramarks{Problem #1 (continued)}{Problem #1 continued on next page\ldots}\nobreak{}
+  \nobreak\extramarks{Problem #1}{}\nobreak{}
+}
+
+\setcounter{secnumdepth}{0}
+\newcounter{partCounter}
+\newcounter{homeworkProblemCounter}
+\setcounter{homeworkProblemCounter}{1}
+\nobreak\extramarks{Problem \arabic{homeworkProblemCounter}}{}\nobreak{}
+
+% -----------------------------
+% Theorem env (optional)
+% -----------------------------
+\newtheorem*{theorem}{Theorem}
+
+% -----------------------------
+% Homework Problem Environment
+%   Usage:
+%   \begin{homeworkProblem}            % auto-number
+%     % Your answer here
+%   \end{homeworkProblem}
+%
+%   \begin{homeworkProblem}[1.2.3]     % label problem "1.2.3" (e.g. textbook numbering)
+%     % Your answer here
+%   \end{homeworkProblem}
+% -----------------------------
+\newenvironment{homeworkProblem}[1][]{
+  \def\hwProblemLabel{#1}
+  \ifx\hwProblemLabel\empty
+    \edef\hwProblemLabel{\arabic{homeworkProblemCounter}}
+    \stepcounter{homeworkProblemCounter}
+  \fi
+  \section{Problem \hwProblemLabel}
+  \setcounter{partCounter}{1}
+  \enterProblemHeader{\hwProblemLabel}
+}{
+  \exitProblemHeader{\hwProblemLabel}
+}
+
+% -----------------------------
+% Homework Details (EDIT THESE)
+% -----------------------------
+\newcommand{\hmwkTitle}{Homework \#5}
+\newcommand{\hmwkClass}{Math 3320}
+\newcommand{\hmwkAuthorName}{\textbf{Joseph Quinn}}
+
+% -----------------------------
+% Title
+% -----------------------------
+\title{
+  \vspace{2in}
+  \textmd{\textbf{\hmwkClass:\ \hmwkTitle}}\\
+  \vspace{3in}
+}
+\author{\hmwkAuthorName}
+\date{}
+
+% -----------------------------
+% Convenience Macros (optional)
+% -----------------------------
+\renewcommand{\part}[1]{\textbf{\large Part \Alph{partCounter}}\stepcounter{partCounter}\\}
+
+% Algorithms
+\newcommand{\alg}[1]{\textsc{\bfseries \footnotesize #1}}
+
+% Calculus
+\newcommand{\deriv}[1]{\frac{\mathrm{d}}{\mathrm{d}x} (#1)}
+\newcommand{\pderiv}[2]{\frac{\partial}{\partial #1} (#2)}
+\newcommand{\dx}{\mathrm{d}x}
+
+% Statistics
+\newcommand{\E}{\mathrm{E}}
+\newcommand{\Var}{\mathrm{Var}}
+\newcommand{\Cov}{\mathrm{Cov}}
+\newcommand{\Bias}{\mathrm{Bias}}
+
+% Proof step (for aligned derivations)
+\newcommand{\step}[2]{& #1 & & \text{#2} \\}
+
+% Solution header (optional)
+\newcommand{\solution}{\textbf{\large Solution}}
+
+% -----------------------------
+% Document
+% -----------------------------
+\begin{document}
+
+\begin{homeworkProblem}[A10]
+
+\end{homeworkProblem}
+\[
+	\begin{aligned}
+		\max \quad & c_1 + 3c_3 + 5c_5                                                   \\
+		\text{s.t.}\quad
+		           & 4c_1 + 11c_2 - 16c_3 + 30c_4 + 14c_5 = 25  \quad             & (P1) \\
+		           & c_1 + 3c_3 - 6c_4 + 7c_5 \leq 32                             & (P2) \\
+		           & 5c_2 + 14c_3 - 9c_4 - c_5 \geq -8                            & (P3) \\
+		           & c_1,c_2 \leq 0,\qquad c_3,c_4 \geq 0,\qquad c_5 \gtreqless 0
+	\end{aligned}
+\]
+
+The goal is to find a linear combination of the primal constraints to create an upper bound on our $z$ objective function.
+
+
+The first thing i will do is setup our inequality rectangle,
+
+\begin{align*}
+	4y_1c_1 + 11y_1c_2 - 16y_1c_3 + 30y_1c_4 + 14y_1c_5 & \le 25y_1 \\
+	y_2c_1 + 3y_2c_3 - 6y_2c_4 + 7y_2c_5                & \le 32y_2 \\
+	5y_3c_2 + 14y_3c_3 - 9y_3c_4 - y_3c_5               & \le -8y_3
+\end{align*}
+
+With,
+\begin{align*}
+	(4y_1 + y_2)c_1            & \ge 1c_1 \\
+	(11y_1 + 5y_3)c_2          & \ge 0c_2 \\
+	(-16y_1 + 3y_2 + 14y_3)c_3 & \ge 3c_3 \\
+	(30y_1 - 6y_2 - 9y_3)c_4   & \ge 0c_4 \\
+	(14y_1 + 7y_2 - y_3)c_5    & \ge 5c_5
+\end{align*}
+
+Our linear combination is our objective function and is written as,
+\[
+	w = y_{1}+y_{2}+y_{2} \ge 49
+\]
+
+We want to minimize $w$ as we want our bound to be as tight as possible.
+
+The 49 comes from the sum of our RHS constants in our original constraints
+
+Now to handle the inequalities and the variable constraints, we want to know what conditions on $y$ will make this work.
+\\
+For row 1, since (P1) has an equality relation, we know that row 1 works no matter what the negativty of $y_{1}$ is, meaning $y_{1} \gtrless$
+\\
+For row 2, since (P2) is $\le$ we know that only non negative values (or zero) for $y_{2}$ will make the row work as negative values would switch the sign. Meaning $y_{2} \ge 0$
+\\
+For row 3, since (P3) has a $\ge$ relation we know that in order for row 3 to work we need $y_{3}$ to be negative (or zero) in order for the sign to flip. Meaning $y_{3} \le 0$
+\\
+For col 1, since $c_{1} \le 0$ the inequality 	$(4y_1 + y_2)c_1 \ge 1c_1 $ can only be valid if we flip the sign to $\le$ as the $c_{1}$ value will flip it on division
+\\
+For col 2, since $c_{2} \le 0$ the inequality 	$	(11y_1 + 5y_3)c_2 \ge 0c_2 $ can only be valid if we flip the sign to $\le$ as the $c_{2}$ value will flip it on division
+\\
+For col 3, since $c_{3} \ge 0$ the inequality 	$		(-16y_1 + 3y_2 + 14y_3)c_3 \ge 3c_3 $ can only be valid if make the sign $\ge$ as the $c_{3}$ value will not flip it on division.
+\\
+For col 4, since $c_{4} \ge 0$ the inequality 	$		(30y_1 - 6y_2 - 9y_3)c_4 \ge 0c_4 $ can only be valid if make the sign $\ge$ as the $c_{4}$ value will not flip it on division.
+\\
+For col 5, since $c_{5} \ge 0$ the inequality 	$		(14y_1 + 7y_2 - y_3)c_5     \ge 5c_5$ can only be valid if make inequality an equality with the = sign, because $c_{5}$ is a free varaible and can be both positive, negative,
+or zero. The only way the equation works is if we force an exact match.
+
+Now we can then write the Dual LP problem as
+\[
+	\begin{aligned}
+		\min \quad &
+		w                      = 25y_1 + 32y_2 - 8y_3 \\
+		\text{s.t.}\quad
+		           & 4y_1 + y_2             \leq 1    \\
+		           & 11y_1 + 5y_3           \leq 0    \\
+		           & -16y_1 + 3y_2 + 14y_3  \geq 3    \\
+		           & 30y_1 - 6y_2 - 9y_3    \geq 0    \\
+		           & 14y_1 + 7y_2 - y_3     = 5       \\
+		           & y_1 \gtreqless 0
+		,y_2                    \geq 0
+		y_3,                  \leq 0
+	\end{aligned}
+\]
+
+\begin{homeworkProblem}[A11]
+
+	\[
+		\begin{align}
+			\text{min}\quad
+			w & = 5y_1 - 22y_3 + 8y_4                                      \\
+			\text{s.t.}\quad
+			  & y_1+9y_2+5y_3          = 12    &             & \text{(P1)} \\
+			  & 5y_2+4y_3+2y_4         \le 18  &             & \text{(P2)} \\
+			  & 2y_1-8y_2-5y_3+13y_4   \ge 0   &             & \text{(P3)} \\
+			  & -6y_1+11y_4            \le -23 &             & \text{(P4)} \\
+			  & 11y_1+11y_2+3y_3+8y_4          & \ge 15
+			  &                                & \text{(P5)}
+		\end{align}
+	\]
+	\[
+		\begin{aligned}
+			y_1 & \ge 0 &  & \text{(PS1)}, \\
+			y_2 & \le 0 &  & \text{(PS2)}, \\
+			y_3 & \le 0 &  & \text{(PS3)}, \\
+			y_4 & \ge 0 &  & \text{(PS4)}.
+		\end{aligned}
+	\]
+
+	Now having all the primal constraints and vairables named accoridng to the nmnenomic, we can determine the sign of each $x_m$ dual variable based on the primal constraint.
+
+	Since the primal is a minimization problem,
+	\[
+		\begin{aligned}
+			(P1):\ = \quad   & \Longrightarrow x_1 \text{ free}, \\
+			(P2):\ \le \quad & \Longrightarrow x_2 \le 0,        \\
+			(P3):\ \ge \quad & \Longrightarrow x_3 \ge 0,        \\
+			(P4):\ \le \quad & \Longrightarrow x_4 \le 0,        \\
+			(P5):\ \ge \quad & \Longrightarrow x_5 \ge 0.
+		\end{aligned}
+	\]
+	Now we do the same thing but working from the other direction to determine each Dual constraints sign.
+
+	Since the primal is a minimization problem,
+	\[
+		\begin{aligned}
+			y_1\ge 0\ \text{(silly)}
+			 & \Longrightarrow (D1):\ \le, \\
+			y_2\le 0\ \text{(sensible)}
+			 & \Longrightarrow (D2):\ \ge, \\
+			y_3\le 0\ \text{(sensible)}
+			 & \Longrightarrow (D3):\ \ge, \\
+			y_4\ge 0\ \text{(silly)}
+			 & \Longrightarrow (D4):\ \le.
+		\end{aligned}
+	\]
+	The dual optimization function is created from the right hand constants of the primal making it,
+
+
+	The dual objective is
+	\[
+		\boxed{
+			\max z=12x_1+18x_2-23x_4+15x_5
+		}
+	\]
+	Then the coefficient matrix is simply transposed making it,
+	\[
+		\begin{aligned}
+			x_1+2x_3-6x_4+11x_5
+			 & \le 5,   \\
+			9x_1+5x_2-8x_3+11x_5
+			 & \ge 0,   \\
+			5x_1+4x_2-5x_3+3x_5
+			 & \ge -22, \\
+			2x_2+13x_3+11x_4+8x_5
+			 & \le 8.
+		\end{aligned}
+	\]
+	Now finally putting everything together we have the Dual LP,
+
+	\[
+		\begin{align}
+			\max \quad z & = 12x_1 + 18x_2 - 23x_4 + 15x_5         \\
+			\text{s.t.} \quad
+			             & x_1 + 2x_3 - 6x_4 + 11x_5    \le 5      \\
+			             & 9x_1 + 5x_2 - 8x_3 + 11x_5   \ge 0      \\
+			             & 5x_1 + 4x_2 - 5x_3 + 3x_5    \ge -22    \\
+			             & 2x_2 + 13x_3 + 11x_4 + 8x_5  \le 8      \\[4pt]
+			             & x_1                          \gtreqless \\
+			             & x_2                          \le 0      \\
+			             & x_3                          \ge 0      \\
+			             & x_4                          \le 0      \\
+			             & x_5                          \ge 0
+		\end{align}
+	\]
+
+
+\end{homeworkProblem}
+
+
+\end{document}
+
+
