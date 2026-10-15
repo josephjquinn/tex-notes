@@ -155,8 +155,8 @@
 		      \]
 
 		      Since the four rows are linearly independent,
-		      \(k=4\). Each codeword has even weight, and
-		      \(00000011\) is a codeword of weight \(2\).
+		      \(k=4\). And
+		      \(00000011\) is the min weight codeword being \(2\).
 
 		      \[
 			      (n,k,d)=(8,4,2)
@@ -174,7 +174,7 @@
 
 		      The three rows are linearly independent,
 		      so \(k=3\). The minimum nonzero codeword
-		      weight is \(2\), attained by \(01010\).
+		      weight is \(2\) from \(01010\).
 
 		      \[
 			      (n,k,d)=(5,3,2)
@@ -193,7 +193,7 @@
 		      vector is dependent on the first two.
 		      Thus \(k=2\).
 
-		      The smallest weight from the matrix is $2$ meaning,
+		      And the smallest weight from the matrix is $2$
 
 		      \[
 			      (n,k,d)=(4,2,2)
@@ -236,7 +236,7 @@
 	\end{enumerate}
 
 
-	Now having the letters we can encode the message Call Home Bama as:
+	we can encode the message Call Home Bama as:
 	\[
 		\begin{aligned}
 			\text{CALL} & \rightarrow
@@ -273,12 +273,7 @@
 		      we have two linearly independent rows so $k=2$ and $n-k=8$.
 
 		      To put $G$ in standard form, move
-		      column 6 to position 2, shifting the
-		      original columns 2 through 5 one
-		      position to the right.
-
-		      The new column order is
-		      $(1,6,2,3,4,5,7,8,9,10)$.
+		      column 6 to position 2.
 
 		      \[
 			      G'=
@@ -288,8 +283,6 @@
 				      0 & 1 & 0 & 0 & 0 & 0 & 1 & 1 & 1 & 1
 			      \end{array}
 			      \right)
-			      =
-			      \begin{pmatrix}I_2 & X\end{pmatrix}.
 		      \]
 
 		      \[
@@ -340,7 +333,7 @@
 
 		\item[(d)]
 		      \[
-			      S=\{11111111,11110000,11001100,10101010\}.
+			      C=\{11111111,11110000,11001100,10101010\}.
 		      \]
 
 		      To setup the Generator matrix lets write this in matrix form
@@ -382,7 +375,6 @@
 			      \end{pmatrix}.
 		      \]
 
-		      Now perform
 		      $R_1\leftarrow R_1+R_2+R_3+R_4$.
 
 		      \[
@@ -399,8 +391,6 @@
 		      generators are linearly independent.
 		      Thus $k=4$ and $n-k=4$.
 
-		      The pivot columns are $(1,2,3,5)$.
-
 		      Swap columns 4 and 5 to put in standard form:
 
 		      \[
@@ -414,7 +404,6 @@
 			      \end{array}
 			      \right).
 		      \]
-		      meaning we can write
 		      \[
 			      X=
 			      \begin{pmatrix}
@@ -442,11 +431,7 @@
 			      \end{pmatrix}.
 		      \]
 
-		      Since we swapped columns 4 and 5
-		      of $G$, we must swap rows 4 and 5
-		      of $H'$ to restore the original order.
-
-		      Our final parity-check matrix is
+		      Now we have to restore $H'$ to its original order.
 
 		      \[
 			      H=
@@ -464,7 +449,7 @@
 
 		\item[(f)]
 		      \[
-			      S=\{100100100,010010010,001001001,111111111\}.
+			      C=\{100100100,010010010,001001001,111111111\}.
 		      \]
 
 		      Now lets create the matrix representation as,
@@ -483,9 +468,6 @@
 			      R_4=R_1+R_2+R_3.
 		      \]
 
-		      So the fourth row is linearly dependent.
-
-		      Perform
 		      $R_4\leftarrow R_4+R_1+R_2+R_3$:
 
 		      \[
@@ -498,7 +480,7 @@
 			      \end{pmatrix}.
 		      \]
 
-		      Remove the zero row:
+		      drop the zero row:
 
 		      \[
 			      G=
@@ -522,8 +504,6 @@
 			      \end{pmatrix}.
 		      \]
 
-		      So consturcting $H$ results in,
-
 		      \[
 			      H=
 			      \begin{pmatrix}X\\I_6\end{pmatrix}
@@ -545,180 +525,249 @@
 \end{homeworkProblem}
 
 \begin{homeworkProblem}[2.7.9]
-	\begin{homeworkProblem}[2.8.1]
+
+	\begin{enumerate}
+		\item[(c)]
+		      \[
+			      H=
+			      \begin{pmatrix}
+				      1 & 1 & 1 \\
+				      1 & 1 & 0 \\
+				      1 & 0 & 1 \\
+				      0 & 1 & 1 \\
+				      1 & 0 & 0 \\
+				      0 & 1 & 0 \\
+				      0 & 0 & 1
+			      \end{pmatrix}.
+		      \]
+
+		      \textbf{(i)} A generator matrix for $C^\perp$ is simply $H^T$:
+
+		      \[
+			      G_{C^\perp}=H^T=
+			      \begin{pmatrix}
+				      1 & 1 & 1 & 0 & 1 & 0 & 0 \\
+				      1 & 1 & 0 & 1 & 0 & 1 & 0 \\
+				      1 & 0 & 1 & 1 & 0 & 0 & 1
+			      \end{pmatrix}.
+		      \]
+
+		      \textbf{(ii)} To get a generator matrix for $C$, we need to perform the algo
+
+		      \[
+			      G'_{C^\perp}=
+			      \left(
+			      \begin{array}{ccc|cccc}
+				      1 & 0 & 0 & 1 & 1 & 1 & 0 \\
+				      0 & 1 & 0 & 1 & 1 & 0 & 1 \\
+				      0 & 0 & 1 & 1 & 0 & 1 & 1
+			      \end{array}
+			      \right)
+		      \]
+
+		      \[
+			      X=
+			      \begin{pmatrix}
+				      1 & 1 & 1 & 0 \\
+				      1 & 1 & 0 & 1 \\
+				      1 & 0 & 1 & 1
+			      \end{pmatrix}.
+		      \]
+
+		      So we can begin to form $H'_{C^\perp}=\begin{pmatrix}X\\I_4\end{pmatrix}$,
+
+		      and we need undoing the column permutation restores the original order.
+
+		      \[
+			      H_{C^\perp}=
+			      \begin{pmatrix}
+				      1 & 0 & 0 & 0 \\
+				      0 & 1 & 0 & 0 \\
+				      0 & 0 & 1 & 0 \\
+				      0 & 0 & 0 & 1 \\
+				      1 & 1 & 1 & 0 \\
+				      1 & 1 & 0 & 1 \\
+				      1 & 0 & 1 & 1
+			      \end{pmatrix}.
+		      \]
+
+		      Finally, transpose to obtain a generator matrix for $C$:
+
+		      \[
+			      G_C=H_{C^\perp}^T=
+			      \begin{pmatrix}
+				      1 & 0 & 0 & 0 & 1 & 1 & 1 \\
+				      0 & 1 & 0 & 0 & 1 & 1 & 0 \\
+				      0 & 0 & 1 & 0 & 1 & 0 & 1 \\
+				      0 & 0 & 0 & 1 & 0 & 1 & 1
+			      \end{pmatrix}.
+		      \]
+	\end{enumerate}
+
+\end{homeworkProblem}
+\begin{homeworkProblem}[2.8.1]
 
 
-		\[
-			G=\begin{pmatrix}
-				1 & 0 & 0 \\
-				0 & 0 & 1
-			\end{pmatrix}.
-		\]
+	\[
+		G=\begin{pmatrix}
+			1 & 0 & 0 \\
+			0 & 0 & 1
+		\end{pmatrix}.
+	\]
 
-		The code generated by $G$ is
+	The code generated by $G$ is
 
-		\[
-			C=\{000,100,001,101\}.
-		\]
+	\[
+		C=\{000,100,001,101\}.
+	\]
 
-		Since $k=2$, any two linearly independent codewords form a generator matrix.
+	Since $k=2$, any two linearly independent codewords form a generator matrix.
 
-		The nonzero codewords are
+	The nonzero codewords are
 
-		\[
-			100,\quad 001,\quad 101.
-		\]
+	\[
+		100,\quad 001,\quad 101.
+	\]
 
-		And order matters so we can write the other five generator matrices as
+	And order matters so we can write the other five generator matrices as
 
-		\[
-			G_1=\begin{pmatrix}
-				0 & 0 & 1 \\
-				1 & 0 & 0
-			\end{pmatrix},
-			\qquad
-			G_2=\begin{pmatrix}
-				1 & 0 & 0 \\
-				1 & 0 & 1
-			\end{pmatrix}
-		\]
+	\[
+		G_1=\begin{pmatrix}
+			0 & 0 & 1 \\
+			1 & 0 & 0
+		\end{pmatrix},
+		\qquad
+		G_2=\begin{pmatrix}
+			1 & 0 & 0 \\
+			1 & 0 & 1
+		\end{pmatrix}
+	\]
 
-		\[
-			G_3=\begin{pmatrix}
-				1 & 0 & 1 \\
-				1 & 0 & 0
-			\end{pmatrix},
-			\qquad
-			G_4=\begin{pmatrix}
-				0 & 0 & 1 \\
-				1 & 0 & 1
-			\end{pmatrix}
-		\]
+	\[
+		G_3=\begin{pmatrix}
+			1 & 0 & 1 \\
+			1 & 0 & 0
+		\end{pmatrix},
+		\qquad
+		G_4=\begin{pmatrix}
+			0 & 0 & 1 \\
+			1 & 0 & 1
+		\end{pmatrix}
+	\]
 
-		\[
-			G_5=\begin{pmatrix}
-				1 & 0 & 1 \\
-				0 & 0 & 1
-			\end{pmatrix}.
-		\]
+	\[
+		G_5=\begin{pmatrix}
+			1 & 0 & 1 \\
+			0 & 0 & 1
+		\end{pmatrix}.
+	\]
 
-	\end{homeworkProblem}
-	\begin{homeworkProblem}[2.8.12]
+\end{homeworkProblem}
+\begin{homeworkProblem}[2.8.12]
 
-		\[
-			H_C=
-			\begin{pmatrix}
-				1 & 0 & 0 \\
-				1 & 1 & 1 \\
-				0 & 1 & 0 \\
-				1 & 1 & 0 \\
-				1 & 0 & 1 \\
-				0 & 0 & 1 \\
-				0 & 1 & 1
-			\end{pmatrix}.
-		\]
+	\[
+		H_C=
+		\begin{pmatrix}
+			1 & 0 & 0 \\
+			1 & 1 & 1 \\
+			0 & 1 & 0 \\
+			1 & 1 & 0 \\
+			1 & 0 & 1 \\
+			0 & 0 & 1 \\
+			0 & 1 & 1
+		\end{pmatrix}.
+	\]
 
-		We want to transpose $H_C$ to obtain a
-		generator matrix for $C^\perp$:
+	We want to transpose $H_C$ to obtain a
+	generator matrix for $C^\perp$:
 
-		\[
-			G_{C^\perp}=H_C^T=
-			\begin{pmatrix}
-				1 & 1 & 0 & 1 & 1 & 0 & 0 \\
-				0 & 1 & 1 & 1 & 0 & 0 & 1 \\
-				0 & 1 & 0 & 0 & 1 & 1 & 1
-			\end{pmatrix}.
-		\]
+	\[
+		G_{C^\perp}=H_C^T=
+		\begin{pmatrix}
+			1 & 1 & 0 & 1 & 1 & 0 & 0 \\
+			0 & 1 & 1 & 1 & 0 & 0 & 1 \\
+			0 & 1 & 0 & 0 & 1 & 1 & 1
+		\end{pmatrix}.
+	\]
 
 
-		Now we rearrange the columns into the order
-		$(1,3,6,2,4,5,7)$ to form identity matrix
+	Now we rearrange the columns into the order
+	$(1,3,6,2,4,5,7)$ to form identity matrix
 
-		\[
-			G'_{C^\perp}=
-			\left(
-			\begin{array}{ccc|cccc}
-				1 & 0 & 0 & 1 & 1 & 1 & 0 \\
-				0 & 1 & 0 & 1 & 1 & 0 & 1 \\
-				0 & 0 & 1 & 1 & 0 & 1 & 1
-			\end{array}
-			\right)
-			=
-			\begin{pmatrix}I_3&X\end{pmatrix}.
-		\]
+	\[
+		G'_{C^\perp}=
+		\left(
+		\begin{array}{ccc|cccc}
+			1 & 0 & 0 & 1 & 1 & 1 & 0 \\
+			0 & 1 & 0 & 1 & 1 & 0 & 1 \\
+			0 & 0 & 1 & 1 & 0 & 1 & 1
+		\end{array}
+		\right)
+	\]
 
-		\[
-			X=
-			\begin{pmatrix}
-				1 & 1 & 1 & 0 \\
-				1 & 1 & 0 & 1 \\
-				1 & 0 & 1 & 1
-			\end{pmatrix}.
-		\]
+	\[
+		X=
+		\begin{pmatrix}
+			1 & 1 & 1 & 0 \\
+			1 & 1 & 0 & 1 \\
+			1 & 0 & 1 & 1
+		\end{pmatrix}.
+	\]
 
-		Now we can begin to write the parity check matrix.
+	Now we can begin to write the parity check matrix.
 
-		\[
-			H'_{C^\perp}=
-			\begin{pmatrix}
-				X \\
-				I_4
-			\end{pmatrix}.
-		\]
+	\[
+		H'_{C^\perp}=
+		\begin{pmatrix}
+			1 & 1 & 1 & 0 \\
+			1 & 1 & 0 & 1 \\
+			1 & 0 & 1 & 1 \\
+			1 & 0 & 0 & 0 \\
+			0 & 1 & 0 & 0 \\
+			0 & 0 & 1 & 0 \\
+			0 & 0 & 0 & 1
+		\end{pmatrix}.
+	\]
 
-		\[
-			H'_{C^\perp}=
-			\begin{pmatrix}
-				1 & 1 & 1 & 0 \\
-				1 & 1 & 0 & 1 \\
-				1 & 0 & 1 & 1 \\
-				1 & 0 & 0 & 0 \\
-				0 & 1 & 0 & 0 \\
-				0 & 0 & 1 & 0 \\
-				0 & 0 & 0 & 1
-			\end{pmatrix}.
-		\]
+	Because we want our final code to be in standard form and equivilent to $C$
+	we want to moe hte last 4 rows to the front so after transpose its in standard form.
 
-		Because we wwant our final code to be in standard form and equivilent to $C$
-		we want to moe hte last 4 rows to the front so after transpose its in standard form.
+	\[
+		H''_{C^\perp}=
+		\left(
+		\begin{array}{cccc}
+			1 & 0 & 0 & 0 \\
+			0 & 1 & 0 & 0 \\
+			0 & 0 & 1 & 0 \\
+			0 & 0 & 0 & 1 \\ \hline
+			1 & 1 & 1 & 0 \\
+			1 & 1 & 0 & 1 \\
+			1 & 0 & 1 & 1
+		\end{array}
+		\right)
+		=
+		\begin{pmatrix}
+			I_4 \\
+			X
+		\end{pmatrix}.
+	\]
 
-		\[
-			H''_{C^\perp}=
-			\left(
-			\begin{array}{cccc}
-				1 & 0 & 0 & 0 \\
-				0 & 1 & 0 & 0 \\
-				0 & 0 & 1 & 0 \\
-				0 & 0 & 0 & 1 \\ \hline
-				1 & 1 & 1 & 0 \\
-				1 & 1 & 0 & 1 \\
-				1 & 0 & 1 & 1
-			\end{array}
-			\right)
-			=
-			\begin{pmatrix}
-				I_4 \\
-				X
-			\end{pmatrix}.
-		\]
+	Finally, transpose to obtain the
+	generator matrix in standard form:
 
-		Finally, transpose to obtain the
-		generator matrix in standard form:
+	\[
+		G'=(H''_{C^\perp})^T=
+		\left(
+		\begin{array}{cccc|ccc}
+			1 & 0 & 0 & 0 & 1 & 1 & 1 \\
+			0 & 1 & 0 & 0 & 1 & 1 & 0 \\
+			0 & 0 & 1 & 0 & 1 & 0 & 1 \\
+			0 & 0 & 0 & 1 & 0 & 1 & 1
+		\end{array}
+		\right).
+	\]
 
-		\[
-			G'=(H''_{C^\perp})^T=
-			\left(
-			\begin{array}{cccc|ccc}
-				1 & 0 & 0 & 0 & 1 & 1 & 1 \\
-				0 & 1 & 0 & 0 & 1 & 1 & 0 \\
-				0 & 0 & 1 & 0 & 1 & 0 & 1 \\
-				0 & 0 & 0 & 1 & 0 & 1 & 1
-			\end{array}
-			\right).
-		\]
-
-		The resulting code $C'$ is equivalent to $C$ and in standard form
-	\end{homeworkProblem}
+	The resulting code $C'$ is equivalent to $C$ and in standard form
 \end{homeworkProblem}
 \begin{homeworkProblem}[2.9.3]
 
@@ -760,8 +809,6 @@
 			0 & 0 & 1 & 0 & 1
 		\end{array}
 		\right)
-		=
-		\begin{pmatrix}I_3&X\end{pmatrix}.
 	\]
 	\[
 		X=
@@ -786,11 +833,11 @@
 	\[
 		H'_{C^\perp}=
 		\begin{pmatrix}
+			1 & 0 \\
 			1 & 1 \\
 			0 & 1 \\
 			1 & 0 \\
-			0 & 1 \\
-			1 & 0
+			0 & 1
 		\end{pmatrix}.
 	\]
 
@@ -798,11 +845,11 @@
 	\[
 		H_{C^\perp}=
 		\begin{pmatrix}
+			1 & 0 \\
 			0 & 1 \\
 			1 & 0 \\
 			1 & 1 \\
-			0 & 1 \\
-			1 & 0
+			0 & 1
 		\end{pmatrix}.
 	\]
 
@@ -812,8 +859,8 @@
 	\[
 		G_C=H_{C^\perp}^T=
 		\begin{pmatrix}
-			0 & 1 & 1 & 0 & 1 \\
-			1 & 0 & 1 & 1 & 0
+			1 & 0 & 1 & 1 & 0 \\
+			0 & 1 & 0 & 1 & 1
 		\end{pmatrix}.
 	\]
 
@@ -822,17 +869,17 @@
 	\[
 		\begin{aligned}
 			00G_C & = 0g_1+0g_2 = 00000 \\
-			10G_C & = g_1 = 01101       \\
-			01G_C & = g_2 = 10110       \\
-			11G_C & = g_1+g_2 = 11011
+			10G_C & = g_1 = 10110       \\
+			01G_C & = g_2 = 01011       \\
+			11G_C & = g_1+g_2 = 11101
 		\end{aligned}
 	\]
 	Meaning the code generated by this matrix is,
 	\[
-		C=\{00000,01101,10110,11011\}.
+		C=\{00000,10110,01011,11101\}.
 	\]
 
-	And with this we see that the minimum weight of a non zero codeword is the choice of any of the non zero codewords, being $wt(01101)=3$
+	And with this we see that the minimum weight of a non zero codeword is the choice of any of the non zero codewords, being $wt(10110)=3$
 \end{homeworkProblem}
 \begin{homeworkProblem}[2.10.8]
 	\[
@@ -872,8 +919,6 @@
 			0 & 0 & 1 & 1 & 0 & 1 & 1
 		\end{array}
 		\right)
-		=
-		\begin{pmatrix}I_3&X\end{pmatrix}.
 	\]
 
 	Therefore,
@@ -889,16 +934,6 @@
 
 	Now construct the parity-check matrix
 	for the permuted dual code:
-
-	\[
-		H'_{C^\perp}=
-		\begin{pmatrix}
-			X \\
-			I_4
-		\end{pmatrix}.
-	\]
-
-	Substituting gives
 
 	\[
 		H'_{C^\perp}=
@@ -1097,8 +1132,7 @@
 			      \begin{pmatrix}
 				      1 & 0 & 1 & 0 \\
 				      0 & 1 & 1 & 1
-			      \end{pmatrix}
-			      =\left[I_2 \mid X\right],
+			      \end{pmatrix},
 			      \qquad
 			      X=
 			      \begin{pmatrix}
@@ -1193,8 +1227,7 @@
 			      \end{array}
 			      \right)
 			      =
-			      \begin{pmatrix}I_2&X\end{pmatrix},
-			      \qquad
+			      \qquad,
 			      X=
 			      \begin{pmatrix}
 				      1 & 0 & 0 \\
