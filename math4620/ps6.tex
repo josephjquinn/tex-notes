@@ -204,7 +204,7 @@
 		x_{4}=y_{7}
 	\end{align*}
 
-	Then from the prime optimal dicitonary we know $x_{2}, x_{4},x_{7}$ will become non basic in the dual so their corresponding dual variables $y_{5},y_{7}, y_{3}$ will also be non basic and have a value of 0.
+	Then from the prime optimal dicitonary we know $x_{2}, x_{3},x_{7}$ are basic, so their corresponding dual variables $y_{5},y_{6}, y_{3}$ will be non basic and have a value of 0.
 
 	And on the other side the primal non basic $x_{1},x_{4},x_{5},x_{6}$ will become basic in the dual with the corresponding dual vairables $y_{4},y_{7},y_{1},y_{2}$. The values of which we stated earlier are the
 	negated coefficents so the values become $y_{4}= 4,y_{7}=1,y_{1}=3,y_{2}=5$. \\
@@ -268,35 +268,31 @@
 		\end{aligned}
 	\]
 
-	\[
-		\begin{align*}
-			X_AA = 3754 \\
-			X_CA = 2666 \\
-			X_SA = 920  \\
-			X_IA = 543  \\
-			X_AB = 60   \\
-			X_CB = 0    \\
-			X_SB = 3096 \\
-			X_IB = 672
-		\end{align*}
-	\]
+	\begin{align*}
+		X_AA = 3754 \\
+		X_CA = 2666 \\
+		X_SA = 920  \\
+		X_IA = 543  \\
+		X_AB = 60   \\
+		X_CB = 0    \\
+		X_SB = 3096 \\
+		X_IB = 672
+	\end{align*}
 
 	First lets check (i) of CSC to validate that our $x$ is primal feasible \\
 
 	We see all values are $\ge 0$ so it passes non negativity
 
-	\[
-		\begin{align*}
-			X_AA = 3754 \ge 0 \\
-			X_CA = 2666 \ge 0 \\
-			X_SA = 920  \ge 0 \\
-			X_IA = 543  \ge 0 \\
-			X_AB = 60   \ge 0 \\
-			X_CB = 0    \ge 0 \\
-			X_SB = 3096 \ge 0 \\
-			X_IB = 672 \ge 0
-		\end{align*}
-	\]
+	\begin{align*}
+		X_AA = 3754 \ge 0 \\
+		X_CA = 2666 \ge 0 \\
+		X_SA = 920  \ge 0 \\
+		X_IA = 543  \ge 0 \\
+		X_AB = 60   \ge 0 \\
+		X_CB = 0    \ge 0 \\
+		X_SB = 3096 \ge 0 \\
+		X_IB = 672 \ge 0
+	\end{align*}
 
 	And substituting $x$ into the LP's constraints we get:
 

@@ -1,0 +1,271 @@
+\documentclass{article}
+
+% -----------------------------
+% Packages
+% -----------------------------
+\usepackage{fancyhdr}
+\usepackage{extramarks}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{tikz}
+\usepackage[plain]{algorithm}
+\usepackage{algpseudocode}
+\usepackage{amssymb}
+\usepackage{enumitem}
+
+\usetikzlibrary{automata,positioning}
+
+% -----------------------------
+% Basic Document Settings
+% -----------------------------
+\topmargin=-0.45in
+\evensidemargin=0in
+\oddsidemargin=0in
+\textwidth=6.5in
+\textheight=9.0in
+\headsep=0.25in
+
+\linespread{1.1}
+
+\pagestyle{fancy}
+\lhead{\hmwkAuthorName}
+\chead{\hmwkClass: \hmwkTitle}
+\rhead{}
+\lfoot{\lastxmark}
+\cfoot{\thepage}
+
+\renewcommand\headrulewidth{0.4pt}
+\renewcommand\footrulewidth{0.4pt}
+
+\setlength\parindent{0pt}
+
+% -----------------------------
+% Problem Section Helpers
+% -----------------------------
+\newcommand{\enterProblemHeader}[1]{
+  \nobreak\extramarks{}{Problem #1 continued on next page\ldots}\nobreak{}
+  \nobreak\extramarks{Problem #1 (continued)}{Problem #1 continued on next page\ldots}\nobreak{}
+}
+
+\newcommand{\exitProblemHeader}[1]{
+  \nobreak\extramarks{Problem #1 (continued)}{Problem #1 continued on next page\ldots}\nobreak{}
+  \nobreak\extramarks{Problem #1}{}\nobreak{}
+}
+
+\setcounter{secnumdepth}{0}
+\newcounter{partCounter}
+\newcounter{homeworkProblemCounter}
+\setcounter{homeworkProblemCounter}{1}
+\nobreak\extramarks{Problem \arabic{homeworkProblemCounter}}{}\nobreak{}
+
+% -----------------------------
+% Theorem env (optional)
+% -----------------------------
+\newtheorem*{theorem}{Theorem}
+
+% -----------------------------
+% Homework Problem Environment
+%   Usage:
+%   \begin{homeworkProblem}            % auto-number
+%     % Your answer here
+%   \end{homeworkProblem}
+%
+%   \begin{homeworkProblem}[1.2.3]     % label problem "1.2.3" (e.g. textbook numbering)
+%     % Your answer here
+%   \end{homeworkProblem}
+% -----------------------------
+\newenvironment{homeworkProblem}[1][]{
+  \def\hwProblemLabel{#1}
+  \ifx\hwProblemLabel\empty
+    \edef\hwProblemLabel{\arabic{homeworkProblemCounter}}
+    \stepcounter{homeworkProblemCounter}
+  \fi
+  \section{Problem \hwProblemLabel}
+  \setcounter{partCounter}{1}
+  \enterProblemHeader{\hwProblemLabel}
+}{
+  \exitProblemHeader{\hwProblemLabel}
+}
+
+% -----------------------------
+% Homework Details (EDIT THESE)
+% -----------------------------
+\newcommand{\hmwkTitle}{Homework \#7}
+\newcommand{\hmwkClass}{Math 3320}
+\newcommand{\hmwkAuthorName}{\textbf{Joseph Quinn}}
+
+% -----------------------------
+% Title
+% -----------------------------
+\title{
+  \vspace{2in}
+  \textmd{\textbf{\hmwkClass:\ \hmwkTitle}}\\
+  \vspace{3in}
+}
+\author{\hmwkAuthorName}
+\date{}
+
+% -----------------------------
+% Convenience Macros (optional)
+% -----------------------------
+\renewcommand{\part}[1]{\textbf{\large Part \Alph{partCounter}}\stepcounter{partCounter}\\}
+
+% Algorithms
+\newcommand{\alg}[1]{\textsc{\bfseries \footnotesize #1}}
+
+% Calculus
+\newcommand{\deriv}[1]{\frac{\mathrm{d}}{\mathrm{d}x} (#1)}
+\newcommand{\pderiv}[2]{\frac{\partial}{\partial #1} (#2)}
+\newcommand{\dx}{\mathrm{d}x}
+
+% Statistics
+\newcommand{\E}{\mathrm{E}}
+\newcommand{\Var}{\mathrm{Var}}
+\newcommand{\Cov}{\mathrm{Cov}}
+\newcommand{\Bias}{\mathrm{Bias}}
+
+% Proof step (for aligned derivations)
+\newcommand{\step}[2]{& #1 & & \text{#2} \\}
+
+% Solution header (optional)
+\newcommand{\solution}{\textbf{\large Solution}}
+
+% -----------------------------
+% Document
+% -----------------------------
+\begin{document}
+
+\begin{homeworkProblem}[A14]
+
+	Given the LP
+	\[
+		\begin{aligned}
+			\max        & \quad z = -6x_1 - 25x_2 - 14x_3 \\
+			\text{s.t.} & -x_1 - 2x_2 - 4x_3  \leq -46    \\
+			            & 4x_1 - 5x_2 - 6x_3  \leq -54    \\
+			            & -x_1 - 4x_2 - 2x_3  \leq -24    \\
+			            & x_1, x_2, x_3       \geq 0
+		\end{aligned}
+	\]
+
+	\begin{enumerate}
+		\item[(I2)] Adding slack variables $x_4, x_5, x_6$ gives the initial dictionary,
+		      \[
+			      \begin{aligned}
+				      x_4 & = -46 + x_1 + 2x_2 + 4x_3  \\
+				      x_5 & = -54 - 4x_1 + 5x_2 + 6x_3 \\
+				      x_6 & = -24 + x_1 + 4x_2 + 2x_3  \\[4pt]
+				      z   & = -6x_1 - 25x_2 - 14x_3
+			      \end{aligned}
+		      \]
+		\item[(I3)] Every coefficient in $z$ is already $\le 0$, so this dictionary is dual feasible. But $x_4,x_5,x_6$ are all negative, making it primal infeasible, so we can apply the dual simplex method.
+	\end{enumerate}
+
+	\begin{enumerate}
+		\item[(D1)] The constants are $-46$, $-54$, and $-24$; by the dual largest coefficient rule we take the one of largest magnitude, so $x_5=-54$ is our leaving variable.
+		\item[(D2)] Looking at $x_5$'s row, only $x_2$ and $x_3$ are positive meaning the dual ratio test gives,
+		      \[
+			      \frac{|{-25}|}{5} = 5 \text{ for } x_2, \qquad \frac{|{-14}|}{6} = \frac{7}{3} \text{ for } x_3,
+		      \]
+		      so $x_3$ has the smaller ratio and becomes our entering variable.
+		\item[(D3)] After performing the pivot we get the dictionary,
+		      \[
+			      \begin{aligned}
+				      x_3 & = 9 + \tfrac{2}{3}x_1 - \tfrac{5}{6}x_2 + \tfrac{1}{6}x_5      \\
+				      x_4 & = -10 + \tfrac{11}{3}x_1 - \tfrac{4}{3}x_2 + \tfrac{2}{3}x_5   \\
+				      x_6 & = -6 + \tfrac{7}{3}x_1 + \tfrac{7}{3}x_2 + \tfrac{1}{3}x_5     \\[4pt]
+				      z   & = -126 - \tfrac{46}{3}x_1 - \tfrac{40}{3}x_2 - \tfrac{7}{3}x_5
+			      \end{aligned}
+		      \]
+	\end{enumerate}
+
+	\begin{enumerate}
+		\item[(D1)] From the rule $x_4$ has the larger magnitude, so it is our leaving variable.
+		\item[(D2)] Looking at $x_4$'s row, only $x_1$ and $x_5$ are positive meaning the dual ratio test gives,
+		      \[
+			      \frac{|{-46/3}|}{11/3} = \frac{46}{11} \text{ for } x_1, \qquad \frac{|{-7/3}|}{2/3} = \frac{7}{2} \text{ for } x_5,
+		      \]
+		      so $x_5$ has the smaller ratio and becomes our entering variable.
+		\item[(D3)] After performing the pivot we get the dictionary,
+		      \[
+			      \begin{aligned}
+				      x_3 & = \tfrac{23}{2} - \tfrac14 x_1 - \tfrac12 x_2 + \tfrac14 x_4 \\
+				      x_5 & = 15 - \tfrac{11}{2}x_1 + 2x_2 + \tfrac32 x_4                \\
+				      x_6 & = -1 + \tfrac12 x_1 + 3x_2 + \tfrac12 x_4                    \\[4pt]
+				      z   & = -161 - \tfrac52 x_1 - 18x_2 - \tfrac72 x_4
+			      \end{aligned}
+		      \]
+	\end{enumerate}
+
+	\begin{enumerate}
+		\item[(D1)] Since $x_6=-1$ is the only negative constant, it is our leaving variable.
+		\item[(D2)] Looking at $x_6$'s row, $x_1$, $x_2$, and $x_4$ all have positive coefficients, so they are all eligible. The dual ratio test gives,
+		      \[
+			      \frac{|{-5/2}|}{1/2} = 5 \text{ for } x_1, \qquad \frac{|{-18}|}{3} = 6 \text{ for } x_2, \qquad \frac{|{-7/2}|}{1/2} = 7 \text{ for } x_4,
+		      \]
+		      so $x_1$ has the smallest ratio and becomes our entering variable.
+		\item[(D3)] After performing the pivot we get the dictionary,
+		      \[
+			      \begin{aligned}
+				      x_1 & = 2 - 6x_2 - x_4 + 2x_6                  \\
+				      x_3 & = 11 + x_2 + \tfrac12 x_4 - \tfrac12 x_6 \\
+				      x_5 & = 4 + 35x_2 + 7x_4 - 11x_6               \\[4pt]
+				      z   & = -166 - 3x_2 - x_4 - 5x_6
+			      \end{aligned}
+		      \]
+
+		      All basic variable constants are now nonnegative and every coefficient in the $z$ row is still negative, so this dictionary is both primal and dual feasible, meaning it is optimal. The optimal solution is $(x_1=2,x_2=0,x_3=11)$, giving $z=-166$.
+	\end{enumerate}
+
+\end{homeworkProblem}
+
+\begin{homeworkProblem}[A15]
+	Given the LP
+	\[
+		\begin{aligned}
+			\max \quad z  & = 70x_1 + 250x_2 \\[4pt]
+			\text{s.t.} \quad
+			2x_1 + 1.5x_2 & \leq 120         \\
+			6x_1 + 20x_2  & \leq 600         \\
+			3x_1 + 1.6x_2 & \leq 100         \\
+			x_1, x_2      & \geq 0
+		\end{aligned}
+	\]
+
+	With the optimal dictionary
+	\[
+		\begin{aligned}
+			x_3 & = 75 - 1.55x_1 + 0.075x_4 \\
+			x_2 & = 30 - 0.3x_1 - 0.05x_4   \\
+			x_5 & = 52 - 2.52x_1 + 0.08x_4  \\[4pt]
+			z   & = 7500 - 5x_1 - 12.5x_4
+		\end{aligned}
+	\]
+
+	\begin{enumerate}[label=(\alph*)]
+		\item To see how much profit the filing cabinets would have to improve before we include them in our optimal solution, we need to look at its
+		      coefficient in the $z$ equation.
+
+		      We know it's a nonbasic variable and thus has a value of 0 and is not produced at all in our optimal solution, the coefficient on $x_1$ tells
+		      us how much it would need to increase before it would be included as a basic variable in the optimal solution. In this case
+		      it would have to increase by 5 or more.
+
+		      We see this by updating the original $z$ equation to the form of $z=(70+t)x_1+250x_2$
+
+		      This causes our optimal dictionary to have its $z$ equation as $7500 +(t-5)x_1-12.5x_4$. And our goal is to make $x_1$ no longer a nonbasic variable
+		      through a pivot meaning $t-5 \ge 0$ or $t \ge 5$
+
+		\item To find out the amount the steel supply could drop before the optimal solution changes we need to look at the $x_5$ basic variable, if we look we can see for the optimal solution
+		      $x_5=52$. Since the original constraint constant is 100, in our optimal solution our slack variable is 52 meaning we could reduce the supply down until 48 without affecting the optimal solution.
+		\item The current price of wood is \$8.40, if we cannot buy any more wood at this price but another supplier is willing to sell us more we need to determine the marginal value of the wood resource to
+		      determine how much of a premium we are willing to pay for the wood.
+
+		      We want to look at the nonbasic slack variable $x_4$ which corresponds to the marginal value of wood. To demonstrate this lets set the value of $x_4=-1$ meaning we use an additional unit of wood,
+		      this changes our $z$ value to become, $z=7500-12.5(-1) = 7512.5$ This is a 12.5 unit profit increase over the original optimal solution meaning for each additional unit of wood we increase our profit
+		      by 12.5 profit units. So we should be willing to pay up to a 12.5 profit unit margin for this resource.
+	\end{enumerate}
+\end{homeworkProblem}
+\end{document}
+
+
