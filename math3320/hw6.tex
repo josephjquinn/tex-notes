@@ -1,0 +1,555 @@
+\documentclass{article}
+
+% -----------------------------
+% Packages
+% -----------------------------
+\usepackage{fancyhdr}
+\usepackage{extramarks}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{tikz}
+\usepackage[plain]{algorithm}
+\usepackage{algpseudocode}
+\usepackage{amssymb}
+\usepackage{enumitem}
+
+\usetikzlibrary{automata,positioning}
+
+% -----------------------------
+% Basic Document Settings
+% -----------------------------
+\topmargin=-0.45in
+\evensidemargin=0in
+\oddsidemargin=0in
+\textwidth=6.5in
+\textheight=9.0in
+\headsep=0.25in
+
+\linespread{1.1}
+
+\pagestyle{fancy}
+\lhead{\hmwkAuthorName}
+\chead{\hmwkClass: \hmwkTitle}
+\rhead{}
+\lfoot{\lastxmark}
+\cfoot{\thepage}
+
+\renewcommand\headrulewidth{0.4pt}
+\renewcommand\footrulewidth{0.4pt}
+
+\setlength\parindent{0pt}
+
+% -----------------------------
+% Problem Section Helpers
+% -----------------------------
+\newcommand{\enterProblemHeader}[1]{
+  \nobreak\extramarks{}{Problem #1 continued on next page\ldots}\nobreak{}
+  \nobreak\extramarks{Problem #1 (continued)}{Problem #1 continued on next page\ldots}\nobreak{}
+}
+
+\newcommand{\exitProblemHeader}[1]{
+  \nobreak\extramarks{Problem #1 (continued)}{Problem #1 continued on next page\ldots}\nobreak{}
+  \nobreak\extramarks{Problem #1}{}\nobreak{}
+}
+
+\setcounter{secnumdepth}{0}
+\newcounter{partCounter}
+\newcounter{homeworkProblemCounter}
+\setcounter{homeworkProblemCounter}{1}
+\nobreak\extramarks{Problem \arabic{homeworkProblemCounter}}{}\nobreak{}
+
+% -----------------------------
+% Theorem env (optional)
+% -----------------------------
+\newtheorem*{theorem}{Theorem}
+
+% -----------------------------
+% Homework Problem Environment
+%   Usage:
+%   \begin{homeworkProblem}            % auto-number
+%     % Your answer here
+%   \end{homeworkProblem}
+%
+%   \begin{homeworkProblem}[1.2.3]     % label problem "1.2.3" (e.g. textbook numbering)
+%     % Your answer here
+%   \end{homeworkProblem}
+% -----------------------------
+\newenvironment{homeworkProblem}[1][]{
+  \def\hwProblemLabel{#1}
+  \ifx\hwProblemLabel\empty
+    \edef\hwProblemLabel{\arabic{homeworkProblemCounter}}
+    \stepcounter{homeworkProblemCounter}
+  \fi
+  \section{Problem \hwProblemLabel}
+  \setcounter{partCounter}{1}
+  \enterProblemHeader{\hwProblemLabel}
+}{
+  \exitProblemHeader{\hwProblemLabel}
+}
+
+% -----------------------------
+% Homework Details (EDIT THESE)
+% -----------------------------
+\newcommand{\hmwkTitle}{Homework \#6}
+\newcommand{\hmwkClass}{Math 3320}
+\newcommand{\hmwkAuthorName}{\textbf{Joseph Quinn}}
+
+% -----------------------------
+% Title
+% -----------------------------
+\title{
+  \vspace{2in}
+  \textmd{\textbf{\hmwkClass:\ \hmwkTitle}}\\
+  \vspace{3in}
+}
+\author{\hmwkAuthorName}
+\date{}
+
+% -----------------------------
+% Convenience Macros (optional)
+% -----------------------------
+\renewcommand{\part}[1]{\textbf{\large Part \Alph{partCounter}}\stepcounter{partCounter}\\}
+
+% Algorithms
+\newcommand{\alg}[1]{\textsc{\bfseries \footnotesize #1}}
+
+% Calculus
+\newcommand{\deriv}[1]{\frac{\mathrm{d}}{\mathrm{d}x} (#1)}
+\newcommand{\pderiv}[2]{\frac{\partial}{\partial #1} (#2)}
+\newcommand{\dx}{\mathrm{d}x}
+
+% Statistics
+\newcommand{\E}{\mathrm{E}}
+\newcommand{\Var}{\mathrm{Var}}
+\newcommand{\Cov}{\mathrm{Cov}}
+\newcommand{\Bias}{\mathrm{Bias}}
+
+% Proof step (for aligned derivations)
+\newcommand{\step}[2]{& #1 & & \text{#2} \\}
+
+% Solution header (optional)
+\newcommand{\solution}{\textbf{\large Solution}}
+
+% -----------------------------
+% Document
+% -----------------------------
+\begin{document}
+
+\maketitle
+\pagebreak
+\begin{homeworkProblem}[3.1.6]
+
+	\begin{enumerate}
+		\item[(a)]
+		      \( n=15 \) and \( k=3 \)
+
+		      to find \( d \) we find the min weight nonzero codeword which is 5 so \( d=5 \)
+
+
+
+		      Thus, this code can correct all errros of \( \le t \) with,
+		      \[
+			      t=\left\lfloor\frac{d-1}{2}\right\rfloor
+			      =\left\lfloor\frac{5-1}{2}\right\rfloor=2.
+		      \]
+
+		      (\( \mid C \mid = 2^k \) so we can sub that in for it)
+
+		      So we can now substitute into the hamming bound formula
+
+		      \[
+			      \begin{aligned}
+				      2^k\sum_{i=0}^{t}\binom{n}{i}  & \le 2^n    \\
+				      2^3\sum_{i=0}^{2}\binom{15}{i} & \le 2^{15} \\
+				      8\left(1+15+105\right)         & \le 32768  \\
+				      968\le 32768
+			      \end{aligned}
+		      \]
+		      This checks out so its valid bound
+
+		\item[(b)]
+		      Here $n=6$, $k=3$, and $d=3$, making our \( t \) the following,
+		      \[
+			      t=\left\lfloor\frac{3-1}{2}\right\rfloor=1.
+		      \]
+
+		      By the Hamming bound,
+		      \[
+			      \begin{aligned}
+				      2^k\sum_{i=0}^{t}\binom{n}{i} & \le 2^n \\
+				      2^3\sum_{i=0}^{1}\binom{6}{i} & \le 2^6 \\
+				      8(1+6)                        & \le 64  \\
+				      56\le 64
+			      \end{aligned}
+		      \]
+
+		      So, the Hamming bound is satisfied.
+
+		\item[(c)]
+
+		      Here $n=7$, $k=4$, and $d=3$. with \( t \) being calculated as the following,
+		      \[
+			      t=\left\lfloor\frac{3-1}{2}\right\rfloor=1.
+		      \]
+
+		      By the Hamming bound,
+		      \[
+			      \begin{aligned}
+				      2^k\sum_{i=0}^{t}\binom{n}{i} & \le 2^n \\
+				      2^4\sum_{i=0}^{1}\binom{7}{i} & \le 2^7 \\
+				      16(1+7)                       & \le 128 \\
+				      128\le 128
+			      \end{aligned}
+		      \]
+
+		      So, the Hamming bound is satisfied (with bonus of being a perfect code!)
+
+	\end{enumerate}
+\end{homeworkProblem}
+
+\begin{homeworkProblem}[3.1.11]
+	Because \( k \) columns are linearly dependent this means a linear combination of them equals 0, since \( c=vG \) creates a codeword through the generator matrix \(G \),
+	this is the same as taking a linear combination of the columns in \( G \) that align with \( 1 \)'s in \( v \). So this tells us there is some nonzero word that results in \( 0 \)'s from the depdentet columhns. If we use this same word
+	in \( c=vG \) (assuming the columns are in hte same place) we will get a codeword \( c \) where the depdent columns are set to 0.
+\end{homeworkProblem}
+
+\begin{homeworkProblem}[3.1.21]
+
+	We want a $(15,6,5)$ code, so the parity-check matrix
+	$H$ must have $15$ rows and $15-6=9$ columns.
+	\\
+	We know thatevery set of $4$ rows
+	must be linearly independent, and some set of
+	$5$ rows must be dependent.
+
+	From the example we can start with the identity matrix as the first 9 rows
+	of $H$.
+	\\
+	The example then gives us another 3 rows to work with,
+	\[
+		\begin{bmatrix}
+			I_9       \\
+			111100000 \\
+			100011100 \\
+			101000011
+		\end{bmatrix}
+	\]
+	So we only need to find the last $3$ rows.
+
+	\\
+
+	Suppose $j$ of the added (non-identity) rows sum to a
+	vector of weight $m$. That vector is also a sum of $m$ rows of
+	$I_9$, so together that is a dependence among $j+m$ rows.
+	For no $4$ rows to be dependent we need $j+m\ge 5$, i.e.
+	any sum of $j$ added rows must have weight at least $5-j$:
+	This means any new row we had must have a weight \( \ge 4 \), the sum of any $2$ added rows has weight $\ge 3$,
+	the sum of any $3$ added rows has weight $\ge 2$, and the sum of any $4$ added rows is nonzero.
+	\\
+	The rows $010101010$, $000001111$, $000110011$ satisfy these
+	conditions together with the example's rows, giving us a valid \( H \) matrix.
+	\[
+		H=
+		\begin{bmatrix}
+			I_9       \\
+			111100000 \\
+			100011100 \\
+			101000011 \\
+			010101010 \\
+			000001111 \\
+			000110011
+		\end{bmatrix}.
+	\]
+
+	So $H$ defines a $(15,6,5)$ code.
+
+\end{homeworkProblem}
+
+\begin{homeworkProblem}[3.2.5]
+	\begin{proof}
+		We have the following sum of binomials
+		\[
+			\binom{n}{0}+\binom{n}{1}
+		\]
+
+		\( n \) choose 0 of any number \( n \) is always \( 1 \) as there is only one way to choose nothing, and \( n \) choose 1 is always \( n \)
+		as there is always \( n \) ways to choose a single item from a set of \( n \).
+
+		So
+
+		\[
+			\binom{n}{0}+\binom{n}{1} = 1 + n
+		\]
+		Then if we sub in $n=2^r-1$, we have
+
+		\[
+			\begin{aligned}
+				 & =1+n       \\
+				 & =1+(2^r-1) \\
+				 & =2^r.
+			\end{aligned}
+		\]
+	\end{proof}
+
+\end{homeworkProblem}
+\begin{homeworkProblem}
+	\begin{enumerate}
+		\item[(a)]
+
+		      $n=15$, $d=3$
+
+		      Since $d=3$, we have $t=1$. Thus,
+		      \[
+			      \begin{aligned}
+				      |C|\left(\binom{15}{0}+\binom{15}{1}\right)
+				                & =2^{15}                    \\
+				      |C|(1+15) & =2^{15}                    \\
+				      |C|       & =\frac{2^{15}}{16}=2^{11}.
+			      \end{aligned}
+		      \]
+
+		      If we look at the hamming code with \( r= 4 \) we get:
+		      \begin{itemize}
+			      \item \( n=2^4-1=15 \)
+			      \item \( d=3 \)
+			      \item \( k=2^4-1-4=16-1-5=11\)
+		      \end{itemize}
+
+		      Because \( k=11 \), \( \mid C \mid = 2^11 \) which is exactly our hamming bound!
+
+		      Meaning this hamming code is a perfect code satisfying the above requirements!
+
+
+		\item[(b)]
+		      $n=31$, $d=3$
+
+		      Again, $t=1$. Thus,
+		      \[
+			      \begin{aligned}
+				      |C|\left(\binom{31}{0}+\binom{31}{1}\right)
+				                & =2^{31}                    \\
+				      |C|(1+31) & =2^{31}                    \\
+				      |C|       & =\frac{2^{31}}{32}=2^{26}.
+			      \end{aligned}
+		      \]
+
+		      If we look at the hamming code with \( r= 5\) we get:
+		      \begin{itemize}
+			      \item \( n=2^5-1 = 31 \)
+			      \item \( d=3 \)
+			      \item \( k=2^5-1-5=32-1-5=26\)
+		      \end{itemize}
+
+		      Because \( k=26 \), \( \mid C \mid = 2^26 \) which is exactly our hamming bound!
+
+		      Meaning this hamming code is a perfect code satisfying the above requirements!
+
+		\item[(c)]
+		      $n=15$, $d=5$
+
+		      Since $d=5$, we have $t=2$. Thus,
+		      \[
+			      \begin{aligned}
+				      |C|\left(
+				      \binom{15}{0}+
+				      \binom{15}{1}+
+				      \binom{15}{2}
+				      \right)       & =2^{15}              \\
+				      |C|(1+15+105) & =2^{15}              \\
+				      |C|           & =\frac{2^{15}}{121}.
+			      \end{aligned}
+		      \]
+
+		      Since the denominator is not a power of two the fraction is not an integer meaning no code will satisfy this condition.
+
+	\end{enumerate}
+\end{homeworkProblem}
+
+
+\begin{homeworkProblem}[3.3.3]
+	For a binary Hamming code of length $n=15$, we have
+	\(
+	n=2^r-1.
+	\)
+	meaning
+	\[
+		15=2^4-1 \implies r=4.
+	\]
+
+	With this, we can find the dimension:
+	\[
+		k=n-r=15-4=11.
+	\]
+
+	Our generator matrix must be $11\times 15$, and
+	in standard form it will look like,
+	\[
+		G=[I_{11}\mid P].
+	\]
+
+	First to get here we must construct the parity check matrix as we need to maintain that each row is non zero.
+
+	\[
+		H=
+		\begin{bmatrix}
+			P \\
+			I_4
+		\end{bmatrix}.
+	\]
+
+	Its fairly trivial to fill the matrix as there are $2^4=16$ binary vectors of length 4 (15 minus the zero vector).
+	so we can just fill in all the vectors as rows making sure to keep the identity matrix at the bottom.
+
+	\[
+		H=
+		\left[
+			\begin{array}{cccc}
+				0 & 0 & 1 & 1 \\
+				0 & 1 & 0 & 1 \\
+				0 & 1 & 1 & 0 \\
+				0 & 1 & 1 & 1 \\
+				1 & 0 & 0 & 1 \\
+				1 & 0 & 1 & 0 \\
+				1 & 0 & 1 & 1 \\
+				1 & 1 & 0 & 0 \\
+				1 & 1 & 0 & 1 \\
+				1 & 1 & 1 & 0 \\
+				1 & 1 & 1 & 1 \\ \hline
+				1 & 0 & 0 & 0 \\
+				0 & 1 & 0 & 0 \\
+				0 & 0 & 1 & 0 \\
+				0 & 0 & 0 & 1
+			\end{array}
+			\right]
+		=
+		\begin{bmatrix}
+			P \\
+			I_4
+		\end{bmatrix}.
+	\]
+
+	This is in standard form so to get the associated generator matrix we simply keep \( P \) as is and add the \( I_{11} \) identity matrix to the left.
+	we obtain
+	\[
+		G=
+		\left[
+			\begin{array}{c|cccc}
+				       & 0 & 0 & 1 & 1 \\
+				       & 0 & 1 & 0 & 1 \\
+				       & 0 & 1 & 1 & 0 \\
+				       & 0 & 1 & 1 & 1 \\
+				I_{11} & 1 & 0 & 0 & 1 \\
+				       & 1 & 0 & 1 & 0 \\
+				       & 1 & 0 & 1 & 1 \\
+				       & 1 & 1 & 0 & 0 \\
+				       & 1 & 1 & 0 & 1 \\
+				       & 1 & 1 & 1 & 0 \\
+				       & 1 & 1 & 1 & 1
+			\end{array}
+			\right].
+	\]
+
+	Now to encode the message,
+	\(
+	u=11111000000.
+	\)
+	with
+	\[
+		c=uG.
+	\]
+
+	Since its in standard form the first 11 digits will simply be \( u \), and the remaining 4 will be the linear combinations of the last 4 columns, since the first
+	5 digits of \( u \) are 1 its easy and is simply the sum of the first 5 rows.
+
+	\[
+		\begin{aligned}
+			 & =0011+0101+0110+0111+1001 \\
+			 & =1110.
+		\end{aligned}
+	\]
+
+	and finally add both pieces together,
+	\[
+		c=[11111000000\mid 1110].
+	\]
+
+	making the final encoded message,
+	\[
+		c=111110000001110.
+	\]
+\end{homeworkProblem}
+
+\begin{homeworkProblem}[3.3.5]
+	We use the same parity check matrix \( H \) from the last problem
+
+	Since \( d=3 \), the code corrects any single error, so the coset leaders are \( 0 \) and the
+	15 words of weight 1.
+	\[
+		\begin{array}{c|c}
+			\text{Syndrome} & \text{Coset Leader} \\
+			\hline
+			0000            & 000000000000000     \\
+			0011            & 100000000000000     \\
+			0101            & 010000000000000     \\
+			0110            & 001000000000000     \\
+			0111            & 000100000000000     \\
+			1001            & 000010000000000     \\
+			1010            & 000001000000000     \\
+			1011            & 000000100000000     \\
+			1100            & 000000010000000     \\
+			1101            & 000000001000000     \\
+			1110            & 000000000100000     \\
+			1111            & 000000000010000     \\
+			1000            & 000000000001000     \\
+			0100            & 000000000000100     \\
+			0010            & 000000000000010     \\
+			0001            & 000000000000001
+		\end{array}
+	\]
+
+	To decode \( w \) we compute \( wH \) (the sum of the rows of \( H \) where \( w \) has a 1),
+	look up its coset leader \( u \), and decode to \( c=w+u \).
+
+	\begin{enumerate}
+		\item[(a)]
+		      \( w=01010\ 01010\ 01000 \) has 1's in positions \( 2,4,7,9,12 \), so
+		      \[
+			      \begin{aligned}
+				      wH & =0101+0111+1011+1101+1000 \\
+				         & =1100.
+			      \end{aligned}
+		      \]
+		      From the SDA, \( 1100 \) has coset leader \( u=000000010000000 \), so
+		      \[
+			      c=w+u=01010\ 01110\ 01000.
+		      \]
+
+		\item[(b)]
+		      \( w=11110\ 00101\ 10110 \) has 1's in positions \( 1,2,3,4,8,10,11,13,14 \), so
+		      \[
+			      \begin{aligned}
+				      wH & =0011+0101+0110+0111+1100+1110+1111+0100+0010 \\
+				         & =1100.
+			      \end{aligned}
+		      \]
+		      Again the coset leader is \( u=000000010000000 \), so
+		      \[
+			      c=w+u=11110\ 00001\ 10110.
+		      \]
+
+		\item[(c)]
+		      \( w=11100\ 01110\ 00111 \) has 1's in positions \( 1,2,3,7,8,9,13,14,15 \), so
+		      \[
+			      \begin{aligned}
+				      wH & =0011+0101+0110+1011+1100+1101+0100+0010+0001 \\
+				         & =1101.
+			      \end{aligned}
+		      \]
+		      From the SDA, \( 1101 \) has coset leader \( u=000000001000000 \), so
+		      \[
+			      c=w+u=11100\ 01100\ 00111.
+		      \]
+	\end{enumerate}
+\end{homeworkProblem}
+\end{document}

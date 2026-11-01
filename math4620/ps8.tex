@@ -1,0 +1,522 @@
+
+\documentclass{article}
+
+% -----------------------------
+% Packages
+% -----------------------------
+\usepackage{fancyhdr}
+\usepackage{extramarks}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{tikz}
+\usepackage[plain]{algorithm}
+\usepackage{algpseudocode}
+\usepackage{amssymb}
+\usepackage{enumitem}
+
+\usetikzlibrary{automata,positioning}
+
+% -----------------------------
+% Basic Document Settings
+% -----------------------------
+\topmargin=-0.45in
+\evensidemargin=0in
+\oddsidemargin=0in
+\textwidth=6.5in
+\textheight=9.0in
+\headsep=0.25in
+
+\linespread{1.1}
+
+\pagestyle{fancy}
+\lhead{\hmwkAuthorName}
+\chead{\hmwkClass: \hmwkTitle}
+\rhead{}
+\lfoot{\lastxmark}
+\cfoot{\thepage}
+
+\renewcommand\headrulewidth{0.4pt}
+\renewcommand\footrulewidth{0.4pt}
+
+\setlength\parindent{0pt}
+
+% -----------------------------
+% Problem Section Helpers
+% -----------------------------
+\newcommand{\enterProblemHeader}[1]{
+  \nobreak\extramarks{}{Problem #1 continued on next page\ldots}\nobreak{}
+  \nobreak\extramarks{Problem #1 (continued)}{Problem #1 continued on next page\ldots}\nobreak{}
+}
+
+\newcommand{\exitProblemHeader}[1]{
+  \nobreak\extramarks{Problem #1 (continued)}{Problem #1 continued on next page\ldots}\nobreak{}
+  \nobreak\extramarks{Problem #1}{}\nobreak{}
+}
+
+\setcounter{secnumdepth}{0}
+\newcounter{partCounter}
+\newcounter{homeworkProblemCounter}
+\setcounter{homeworkProblemCounter}{1}
+\nobreak\extramarks{Problem \arabic{homeworkProblemCounter}}{}\nobreak{}
+
+% -----------------------------
+% Theorem env (optional)
+% -----------------------------
+\newtheorem*{theorem}{Theorem}
+
+% -----------------------------
+% Homework Problem Environment
+%   Usage:
+%   \begin{homeworkProblem}            % auto-number
+%     % Your answer here
+%   \end{homeworkProblem}
+%
+%   \begin{homeworkProblem}[1.2.3]     % label problem "1.2.3" (e.g. textbook numbering)
+%     % Your answer here
+%   \end{homeworkProblem}
+% -----------------------------
+\newenvironment{homeworkProblem}[1][]{
+  \def\hwProblemLabel{#1}
+  \ifx\hwProblemLabel\empty
+    \edef\hwProblemLabel{\arabic{homeworkProblemCounter}}
+    \stepcounter{homeworkProblemCounter}
+  \fi
+  \section{Problem \hwProblemLabel}
+  \setcounter{partCounter}{1}
+  \enterProblemHeader{\hwProblemLabel}
+}{
+  \exitProblemHeader{\hwProblemLabel}
+}
+
+% -----------------------------
+% Homework Details (EDIT THESE)
+% -----------------------------
+\newcommand{\hmwkTitle}{Homework \#7}
+\newcommand{\hmwkClass}{Math 3320}
+\newcommand{\hmwkAuthorName}{\textbf{Joseph Quinn}}
+
+% -----------------------------
+% Title
+% -----------------------------
+\title{
+  \vspace{2in}
+  \textmd{\textbf{\hmwkClass:\ \hmwkTitle}}\\
+  \vspace{3in}
+}
+\author{\hmwkAuthorName}
+\date{}
+
+% -----------------------------
+% Convenience Macros (optional)
+% -----------------------------
+\renewcommand{\part}[1]{\textbf{\large Part \Alph{partCounter}}\stepcounter{partCounter}\\}
+
+% Algorithms
+\newcommand{\alg}[1]{\textsc{\bfseries \footnotesize #1}}
+
+% Calculus
+\newcommand{\deriv}[1]{\frac{\mathrm{d}}{\mathrm{d}x} (#1)}
+\newcommand{\pderiv}[2]{\frac{\partial}{\partial #1} (#2)}
+\newcommand{\dx}{\mathrm{d}x}
+
+% Statistics
+\newcommand{\E}{\mathrm{E}}
+\newcommand{\Var}{\mathrm{Var}}
+\newcommand{\Cov}{\mathrm{Cov}}
+\newcommand{\Bias}{\mathrm{Bias}}
+
+% Proof step (for aligned derivations)
+\newcommand{\step}[2]{& #1 & & \text{#2} \\}
+
+% Solution header (optional)
+\newcommand{\solution}{\textbf{\large Solution}}
+
+% -----------------------------
+% Document
+% -----------------------------
+\begin{document}
+
+\begin{homeworkProblem}[A16]
+
+	\begin{enumerate}[label=(\alph*)]
+		\item
+		      We can formulate the problem as a linear program, we will assign decision variables to represent the following (each in units of widgets produced per day),
+
+		      \[
+			      \begin{aligned}
+				      x_1 & = \text{number of small widgets produced}  \\
+				      x_2 & = \text{number of medium widgets produced} \\
+				      x_3 & = \text{number of large widgets produced}  \\
+				      x_4 & = \text{number of gadgets produced}
+			      \end{aligned}
+		      \]
+
+		      We can represent total production profit in dollars per day as $z=42x_1 + 82x_2+134x_3+54x_4$
+
+		      Then given the constarints of 390 kg of plastic, 770 kg of metal, and 180 hours of labor available each day, we can represent the full LP problem as:
+		      \[
+			      \begin{aligned}
+				      \text{max} \quad  & z     = 42x_1 + 82x_2 + 134x_3 + 54x_4 \\
+				      \text{s.t.} \quad &
+				      2x_1 + 4x_2 + 6x_3 + 3x_4   \le 390                        \\
+				                        & 4x_1 + 9x_2 + 13x_3 + 5x_4  \le 770    \\
+				                        & x_1 + 2x_2 + 3x_3 + x_4     \le 180    \\
+				                        & x_1, x_2, x_3, x_4          \ge 0
+			      \end{aligned}
+		      \]
+
+		      \begin{enumerate}
+			      \item[(I1)] This is already in standard form so we can proceed.
+			      \item[(I2)] Setup the initial dictionary like so,
+			            \[
+				            \begin{aligned}
+					            x_5 & = 390 - 2x_1 - 4x_2 - 6x_3 - 3x_4  \\
+					            x_6 & = 770 - 4x_1 - 9x_2 - 13x_3 - 5x_4 \\
+					            x_7 & = 180 - x_1 - 2x_2 - 3x_3 - x_4    \\
+					            z   & = 42x_1 + 82x_2 + 134x_3 + 54x_4
+				            \end{aligned}
+			            \]
+			      \item[(I3)] This gives the basic feasible solution $(x_1=0,x_2=0,x_3=0,x_4=0,x_5=390,x_6=770,x_7=180)$ with $z=0$.
+
+			      \item[(P1)] By Bland's rule the entering variable is the smallest indexed variable with a positive coefficient in $z$, which is $x_1$.
+			      \item[(P2)] Via the ratio test we see,
+			            \[
+				            \begin{aligned}
+					            x_1 & \le 195   \text{ for } x_5 \\
+					            x_1 & \le 192.5 \text{ for } x_6 \\
+					            x_1 & \le 180   \text{ for } x_7
+				            \end{aligned}
+			            \]
+			            So $x_7$ has the tightest bound and becomes our leaving variable.
+			      \item[(P3)] After performing the pivot we get the dictionary,
+			            \begin{align*}
+				            x_1 & = 180 - 2x_2 - 3x_3 - x_4 - x_7      \\
+				            x_5 & = 30 - x_4 + 2x_7                    \\
+				            x_6 & = 50 - x_2 - x_3 - x_4 + 4x_7        \\
+				            z   & = 7560 - 2x_2 + 8x_3 + 12x_4 - 42x_7
+			            \end{align*}
+			      \item[(P4)] This gives the basic feasible solution $(x_1=180,x_2=0,x_3=0,x_4=0,x_5=30,x_6=50,x_7=0)$ with $z=7560$.
+
+			      \item[(P1)] Bland's rule makes $x_3$ our entering variable.
+			      \item[(P2)] Via the ratio test,
+			            \[
+				            \begin{aligned}
+					            x_3 & \le 60 \text{ for } x_1             \\
+					            x_3 & \text{ has no restriction for } x_5 \\
+					            x_3 & \le 50 \text{ for } x_6
+				            \end{aligned}
+			            \]
+			            So $x_6$ has the tightest restriction and becomes our leaving variable.
+			      \item[(P3)] After performing the pivot we get the dictionary,
+			            \begin{align*}
+				            x_1 & = 30 + x_2 + 2x_4 + 3x_6 - 13x_7     \\
+				            x_3 & = 50 - x_2 - x_4 - x_6 + 4x_7        \\
+				            x_5 & = 30 - x_4 + 2x_7                    \\
+				            z   & = 7960 - 10x_2 + 4x_4 - 8x_6 - 10x_7
+			            \end{align*}
+			      \item[(P4)] This gives the basic feasible solution $(x_1=30,x_2=0,x_3=50,x_4=0,x_5=30,x_6=0,x_7=0)$ with $z=7960$.
+
+			      \item[(P1)] The only positive coefficient left in $z$ belongs to $x_4$, so by Bland's rule it is our entering variable.
+			      \item[(P2)] Via the ratio test,
+			            \[
+				            \begin{aligned}
+					            x_4 & \text{ has no restriction for } x_1 \\
+					            x_4 & \le 50 \text{ for } x_3             \\
+					            x_4 & \le 30 \text{ for } x_5
+				            \end{aligned}
+			            \]
+			            So $x_5$ has the tightest restriction and becomes our leaving variable.
+			      \item[(P3)] After performing the pivot we get the dictionary,
+			            \begin{align*}
+				            x_1 & = 90 + x_2 - 2x_5 + 3x_6 - 9x_7     \\
+				            x_3 & = 20 - x_2 + x_5 - x_6 + 2x_7       \\
+				            x_4 & = 30 - x_5 + 2x_7                   \\
+				            z   & = 8080 - 10x_2 - 4x_5 - 8x_6 - 2x_7
+			            \end{align*}
+
+			            Every coefficient in the $z$ row is now negative, so this dictionary is optimal. The optimal solution is $(x_1=90,x_2=0,x_3=20,x_4=30)$, giving a maximum profit of $z=8080$.
+		      \end{enumerate}
+
+		\item Since $x_3$ is a basic variable, changing its profit coefficient changes only the $z$ row of the optimal dictionary, so we look there.
+
+		      Let the net profit on large widgets change from $134$ to $134+t$. Then
+		      \[
+			      \begin{aligned}
+				      z_{\text{new}} & = 42x_1+82x_2+(134+t)x_3+54x_4 \\
+				                     & = z_{\text{old}} + t x_3.
+			      \end{aligned}
+		      \]
+		      Substituting the optimal dictionary's expression for $x_3$, $x_3 = 20 - x_2 + x_5 - x_6 + 2x_7$, gives
+		      \begin{align*}
+			      z_{\text{new}} & = (8080 - 10x_2 - 4x_5 - 8x_6 - 2x_7) + t(20 - x_2 + x_5 - x_6 + 2x_7) \\
+			                     & = (8080+20t) + (-10-t)x_2 + (-4+t)x_5 + (-8-t)x_6 + (-2+2t)x_7.
+		      \end{align*}
+
+		      For the dictionary to remain optimal it must maintain dual optimality, meaning every nonbasic coefficient must stay $\le 0$,
+		      \[
+			      \begin{aligned}
+				      -10-t & \le 0 \implies t \ge -10 \\
+				      -4+t  & \le 0 \implies t \le 4   \\
+				      -8-t  & \le 0 \implies t \ge -8  \\
+				      -2+2t & \le 0 \implies t \le 1
+			      \end{aligned}
+		      \]
+		      and the tightest bounds give $-8 \le t \le 1$.
+
+		      So in terms of the original coefficient, $126 \le 134+t \le 135$. Thus the solution from (a) stays optimal as long as the net profit on large widgets is between \$126 and \$135 per widget.
+
+		\item The plastic constraint is the first one, so its slack variable $x_5$ is the one tied to this resource. Changing the RHS of that constraint only shifts the constant column of the optimal dictionary, so we look there.
+
+		      Let the plastic availability change from $390$ to $390+s$. Since $x_5$ is the slack on this constraint, increasing the RHS by $s$ increases $x_5$ by $s$ as well, so $x_{5\text{old}} = x_{5\text{new}} - s$. Substituting this into the optimal dictionary,
+		      \begin{align*}
+			      x_1 & = 90 + x_2 - 2(x_5-s) + 3x_6 - 9x_7      \\
+			      x_3 & = 20 - x_2 + (x_5-s) - x_6 + 2x_7        \\
+			      x_4 & = 30 - (x_5-s) + 2x_7                    \\
+			      z   & = 8080 - 10x_2 - 4(x_5-s) - 8x_6 - 2x_7  \\
+			          & = (8080+4s) - 10x_2 - 4x_5 - 8x_6 - 2x_7
+		      \end{align*}
+
+		      Simplifying this to rearange the $s$ to be on the constant we get,
+
+		      \begin{align*}
+			      x_1 & =   (90+2s) + x_2 - 2x_5 + 3x_6 - 9x_7   \\
+			      x_3 & = (20-s) - x_2 + x_5 - x_6 + 2x_7        \\
+			      x_4 & = (30+s) - x_5 + 2x_7                    \\
+			      z   & = (8080+4s) - 10x_2 - 4x_5 - 8x_6 - 2x_7
+		      \end{align*}
+
+
+		      The $z$ row coefficients are unchanged, so dual feasibility still holds regardless of $s$. For the basis to remain optimal we only need primal feasibility, meaning every basic variable constant stays $\ge 0$,
+		      \[
+			      \begin{aligned}
+				      90+2s & \ge 0 \implies s \ge -45 \\
+				      20-s  & \ge 0 \implies s \le 20  \\
+				      30+s  & \ge 0 \implies s \ge -30
+			      \end{aligned}
+		      \]
+		      and the tightest bounds give $-30 \le s \le 20$.
+
+		      So in terms of the original availability, $360 \le 390+s \le 410$. Thus the basis from (a) stays optimal as long as the daily plastic supply is between $360$ kg and $410$ kg.
+
+		\item Raising the net profit on large widgets to \$138 means $t=138-134=4$ in the notation of (b), which falls outside the $-8\le t\le1$ range found there, so the basis from (a) is no longer optimal and we must pivot again.
+
+		      Plugging $t=4$ into the $z$ row from (b) gives,
+		      \[
+			      \begin{aligned}
+				      z & = (8080+20(4)) - (10+4)x_2 + (-4+4)x_5 - (8+4)x_6 + (-2+2(4))x_7 \\
+				        & = 8160 - 14x_2 - 12x_6 + 6x_7,
+			      \end{aligned}
+		      \]
+		      so the dictionary from (a) becomes
+		      \begin{align*}
+			      x_1 & = 90 + x_2 - 2x_5 + 3x_6 - 9x_7 \\
+			      x_3 & = 20 - x_2 + x_5 - x_6 + 2x_7   \\
+			      x_4 & = 30 - x_5 + 2x_7               \\
+			      z   & = 8160 - 14x_2 - 12x_6 + 6x_7
+		      \end{align*}
+
+		      this introduceds a positive coefficient in the $z$ equation meaning we must continue with the simplex to find the new optimal solution.
+
+		      \begin{enumerate}
+			      \item[(P1)] The only positive coefficient in $z$ is on $x_7$, so by Bland's rule it is our entering variable.
+			      \item[(P2)] Via the ratio test,
+			            \[
+				            \begin{aligned}
+					            x_7 & \le \frac{90}{9} = 10 \text{ for } x_1 \\
+					            x_7 & \text{ has no restriction for } x_3    \\
+					            x_7 & \text{ has no restriction for } x_4
+				            \end{aligned}
+			            \]
+			            So $x_1$ has the tightest restriction and becomes our leaving variable.
+			      \item[(P3)] After performing the pivot we get the dictionary,
+			            \begin{align*}
+				            x_7 & = 10 - \tfrac{1}{9}x_1 + \tfrac{1}{9}x_2 - \tfrac{2}{9}x_5 + \tfrac{1}{3}x_6  \\
+				            x_3 & = 40 - \tfrac{2}{9}x_1 - \tfrac{7}{9}x_2 + \tfrac{5}{9}x_5 - \tfrac{1}{3}x_6  \\
+				            x_4 & = 50 - \tfrac{2}{9}x_1 + \tfrac{2}{9}x_2 - \tfrac{13}{9}x_5 + \tfrac{2}{3}x_6 \\
+				            z   & = 8220 - \tfrac{2}{3}x_1 - \tfrac{40}{3}x_2 - \tfrac{4}{3}x_5 - 10x_6
+			            \end{align*}
+
+			            Every coefficient in the $z$ row is now negative, so this dictionary is optimal. The new optimal solution is $(x_1=0,x_2=0,x_3=40,x_4=50)$, giving a maximum profit of $z=8220$.
+		      \end{enumerate}
+
+		\item Raising plastic availability to $420$ means $s=420-390=30$ in the notation of (c), which falls outside the $-30\le s\le20$ range found there, so the basis from (a) is no longer primal feasible.
+
+		      Plugging $s=30$ into the dictionary from (c) gives,
+		      \begin{align*}
+			      x_1 & = 90+2(30) + x_2 - 2x_5 + 3x_6 - 9x_7     \\
+			      x_3 & = 20-30 - x_2 + x_5 - x_6 + 2x_7          \\
+			      x_4 & = 30+30 - x_5 + 2x_7                      \\
+			      z   & = 8080+4(30) - 10x_2 - 4x_5 - 8x_6 - 2x_7
+		      \end{align*}
+		      Simplifying becomes the dictionary:
+		      \begin{align*}
+			      x_1
+			       & = 150 + x_2 - 2x_5 + 3x_6 - 9x_7    \\
+			      x_3
+			       & = -10 - x_2 + x_5 - x_6 + 2x_7      \\
+			      x_4
+			       & = 60 - x_5 + 2x_7                   \\
+			      z
+			       & = 8200 - 10x_2 - 4x_5 - 8x_6 - 2x_7
+		      \end{align*}
+
+
+		      The $z$ row is still all $\le 0$, so this dictionary is dual feasible. But  $x_3=-10$ makes this dictionary primal infeasible. This means we can apply the dual simplex method instead of starting over.
+
+		      \begin{enumerate}
+			      \item[(D1)] Since $x_3=-10$ is the only negative constant, it is our leaving variable.
+			      \item[(D2)] Looking at $x_3$'s row, only $x_5$ and $x_7$ have positive coefficients, so they are the only candidates to enter. The dual ratio test gives,
+			            \[
+				            \frac{|-4|}{1} = 4 \text{ for } x_5, \qquad \frac{|-2|}{2} = 1 \text{ for } x_7,
+			            \]
+			            so $x_7$ has the smaller ratio and becomes our entering variable.
+			      \item[(D3)] After performing the pivot we get the dictionary,
+			            \begin{align*}
+				            x_7 & = 5 + \tfrac{1}{2}x_2 + \tfrac{1}{2}x_3 - \tfrac{1}{2}x_5 + \tfrac{1}{2}x_6   \\
+				            x_1 & = 105 - \tfrac{7}{2}x_2 - \tfrac{9}{2}x_3 + \tfrac{5}{2}x_5 - \tfrac{3}{2}x_6 \\
+				            x_4 & = 70 + x_2 + x_3 - 2x_5 + x_6                                                 \\
+				            z   & = 8190 - 11x_2 - x_3 - 3x_5 - 9x_6
+			            \end{align*}
+
+			            All basic variable constants are now nonnegative and every coefficient in the $z$ row is negative, so this dictionary is both primal and dual feasible, meaning it is optimal. The new optimal solution is $(x_1=105,x_2=0,x_3=0,x_4=70)$, giving a maximum profit of $z=8190$.
+		      \end{enumerate}
+
+		\item Let $x_8$ be the number of gizmos produced, using $11$ kg of plastic, $25$ kg of metal, and $5$ hours of labor each, with a profit of $\$256$.
+
+		      We need to calculate what the new $x_8$ column will become in the optimal dictionary. Since $x_5,x_6,x_7$ are the slack variables of the original constraints, their coefficients in the optimal dictionary from (a) make up the basis. 
+		      \[
+			      A_B^{-1} = \begin{bmatrix} 2 & -3 & 9 \\ -1 & 1 & -2 \\ 1 & 0 & -2 \end{bmatrix}.
+		      \]
+		      The new column in the current basis is then (solved via Mathematica)
+		      \[
+			      \bar A_8 = A_B^{-1}\begin{pmatrix} 11 \\ 25 \\ 5 \end{pmatrix}
+			      = \begin{bmatrix} 2 & -3 & 9 \\ -1 & 1 & -2 \\ 1 & 0 & -2 \end{bmatrix}\begin{pmatrix} 11 \\ 25 \\ 5 \end{pmatrix}
+			      = \begin{pmatrix} -8 \\ 4 \\ 1 \end{pmatrix}
+		      \]
+		      so $x_8$'s coefficient in each basic variable's equation is the above matrix negated giving
+		      \begin{align*}
+			      x_1 & = 90 + x_2 - 2x_5 + 3x_6 - 9x_7 + 8x_8     \\
+			      x_3 & = 20 - x_2 + x_5 - x_6 + 2x_7 - 4x_8       \\
+			      x_4 & = 30 - x_5 + 2x_7 - x_8                    \\
+			      z   & = 8080 - 10x_2 - 4x_5 - 8x_6 - 2x_7 + 2x_8
+		      \end{align*}
+
+		      \begin{enumerate}
+			      \item[(P1)] The only positive coefficient in $z$ is on $x_8$, so by Bland's rule it is our entering variable.
+			      \item[(P2)] Via the ratio test,
+			            \[
+				            \begin{aligned}
+					            x_8 & \text{ has no restriction for } x_1    \\
+					            x_8 & \le \frac{20}{4} = 5 \text{ for } x_3  \\
+					            x_8 & \le \frac{30}{1} = 30 \text{ for } x_4
+				            \end{aligned}
+			            \]
+			            So $x_3$ has the tightest restriction and becomes our leaving variable.
+			      \item[(P3)] After performing the pivot we get the dictionary,
+			            \begin{align*}
+				            x_1 & = 130 - x_2 - 2x_3 + x_6 - 5x_7                                                                \\
+				            x_4 & = 25 + \tfrac{1}{4}x_2 + \tfrac{1}{4}x_3 - \tfrac{5}{4}x_5 + \tfrac{1}{4}x_6 + \tfrac{3}{2}x_7 \\
+				            x_8 & = 5 - \tfrac{1}{4}x_2 - \tfrac{1}{4}x_3 + \tfrac{1}{4}x_5 - \tfrac{1}{4}x_6 + \tfrac{1}{2}x_7  \\
+				            z   & = 8090 - \tfrac{21}{2}x_2 - \tfrac{1}{2}x_3 - \tfrac{7}{2}x_5 - \tfrac{17}{2}x_6 - x_7
+			            \end{align*}
+
+			            Every coefficient in the $z$ row is now negative, so this dictionary is optimal. The new optimal solution is $(x_1=130,x_2=0,x_3=0,x_4=25,x_8=5)$, giving a maximum profit of $z=8090$. So the company should start producing gizmos.
+		      \end{enumerate}
+
+		\item This adds an entirely new constraint to the original LP, so let $x_8$ be the slack variable for electricity,
+		      \[
+			      5x_1+9x_2+14x_3+8x_4+x_8 = 900.
+		      \]
+		      Substituting the optimal dictionary from (a) for $x_1,x_3,x_4$ into this constraint gives $x_8$'s row in the current basis,
+		      \begin{align*}
+			      x_8 & = 900-5x_1-9x_2-14x_3-8x_4                                                 \\
+			          & = 900-5(90+x_2-2x_5+3x_6-9x_7)-9x_2-14(20-x_2+x_5-x_6+2x_7)-8(30-x_5+2x_7) \\
+			          & = -70+4x_5-x_6+x_7.
+		      \end{align*}
+		      Adding this row to the dictionary from (a),
+		      \begin{align*}
+			      x_1 & = 90 + x_2 - 2x_5 + 3x_6 - 9x_7     \\
+			      x_3 & = 20 - x_2 + x_5 - x_6 + 2x_7       \\
+			      x_4 & = 30 - x_5 + 2x_7                   \\
+			      x_8 & = -70 + 4x_5 - x_6 + x_7            \\
+			      z   & = 8080 - 10x_2 - 4x_5 - 8x_6 - 2x_7
+		      \end{align*}
+
+		      The $z$ row is unaffected by adding this constraint, so the dictionary is still dual feasible, but $x_8=-70$ is primal infeasible, meaning the company would be using more than the allotted electricity. Since it is still dual feasible we can continue with the dual simplex method rather than starting over.
+
+		      \begin{enumerate}
+			      \item[(D1)] Since $x_8=-70$ is the only negative constant, it is our leaving variable.
+			      \item[(D2)] Looking at $x_8$'s row, $x_6$ has a negative coefficient so it is not a candidate; only $x_5$ and $x_7$ are eligible. The dual ratio test gives,
+			      \[
+				      \frac{|{-4}|}{4} = 1 \text{ for } x_5, \qquad \frac{|{-2}|}{1} = 2 \text{ for } x_7,
+			      \]
+			      so $x_5$ has the smaller ratio and becomes our entering variable.
+			      \item[(D3)] After performing the pivot we get the dictionary,
+			            \begin{align*}
+				            x_5 & = \tfrac{35}{2} + \tfrac{1}{4}x_6 - \tfrac{1}{4}x_7 + \tfrac{1}{4}x_8       \\
+				            x_1 & = 55 + x_2 + \tfrac{5}{2}x_6 - \tfrac{17}{2}x_7 - \tfrac{1}{2}x_8           \\
+				            x_3 & = \tfrac{75}{2} - x_2 - \tfrac{3}{4}x_6 + \tfrac{7}{4}x_7 + \tfrac{1}{4}x_8 \\
+				            x_4 & = \tfrac{25}{2} - \tfrac{1}{4}x_6 + \tfrac{9}{4}x_7 - \tfrac{1}{4}x_8       \\
+				            z   & = 8010 - 10x_2 - 9x_6 - x_7 - x_8
+			            \end{align*}
+
+			            All basic variable constants are now nonnegative and every coefficient in the $z$ row is negative, so this dictionary is both primal and dual feasible, meaning it is optimal. The new optimal solution is $(x_1=55,x_2=0,x_3=\tfrac{75}{2},x_4=\tfrac{25}{2})$, giving a maximum profit of $z=8010$.
+		      \end{enumerate}
+
+		\item Removing the plastic cap means we delete constraint (P1) entirely being the slack variable $x_5$. Currently in the optimal dictionary its nonbasic meaning the plastic constraint is tight and cannot be removed yet. We want to make it basic (having slack) so we can delete it. 
+
+      To do this we want to pivot with $x_5$ being our entering variable.
+
+      This leads to the ratio test being:
+		      \[
+		      \begin{aligned}
+		      x_1 & \text{ has no restriction on } x_5 \\
+		      x_5 & \ge -\frac{20}{1} = -20 \text{ for } x_3 \\
+		      x_4 & \text{ has no restriction on } x_5
+		      \end{aligned}
+		      \]
+          Making $x_3$ our leaving vairable, then after executing the pivot we get the dictionary,
+		      
+		      \[
+		      \begin{aligned}
+		      x_5 & = -20 + x_2 + x_3 + x_6 - 2x_7 \\
+		      x_1 & = 130 - x_2 - 2x_3 + x_6 - 5x_7 \\
+		      x_4 & = 50 - x_2 - x_3 - x_6 + 4x_7   \\[4pt]
+		      z   & = 8160 - 14x_2 - 4x_3 - 12x_6 + 6x_7
+		      \end{aligned}
+		      \]
+          We can now drop $x_5$'s equation leaving,
+		      \[
+		      \begin{aligned}
+		      x_1 & = 130 - x_2 - 2x_3 + x_6 - 5x_7 \\
+		      x_4 & = 50 - x_2 - x_3 - x_6 + 4x_7   \\[4pt]
+		      z   & = 8160 - 14x_2 - 4x_3 - 12x_6 + 6x_7
+		      \end{aligned}
+		      \]
+		      The coefficient of $x_7$ in $z$ is positive, so this dictionary is no longer optimal, and we continue with another simplex pivot.
+
+		      \begin{enumerate}
+		      \item[(P1)] The only positive coefficient in $z$ is on $x_7$, so by Bland's rule it is our entering variable.
+		      \item[(P2)] Via the ratio test,
+		      \[
+		      \begin{aligned}
+		      x_7 & \le \frac{130}{5} = 26 \text{ for } x_1 \\
+		      x_7 & \text{ has no restriction for } x_4
+		      \end{aligned}
+		      \]
+		      So $x_1$ has the tightest restriction and becomes our leaving variable.
+		      \item[(P3)] After performing the pivot we get the dictionary,
+		      \[
+		      \begin{aligned}
+		      x_7 & = 26 - \tfrac15 x_1 - \tfrac15 x_2 - \tfrac25 x_3 + \tfrac15 x_6     \\
+		      x_4 & = 154 - \tfrac45 x_1 - \tfrac95 x_2 - \tfrac{13}{5}x_3 - \tfrac15 x_6 \\[4pt]
+		      z   & = 8316 - \tfrac65 x_1 - \tfrac{76}{5}x_2 - \tfrac{32}{5}x_3 - \tfrac{54}{5}x_6
+		      \end{aligned}
+		      \]
+		      \item[(P4)] Every coefficient in $z$ is now negative, so this dictionary is optimal. The new optimal solution is $(x_1=0,x_2=0,x_3=0,x_4=154)$, giving a maximum profit of $z=8316$.
+		      \end{enumerate}
+
+	\end{enumerate}
+\end{homeworkProblem}
+\end{document}
