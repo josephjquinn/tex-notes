@@ -1,0 +1,504 @@
+
+\documentclass{article}
+
+% -----------------------------
+% Packages
+% -----------------------------
+\usepackage{fancyhdr}
+\usepackage{extramarks}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{tikz}
+\usepackage[plain]{algorithm}
+\usepackage{algpseudocode}
+\usepackage{amssymb}
+\usepackage{enumitem}
+
+\usetikzlibrary{automata,positioning}
+
+% -----------------------------
+% Basic Document Settings
+% -----------------------------
+\topmargin=-0.45in
+\evensidemargin=0in
+\oddsidemargin=0in
+\textwidth=6.5in
+\textheight=9.0in
+\headsep=0.25in
+
+\linespread{1.1}
+
+\pagestyle{fancy}
+\lhead{\hmwkAuthorName}
+\chead{\hmwkClass: \hmwkTitle}
+\rhead{}
+\lfoot{\lastxmark}
+\cfoot{\thepage}
+
+\renewcommand\headrulewidth{0.4pt}
+\renewcommand\footrulewidth{0.4pt}
+
+\setlength\parindent{0pt}
+
+% -----------------------------
+% Problem Section Helpers
+% -----------------------------
+\newcommand{\enterProblemHeader}[1]{
+  \nobreak\extramarks{}{Problem #1 continued on next page\ldots}\nobreak{}
+  \nobreak\extramarks{Problem #1 (continued)}{Problem #1 continued on next page\ldots}\nobreak{}
+}
+
+\newcommand{\exitProblemHeader}[1]{
+  \nobreak\extramarks{Problem #1 (continued)}{Problem #1 continued on next page\ldots}\nobreak{}
+  \nobreak\extramarks{Problem #1}{}\nobreak{}
+}
+
+\setcounter{secnumdepth}{0}
+\newcounter{partCounter}
+\newcounter{homeworkProblemCounter}
+\setcounter{homeworkProblemCounter}{1}
+\nobreak\extramarks{Problem \arabic{homeworkProblemCounter}}{}\nobreak{}
+
+% -----------------------------
+% Theorem env (optional)
+% -----------------------------
+\newtheorem*{theorem}{Theorem}
+
+% -----------------------------
+% Homework Problem Environment
+%   Usage:
+%   \begin{homeworkProblem}            % auto-number
+%     % Your answer here
+%   \end{homeworkProblem}
+%
+%   \begin{homeworkProblem}[1.2.3]     % label problem "1.2.3" (e.g. textbook numbering)
+%     % Your answer here
+%   \end{homeworkProblem}
+% -----------------------------
+\newenvironment{homeworkProblem}[1][]{
+  \def\hwProblemLabel{#1}
+  \ifx\hwProblemLabel\empty
+    \edef\hwProblemLabel{\arabic{homeworkProblemCounter}}
+    \stepcounter{homeworkProblemCounter}
+  \fi
+  \section{Problem \hwProblemLabel}
+  \setcounter{partCounter}{1}
+  \enterProblemHeader{\hwProblemLabel}
+}{
+  \exitProblemHeader{\hwProblemLabel}
+}
+
+% -----------------------------
+% Homework Details (EDIT THESE)
+% -----------------------------
+\newcommand{\hmwkTitle}{Homework \#7}
+\newcommand{\hmwkClass}{Math 3320}
+\newcommand{\hmwkAuthorName}{\textbf{Joseph Quinn}}
+
+% -----------------------------
+% Title
+% -----------------------------
+\title{
+  \vspace{2in}
+  \textmd{\textbf{\hmwkClass:\ \hmwkTitle}}\\
+  \vspace{3in}
+}
+\author{\hmwkAuthorName}
+\date{}
+
+% -----------------------------
+% Convenience Macros (optional)
+% -----------------------------
+\renewcommand{\part}[1]{\textbf{\large Part \Alph{partCounter}}\stepcounter{partCounter}\\}
+
+% Algorithms
+\newcommand{\alg}[1]{\textsc{\bfseries \footnotesize #1}}
+
+% Calculus
+\newcommand{\deriv}[1]{\frac{\mathrm{d}}{\mathrm{d}x} (#1)}
+\newcommand{\pderiv}[2]{\frac{\partial}{\partial #1} (#2)}
+\newcommand{\dx}{\mathrm{d}x}
+
+% Statistics
+\newcommand{\E}{\mathrm{E}}
+\newcommand{\Var}{\mathrm{Var}}
+\newcommand{\Cov}{\mathrm{Cov}}
+\newcommand{\Bias}{\mathrm{Bias}}
+
+% Proof step (for aligned derivations)
+\newcommand{\step}[2]{& #1 & & \text{#2} \\}
+
+% Solution header (optional)
+\newcommand{\solution}{\textbf{\large Solution}}
+
+% -----------------------------
+% Document
+% -----------------------------
+\begin{document}
+
+\maketitle
+\pagebreak
+
+
+
+\begin{homeworkProblem}[10.2.5]
+	First thing we want to do is notice the ciphertext contains VHV twice,
+	at position 0 and position 16. This difference of 16 suggests that
+	the key length divides 16, giving us the possible key lengths
+	\[
+		\{1,2,4,8,16\}.
+	\]
+
+	The next clue we get is that the ciphertext AE represents plaintext AN.
+	This means the key value used to encode the A is
+	\[
+		\begin{aligned}
+			0+x & \equiv 0 \pmod{26} \\
+			x   & \equiv 0 \pmod{26} \\
+			x   & =0
+		\end{aligned}
+	\]
+
+	And for E
+	\[
+		\begin{aligned}
+			13+x & \equiv 4 \pmod{26}  \\
+			x    & \equiv -9 \pmod{26} \\
+			x    & \equiv 17 \pmod{26} \\
+			x    & =17
+		\end{aligned}
+	\]
+
+	This tells us the key uses the letters A and R at positions 9 and 10.
+	This immediately rules out the key having length 1, since a key of
+	length 1 would use the same letter at every position.
+
+	The next clue is that VHV represents a common 3 letter word,
+	which I'm going to assume is THE.
+
+	Using the same process, for the first letter V representing T,
+	we get
+	\[
+		\begin{aligned}
+			19+x & \equiv 21 \pmod{26} \\
+			x    & \equiv 2 \pmod{26}  \\
+			x    & =2
+		\end{aligned}
+	\]
+
+	This gives us the key letter C.
+
+	For the second letter H representing H,
+	\[
+		\begin{aligned}
+			7+x & \equiv 7 \pmod{26} \\
+			x   & \equiv 0 \pmod{26} \\
+			x   & =0
+		\end{aligned}
+	\]
+
+	This gives us the key letter A.
+
+	And for the third letter V representing E,
+	\[
+		\begin{aligned}
+			4+x & \equiv 21 \pmod{26} \\
+			x   & \equiv 17 \pmod{26} \\
+			x   & =17
+		\end{aligned}
+	\]
+
+	This gives us the key letter R.
+
+	So assuming VHV represents THE, we now know the first
+	three letters of the repeating key are CAR.
+
+	This also rules out key length 2, since positions 0 and 2
+	would need to use the same key letter. However, we found
+	that position 0 uses C and position 2 uses R.
+
+	Now we need to determine if the key is length 4, 8, or 16 and to do this we can use frequency
+	analysis. Since every letter encrypted by the same position
+	in the key uses the same Caesar shift, we can separate the
+	ciphertext into groups based on the possible key length.
+
+	We then compare the letter frequencies in each group with
+	English letter frequencies to find the most likely shifts.
+
+	I used the website `\texttt{https://www.dcode.fr/vigenere-cipher}' to test this and found the most likely
+	key length was 4, which produces the key CARD.
+
+\end{homeworkProblem}
+\begin{homeworkProblem}[10.3.3]
+
+	We are given a Feistel network with the following information
+	\begin{itemize}
+		\item $n=4$
+		\item 2 rounds
+		\item
+		      \[
+			      \begin{aligned}
+				      f_0(x_1,x_2,x_3,x_4) & := (x_2 \oplus x_4,\ 1,\ x_1x_2,\ 1 \oplus x_3), \\
+				      f_1(x_1,x_2,x_3,x_4) & := (1,\ x_1 \oplus x_3,\ x_4,\ x_2).
+			      \end{aligned}
+		      \]
+		\item $k=(0,1)$, which tells us the function to use at each round
+	\end{itemize}
+
+	So following the standard encryption route, to encrypt $m=m_0m_1$
+
+	\[
+		\begin{aligned}
+			m_2 & = m_0 \oplus f_0(m_1) \\
+			m_3 & = m_1 \oplus f_1(m_2)
+		\end{aligned}
+	\]
+
+	we are given the ciphertext $c=m_3m_2=10101011$, so
+	\[
+		m_3=1010,\qquad m_2=1011
+	\]
+
+
+	To decrypt, we reverse the rounds:
+
+	\[
+		\begin{aligned}
+			m_1 & = m_3 \oplus f_1(m_2) \\
+			m_0 & = m_2 \oplus f_0(m_1)
+		\end{aligned}
+	\]
+
+
+	so first we recover $m_1$:
+	\[
+		\begin{aligned}
+			m_1 & = m_3 \oplus f_1(m_2)          \\
+			    & = 1010 \oplus f_1(1011)        \\
+			    & = 1010 \oplus (1,1\oplus1,1,0) \\
+			    & = 1010 \oplus 1010             \\
+			    & = 0000
+		\end{aligned}
+	\]
+
+	and then we recover $m_0$:
+	\[
+		\begin{aligned}
+			m_0 & = m_2 \oplus f_0(m_1)                       \\
+			    & = 1011 \oplus f_0(0000)                     \\
+			    & = 1011 \oplus (0\oplus0,1,0\cdot0,1\oplus0) \\
+			    & = 1011 \oplus 0101                          \\
+			    & = 1110
+		\end{aligned}
+	\]
+
+	Therefore, the original message is
+	\[
+		m=m_0m_1=11100000
+	\]
+\end{homeworkProblem}
+
+\begin{homeworkProblem}[11.1.11(a)]
+
+	\begin{proof}
+		From the division algorithm we know for any integers $a$ and $b$
+		with $b>0$, there exist integers $q$ and $r$ such that
+		\[
+			a=qb+r,\qquad 0\leq r<b.
+		\]
+
+		And in the Euclidean algorithm, we repeatedly divide the
+		previous remainder by the current remainder. Letting $r_0=n$ and
+		$r_1=m$, this gives
+		\[
+			\begin{aligned}
+				n   & = q_1m+r_2   \\
+				m   & = q_2r_2+r_3 \\
+				r_2 & = q_3r_3+r_4 \\
+				r_3 & = q_4r_4+r_5
+			\end{aligned}
+		\]
+
+		So any given remainder \( r_i \) we can formulate as
+		\[
+			r_i=q_{i+1}r_{i+1}+r_{i+2}
+		\]
+
+		Obviously we know that the remainders are decreasing so,
+		$r_i>r_{i+1}$.
+
+		Since $r_{i+1}<r_i$, the quotient satisfies $q_{i+1}\geq 1$, so
+		\[
+			\begin{aligned}
+				r_i    & = q_{i+1}r_{i+1}+r_{i+2} \\
+				r_i    & \geq r_{i+1}+r_{i+2}
+			\end{aligned}
+		\]
+
+		So knowing the fact that \( r_{i+1} > r_{i+2} \)
+		we can add $r_{i+2}$ to both sides giving
+		\[
+			r_{i+1}+r_{i+2}>2r_{i+2}.
+		\]
+
+		From the inequality we formed above we know \( r_i \) is greater than this making
+		\[
+			r_i\geq r_{i+1}+r_{i+2}>2r_{i+2}.
+		\]
+
+		so we can just cut out the middle man leaving
+		\[
+			r_i>2r_{i+2}.
+		\]
+
+		and with division we get
+		\[
+			r_{i+2}<\frac{r_i}{2}
+		\]
+	\end{proof}
+\end{homeworkProblem}
+
+\begin{homeworkProblem}[11.1.12(b)]
+
+	\begin{proof}
+		\[
+			\begin{aligned}
+				([a]+[b])[c]
+				 & =[a+b][c]       \\
+				 & =[(a+b)c]       \\
+				 & =[ac+bc]        \\
+				 & =[ac]+[bc]      \\
+				 & =[a][c]+[b][c].
+			\end{aligned}
+		\]
+
+		Therefore, multiplication distributes over addition
+
+	\end{proof}
+\end{homeworkProblem}
+
+\begin{homeworkProblem}[11.1.13]
+	$\gcd(105,180)$
+
+	\[
+		\begin{aligned}
+			180 & = 1(105)+75 \\
+			105 & = 1(75)+30  \\
+			75  & = 2(30)+15  \\
+			30  & = 2(15)+0
+		\end{aligned}
+	\]
+
+	Since the last nonzero remainder is $15$, we have
+
+	\[
+		\gcd(105,180)=15
+	\]
+
+	We now work backward to express the GCD as a linear combination of $105$ and $180$.
+
+	\[
+		15=75-2(30).
+	\]
+
+	sub in $30=105-75$
+
+	\[
+		\begin{aligned}
+			15 & = 75-2(105-75)    \\
+			   & = 75-2(105)+2(75) \\
+			   & = 3(75)-2(105).
+		\end{aligned}
+	\]
+
+	sub in $75=180-105$
+
+	\[
+		\begin{aligned}
+			15 & = 3(180-105)-2(105)    \\
+			   & = 3(180)-3(105)-2(105) \\
+			   & = 3(180)-5(105).
+		\end{aligned}
+	\]
+
+	And now we are done as it's in terms of 105 and 180,
+	\[
+		105(-5)+180(3)=\gcd(105,180)=15.
+	\]
+\end{homeworkProblem}
+
+\begin{homeworkProblem}[11.1.15]
+	\begin{enumerate}[label=(\alph*)]
+		\item Let $n=6$, $a=4$, and $b=3$.
+
+		      We have
+		      \[
+			      ab=4\cdot 3=12
+		      \]
+		      Since $6\mid 12$, we have $n\mid ab$. However,
+		      \[
+			      6\nmid 4 \quad \text{and} \quad 6\nmid 3.
+		      \]
+		      Therefore, $n\mid ab$ does not imply $n\mid a$ or $n\mid b$.
+
+		\item Let $a=7$ and $p=4$.
+
+		      Since $(7,4)=1$, the first condition is satisfied. However,
+		      \[
+			      a^{p-1}=7^{4-1}=7^3=343.
+		      \]
+		      Since
+		      \[
+			      343\equiv 3\pmod 4,
+		      \]
+		      we have
+		      \[
+			      7^3\not\equiv 1\pmod 4.
+		      \]
+		      Therefore, $(a,p)=1$ does not imply
+		      $a^{p-1}\equiv 1\pmod p$.
+
+		\item Let $a=6$, $b=4$, and $c=2$.
+
+		      We have
+		      \[
+			      (ab,c)=(24,2)=2.
+		      \]
+		      However,
+		      \[
+			      (a,c)(b,c)=(6,2)(4,2)=2\cdot 2=4.
+		      \]
+		      Since
+		      \[
+			      2\neq 4,
+		      \]
+		      we conclude that
+		      \[
+			      (ab,c)\neq (a,c)(b,c).
+		      \]
+		      Therefore, the statement is false in general.
+	\end{enumerate}
+
+\end{homeworkProblem}
+\begin{homeworkProblem}[A1]
+
+	\begin{proof}
+		Suppose $a$ and $b$ are both inverses of $c$, so that
+		$c*a=e$ and $b*c=e$. Then
+		\[
+			\begin{aligned}
+				b & = b*e     \\
+				  & = b*(c*a) \\
+				  & = (b*c)*a \\
+				  & = e*a     \\
+				  & = a
+			\end{aligned}
+		\]
+
+		Therefore, $a=b$, so inverses are unique.
+
+	\end{proof}
+\end{homeworkProblem}
+
+\end{document}

@@ -1,0 +1,323 @@
+
+
+\documentclass{article}
+
+% -----------------------------
+% Packages
+% -----------------------------
+\usepackage{fancyhdr}
+\usepackage{extramarks}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{tikz}
+\usepackage[plain]{algorithm}
+\usepackage{algpseudocode}
+\usepackage{amssymb}
+\usepackage{enumitem}
+
+\usetikzlibrary{automata,positioning}
+
+% -----------------------------
+% Basic Document Settings
+% -----------------------------
+\topmargin=-0.45in
+\evensidemargin=0in
+\oddsidemargin=0in
+\textwidth=6.5in
+\textheight=9.0in
+\headsep=0.25in
+
+\linespread{1.1}
+
+\pagestyle{fancy}
+\lhead{\hmwkAuthorName}
+\chead{\hmwkClass: \hmwkTitle}
+\rhead{}
+\lfoot{\lastxmark}
+\cfoot{\thepage}
+
+\renewcommand\headrulewidth{0.4pt}
+\renewcommand\footrulewidth{0.4pt}
+
+\setlength\parindent{0pt}
+
+% -----------------------------
+% Problem Section Helpers
+% -----------------------------
+\newcommand{\enterProblemHeader}[1]{
+  \nobreak\extramarks{}{Problem #1 continued on next page\ldots}\nobreak{}
+  \nobreak\extramarks{Problem #1 (continued)}{Problem #1 continued on next page\ldots}\nobreak{}
+}
+
+\newcommand{\exitProblemHeader}[1]{
+  \nobreak\extramarks{Problem #1 (continued)}{Problem #1 continued on next page\ldots}\nobreak{}
+  \nobreak\extramarks{Problem #1}{}\nobreak{}
+}
+
+\setcounter{secnumdepth}{0}
+\newcounter{partCounter}
+\newcounter{homeworkProblemCounter}
+\setcounter{homeworkProblemCounter}{1}
+\nobreak\extramarks{Problem \arabic{homeworkProblemCounter}}{}\nobreak{}
+
+% -----------------------------
+% Theorem env (optional)
+% -----------------------------
+\newtheorem*{theorem}{Theorem}
+
+% -----------------------------
+% Homework Problem Environment
+%   Usage:
+%   \begin{homeworkProblem}            % auto-number
+%     % Your answer here
+%   \end{homeworkProblem}
+%
+%   \begin{homeworkProblem}[1.2.3]     % label problem "1.2.3" (e.g. textbook numbering)
+%     % Your answer here
+%   \end{homeworkProblem}
+% -----------------------------
+\newenvironment{homeworkProblem}[1][]{
+  \def\hwProblemLabel{#1}
+  \ifx\hwProblemLabel\empty
+    \edef\hwProblemLabel{\arabic{homeworkProblemCounter}}
+    \stepcounter{homeworkProblemCounter}
+  \fi
+  \section{Problem \hwProblemLabel}
+  \setcounter{partCounter}{1}
+  \enterProblemHeader{\hwProblemLabel}
+}{
+  \exitProblemHeader{\hwProblemLabel}
+}
+
+% -----------------------------
+% Homework Details (EDIT THESE)
+% -----------------------------
+\newcommand{\hmwkTitle}{Homework \#9}
+\newcommand{\hmwkClass}{Math 3320}
+\newcommand{\hmwkAuthorName}{\textbf{Joseph Quinn}}
+
+% -----------------------------
+% Title
+% -----------------------------
+\title{
+  \vspace{2in}
+  \textmd{\textbf{\hmwkClass:\ \hmwkTitle}}\\
+  \vspace{3in}
+}
+\author{\hmwkAuthorName}
+\date{}
+
+% -----------------------------
+% Convenience Macros (optional)
+% -----------------------------
+\renewcommand{\part}[1]{\textbf{\large Part \Alph{partCounter}}\stepcounter{partCounter}\\}
+
+% Algorithms
+\newcommand{\alg}[1]{\textsc{\bfseries \footnotesize #1}}
+
+% Calculus
+\newcommand{\deriv}[1]{\frac{\mathrm{d}}{\mathrm{d}x} (#1)}
+\newcommand{\pderiv}[2]{\frac{\partial}{\partial #1} (#2)}
+\newcommand{\dx}{\mathrm{d}x}
+
+% Statistics
+\newcommand{\E}{\mathrm{E}}
+\newcommand{\Var}{\mathrm{Var}}
+\newcommand{\Cov}{\mathrm{Cov}}
+\newcommand{\Bias}{\mathrm{Bias}}
+
+% Proof step (for aligned derivations)
+\newcommand{\step}[2]{& #1 & & \text{#2} \\}
+
+% Solution header (optional)
+\newcommand{\solution}{\textbf{\large Solution}}
+
+% -----------------------------
+% Document
+% -----------------------------
+\begin{document}
+
+\begin{homeworkProblem}[A17]
+	We are given
+	\[
+		x_is_i+x_i\Delta s_i+s_i\Delta x_i=0,
+	\]
+	where $x_i>0$ and $s_i>0$.
+
+	\bigskip
+
+	First lets suppose $\Delta x_i>0$. we want to prove $s_i'<0$.
+
+	Starting with the given equation,
+	\[
+		\begin{aligned}
+			x_is_i+x_i\Delta s_i+s_i\Delta x_i & =0  \\
+			x_i(s_i+\Delta s_i)+s_i\Delta x_i  & =0.
+		\end{aligned}
+	\]
+
+	and since we know $s_i'=s_i+\Delta s_i$,
+	\[
+		\begin{aligned}
+			x_is_i'+s_i\Delta x_i & =0                           \\
+			x_is_i'               & =-s_i\Delta x_i              \\
+			s_i'                  & =-\frac{s_i\Delta x_i}{x_i}.
+		\end{aligned}
+	\]
+
+	since $x_i>0$, $s_i>0$, and $\Delta x_i>0$, we have
+	\[
+		s_i'<0
+	\]
+
+	\bigskip
+
+	Now lets assume $\Delta s_i>0$. Prove $x_i'<0$
+
+	Starting with the given equation,
+	\[
+		\begin{aligned}
+			x_is_i+x_i\Delta s_i+s_i\Delta x_i & =0  \\
+			s_i(x_i+\Delta x_i)+x_i\Delta s_i  & =0.
+		\end{aligned}
+	\]
+
+	and since $x_i'=x_i+\Delta x_i$,
+	\[
+		\begin{aligned}
+			s_ix_i'+x_i\Delta s_i & =0                           \\
+			s_ix_i'               & =-x_i\Delta s_i              \\
+			x_i'                  & =-\frac{x_i\Delta s_i}{s_i}.
+		\end{aligned}
+	\]
+
+	knowing that  $x_i>0$, $s_i>0$, and $\Delta s_i>0$ we can state:
+	\[
+		x_i'<0
+	\]
+
+	If Newton's Method increases either $x_i$ or $s_i$,
+	the full Newton step forces the other variable to become
+	negative, moving outside the feasible region.
+
+\end{homeworkProblem}
+
+\begin{homeworkProblem}[A18]
+	Adding slack variables $s_1,s_2$ to the dual and
+	using $\mu=\frac13$, we can build the following system:
+	\[
+		\begin{aligned}
+			x_1+2x_2 & =2       &  & (1)  \\
+			y_1+s_1  & =3       &  & (2)  \\
+			2y_1+s_2 & =4       &  & (3)  \\
+			x_1s_1   & =\frac13 &  & (4)  \\
+			x_2s_2   & =\frac13 &  & (5).
+		\end{aligned}
+	\]
+
+	From (3) $-\,2(2)$, we obtain
+	\[
+		s_2-2s_1=-2,
+	\]
+	so that
+	\[
+		s_2=2s_1-2.
+	\]
+
+	Using (4) and (5), we can express $x_1$ and $x_2$
+	in terms of $s_1$:
+	\[
+		x_1=\frac{1}{3s_1},
+		\qquad
+		x_2=\frac{1}{3s_2}
+		=\frac{1}{6s_1-6}.
+	\]
+
+	Now substituting into (1),
+	\[
+		\begin{aligned}
+			x_1+2x_2
+			                                & =\frac{1}{3s_1}+\frac{2}{6s_1-6}=2 \\
+			\frac{1}{3s_1}+\frac{1}{3s_1-3} & =2                                 \\
+			\frac{2s_1-1}{3s_1(s_1-1)}      & =2                                 \\
+			2s_1-1                          & =6s_1(s_1-1)                       \\
+			2s_1-1                          & =6s_1^2-6s_1                       \\
+			6s_1^2-8s_1+1                   & =0.
+		\end{aligned}
+	\]
+
+	then we can apply the quadratic formula to get
+	\[
+		\begin{aligned}
+			s_1
+			 & =\frac{8\pm\sqrt{64-24}}{12} \\
+			 & =\frac{8\pm\sqrt{40}}{12}    \\
+			 & =\frac{4\pm\sqrt{10}}6.
+		\end{aligned}
+	\]
+
+	But since $s_2=2s_1-2>0$, we require $s_1>1$ and we only take the positive root:
+	\[
+		s_1=\frac{4+\sqrt{10}}6
+	\]
+
+	Now we can use this found value in (4),
+	\[
+		\begin{aligned}
+			x_1
+			 & =\frac{1}{3s_1}               \\
+			 & =\frac{2}{4+\sqrt{10}}        \\
+			 & =\frac{2(4-\sqrt{10})}{16-10} \\
+			 & =\frac{4-\sqrt{10}}3.
+		\end{aligned}
+	\]
+
+	And using (1),
+	\[
+		\begin{aligned}
+			x_2
+			 & =\frac{2-x_1}{2}                 \\
+			 & =\frac{2-\frac{4-\sqrt{10}}3}{2} \\
+			 & =\frac{2+\sqrt{10}}6
+		\end{aligned}
+	\]
+
+	Using (2),
+	\[
+		\begin{aligned}
+			y_1
+			 & =3-s_1                 \\
+			 & =3-\frac{4+\sqrt{10}}6 \\
+			 & =\frac{14-\sqrt{10}}6
+		\end{aligned}
+	\]
+
+	And now we can solve \( s_{2} \),
+	\[
+		\begin{aligned}
+			s_2
+			 & =2s_1-2                              \\
+			 & =2\left(\frac{4+\sqrt{10}}6\right)-2 \\
+			 & =\frac{\sqrt{10}-2}3
+		\end{aligned}
+	\]
+
+	Since all $x_i$ and $s_i$ are positive, and the five
+	equations hold. We can state that the point on the central
+	path with $\mu=\frac13$ is
+
+	\[
+		\begin{aligned}
+			(x_1,x_2,y_1,s_1,s_2)
+			=\bigg(
+			 & \frac{4-\sqrt{10}}3,\,
+			\frac{2+\sqrt{10}}6,
+			 & \frac{14-\sqrt{10}}6,\,
+			\frac{4+\sqrt{10}}6,\,
+			\frac{\sqrt{10}-2}3
+			\bigg).
+		\end{aligned}
+	\]
+\end{homeworkProblem}
+\end{document}
